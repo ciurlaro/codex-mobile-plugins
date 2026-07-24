@@ -1,13 +1,14 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:17-jdk-jammy@sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94 AS kotlin-build
+FROM gradle:9.4.1-jdk17-jammy@sha256:9b07999154cd6688633b38209ef417269c7fa102ab59b90005b5ab9ec4396bbb AS kotlin-build
+USER root
 WORKDIR /source
-COPY gradlew gradlew.bat settings.gradle.kts build.gradle.kts gradle.properties ./
+COPY settings.gradle.kts build.gradle.kts gradle.properties ./
 COPY gradle ./gradle
 COPY shared ./shared
 COPY mcp-server ./mcp-server
 RUN --mount=type=cache,id=codex-mobile-provider-gradle,target=/root/.gradle \
-    ./gradlew --no-daemon :mcp-server:installDist
+    gradle --no-daemon :mcp-server:installDist
 
 FROM eclipse-temurin:17-jdk-jammy@sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94 AS tdlib-build
 ARG DEBIAN_FRONTEND=noninteractive
