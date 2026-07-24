@@ -23,7 +23,7 @@ RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     && echo 'a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8  openssl.tar.gz' | sha256sum --check \
     && mkdir openssl-source && tar -xzf openssl.tar.gz -C openssl-source --strip-components=1 \
     && cd openssl-source \
-    && ./config no-shared no-module no-legacy no-tests no-apps no-docs --prefix=/opt/openssl \
+    && ./config no-shared no-module no-legacy no-tests no-apps no-docs --prefix=/opt/openssl --libdir=lib \
     && make -s -j"$(nproc)" install_sw
 RUN curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
         https://github.com/tdlib/td/archive/022d60202e446ad1287b9fb68e687c8a0760788b.tar.gz \
