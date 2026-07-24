@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           repository: ciurlaro/codex-mobile
-          ref: f2ca8803fbcd5761097f9942542cb0be1e7418e3
+          ref: b1ea90a3f064dd1c54560081675b41abaa7bc37c
           path: host
       - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
@@ -28,7 +28,7 @@ jobs:
       - name: Install Android toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install --yes libarchive-tools ninja-build patchelf ripgrep zip
+          sudo apt-get install --yes gperf libarchive-tools ninja-build patchelf ripgrep zip
           sdkmanager "platforms;android-37.0" "build-tools;36.0.0" "ndk;29.0.14206865"
       - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
       - name: Verify contracts, schemas, SBOM, and JVM tests
@@ -42,7 +42,7 @@ jobs:
           providers/scripts/build-android-providers.sh host debug
           host/gradlew -p host --dependency-verification=off \
             "-PcodexMobile.providerProjects=$GITHUB_WORKSPACE/providers/android/documents|$GITHUB_WORKSPACE/providers/android/telegram" \
-            :provider_documents:lintDebug :provider_telegram:lintDebug
+            :provider_documents:lintAnalyzeDebug :provider_telegram:lintAnalyzeDebug
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: provider-android-tests
@@ -60,15 +60,18 @@ jobs:
             providers/THIRD_PARTY_NOTICES.md
 
   container:
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 240
     strategy:
       fail-fast: false
       matrix:
-        platform: [linux/amd64, linux/arm64]
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
       - name: Build and exercise MCP image
         run: |

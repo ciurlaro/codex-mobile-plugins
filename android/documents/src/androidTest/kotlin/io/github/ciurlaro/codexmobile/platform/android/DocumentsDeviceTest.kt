@@ -193,6 +193,7 @@ class DocumentsDeviceTest {
                 pluginName = "documents",
                 marketplaceName = "device-test",
                 marketplacePath = null,
+                marketplaceRepository = "ciurlaro/codex-mobile-plugins",
                 state = ProviderPackageState.INSTALLING,
             )
 

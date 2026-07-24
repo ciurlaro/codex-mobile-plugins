@@ -27,6 +27,10 @@ test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/do
 test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramTools.kt
 test -f android/documents/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/DocumentsProvider.kt
 test -f android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/TelegramProvider.kt
+for provider in android/{documents,telegram}/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*Provider.kt; do
+  grep -q 'minHostVersionCode = 4' "$provider"
+  grep -q 'maxHostVersionCode = 4' "$provider"
+done
 test -f mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
 test -f Dockerfile
 test -x scripts/verify-mcp.sh
@@ -68,7 +72,8 @@ fi
 grep -q 'schemaDigest' .agents/plugins/plugins/documents/codex-mobile-addon.json
 grep -q 'schemaDigest' .agents/plugins/plugins/telegram/codex-mobile-addon.json
 grep -q -- '--dependency-verification=off' scripts/build-android-providers.sh
-grep -q 'f2ca8803fbcd5761097f9942542cb0be1e7418e3' .github/workflows/verify.yml
+grep -q 'b1ea90a3f064dd1c54560081675b41abaa7bc37c' .github/workflows/verify.yml
+grep -q 'b1ea90a3f064dd1c54560081675b41abaa7bc37c' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1

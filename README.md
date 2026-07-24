@@ -73,7 +73,7 @@ docker build -t codex-mobile-plugins:local .
 bash scripts/verify-mcp.sh
 ```
 
-GitHub Actions is authoritative for the full Android, emulator, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
+GitHub Actions is authoritative for Android instrumentation builds, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
 
 `build-android-providers.sh` uses the generic provider-project hook in the exact
 host checkout because Android dynamic-feature modules must compile with their
@@ -83,7 +83,7 @@ the provider repository's locked and audited dependency inventory rather than
 copying provider checksums into the host.
 
 The `1.0.0` Android provider release targets Codex Mobile host version code 4 at
-commit `f2ca8803fbcd5761097f9942542cb0be1e7418e3`. CI checks out that exact generic
+commit `b1ea90a3f064dd1c54560081675b41abaa7bc37c`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
 For release builds, pass `release` and the matching host signing properties.
