@@ -25,7 +25,8 @@ work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 download() {
   local url=$1 sha=$2 target=$3
-  curl --fail --location --proto '=https' --tlsv1.2 "$url" --output "$target"
+  curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors \
+    --proto '=https' --tlsv1.2 "$url" --output "$target"
   printf '%s  %s\n' "$sha" "$target" | shasum -a 256 --check --status
 }
 

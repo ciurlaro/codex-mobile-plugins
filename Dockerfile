@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /build
 RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     --mount=type=cache,id=codex-mobile-tdlib-java,target=/build/tdlib-java \
-    curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
+    curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors --proto '=https' --tlsv1.2 \
         https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz \
         --output openssl.tar.gz \
     && echo 'a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8  openssl.tar.gz' | sha256sum --check \
@@ -25,7 +25,7 @@ RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     && cd openssl-source \
     && ./config no-shared no-module no-legacy no-tests no-apps no-docs --prefix=/opt/openssl --libdir=lib \
     && make -s -j"$(nproc)" install_sw
-RUN curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
+RUN curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors --proto '=https' --tlsv1.2 \
         https://github.com/tdlib/td/archive/022d60202e446ad1287b9fb68e687c8a0760788b.tar.gz \
         --output tdlib.tar.gz \
     && echo 'b0837cd880a6de8d45abdfd5024fe0f042c100eb5f241a5f185ba65579acfc32  tdlib.tar.gz' | sha256sum --check \
