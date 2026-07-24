@@ -1,0 +1,24 @@
+Codex Mobile Documents provider notices
+=======================================
+
+PdfiumAndroid 2.0.0
+Copyright (c) John Gray and contributors.
+Licensed under Apache License 2.0.
+https://github.com/johngray1965/PdfiumAndroidKt
+
+PDFium
+Copyright 2014 The PDFium Authors. All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the copyright notice, this list
+of conditions, and the following disclaimer are retained. Binary
+redistributions must reproduce them in accompanying documentation.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DAMAGES ARISING FROM USE.
+
+ML Kit Text Recognition 16.0.1
+The bundled Latin OCR SDK and models are governed by the ML Kit Terms of
+Service. Notices supplied with Google's AARs are packaged under
+assets/mlkit-third-party/.
+https://developers.google.com/ml-kit/terms

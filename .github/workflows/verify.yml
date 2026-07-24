@@ -1,0 +1,43 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: providers
+      - uses: actions/checkout@v4
+        with:
+          repository: ciurlaro/codex-mobile
+          ref: 845d022d86465ccd09d12252dfd3a3b4ac0f792e
+          path: host
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - name: Install Android toolchain
+        run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "ndk;29.0.14206865"
+      - name: Verify shared schemas and MCP
+        working-directory: providers
+        run: |
+          bash scripts/verify-structure.sh
+          ./gradlew --no-daemon test
+      - name: Build Android feature providers
+        working-directory: providers
+        run: bash scripts/build-android-providers.sh ../host debug
+      - name: Build and exercise Docker MCP provider
+        working-directory: providers
+        run: |
+          docker build -t codex-mobile-plugins:verify .
+          bash scripts/verify-mcp.sh codex-mobile-plugins:verify

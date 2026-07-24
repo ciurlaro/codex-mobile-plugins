@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "providerApi": {
+    "min": 1,
+    "max": 1
+  },
+  "host": {
+    "versionCode": 3
+  },
+  "pluginId": "documents@codex-mobile",
+  "implementationVersion": "1.0.0",
+  "displayName": "Documents",
+  "schemaDigest": "9314495f4203b798f8fd8035cfceb6fb3c91d4bb116e9c5ff0b2b5a380ec9315",
+  "mcpServerNames": [
+    "codex-mobile-documents"
+  ],
+  "android": {
+    "splitNames": [
+      "provider_documents"
+    ],
+    "entryPoint": "io.github.ciurlaro.codexmobile.platform.android.DocumentsProvider",
+    "abis": [
+      "arm64-v8a"
+    ],
+    "package": {
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.1/provider_documents.apk",
+      "sha256": "ab46e2add0bb449e5a5d28fd312e5796fd2f73202ff40183aadf6676c4c2b496"
+    }
+  }
+}

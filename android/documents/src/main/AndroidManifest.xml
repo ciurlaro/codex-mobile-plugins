@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools">
+    <dist:module dist:instant="false" dist:title="@string/provider_feature_name">
+        <dist:delivery><dist:on-demand /></dist:delivery>
+        <dist:fusing dist:include="false" />
+    </dist:module>
+    <application>
+        <provider
+            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+            tools:node="remove" />
+        <receiver
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+            tools:node="remove" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="12451000"
+            tools:replace="android:value" />
+    </application>
+</manifest>

@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "providerApi": {
+    "min": 1,
+    "max": 1
+  },
+  "host": {
+    "versionCode": 3
+  },
+  "pluginId": "telegram@codex-mobile",
+  "implementationVersion": "1.0.0",
+  "displayName": "Telegram",
+  "schemaDigest": "834a58435547e80f879a567faaee1aa1918fe16ad2a3a04a8fff14f1a5176fd3",
+  "mcpServerNames": [
+    "codex-mobile-telegram"
+  ],
+  "android": {
+    "splitNames": [
+      "provider_telegram"
+    ],
+    "entryPoint": "io.github.ciurlaro.codexmobile.platform.android.TelegramProvider",
+    "settingsEntryPoint": "io.github.ciurlaro.codexmobile.providers.telegram.TelegramSettingsActivity",
+    "abis": [
+      "arm64-v8a"
+    ],
+    "package": {
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.1/provider_telegram.apk",
+      "sha256": "983693de41a737350f962b02974d1edfed8d980d43c73a6e57e5aca45591af85"
+    }
+  }
+}

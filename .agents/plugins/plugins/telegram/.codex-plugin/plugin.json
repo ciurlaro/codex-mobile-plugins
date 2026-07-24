@@ -1,0 +1,20 @@
+{
+  "name": "telegram",
+  "version": "1.0.0",
+  "description": "Read, search, download, and send Telegram content through an authenticated account.",
+  "author": { "name": "Codex Mobile" },
+  "homepage": "https://github.com/ciurlaro/codex-mobile-plugins",
+  "repository": "https://github.com/ciurlaro/codex-mobile-plugins",
+  "license": "Apache-2.0",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Telegram",
+    "shortDescription": "Read and send Telegram messages",
+    "longDescription": "Typed Telegram reads and one-shot sends backed by the account connected in Settings.",
+    "developerName": "Codex Mobile",
+    "category": "Communication",
+    "capabilities": ["Read", "Write"],
+    "brandColor": "#229ED9"
+  }
+}

@@ -1,0 +1,22 @@
+Codex Mobile Telegram provider notices
+======================================
+
+TDLib 1.8.66
+Copyright (c) 2014-2026 Telegram FZ-LLC.
+Licensed under the Boost Software License 1.0.
+https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt
+
+Permission is hereby granted, free of charge, to any person or organization
+obtaining a copy of the software and accompanying documentation covered by
+this license to use, reproduce, display, distribute, execute, transmit, and
+prepare derivative works, subject to inclusion of this notice and disclaimer.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
+NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
+DAMAGES ARISING FROM USE OF THE SOFTWARE.
+
+OpenSSL 3.5.7
+Copyright (c) 1998-2026 The OpenSSL Project Authors.
+Licensed under Apache License 2.0.
+https://www.openssl.org/source/license.html

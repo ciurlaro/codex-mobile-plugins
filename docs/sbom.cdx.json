@@ -1,0 +1,3769 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:9bf34c77-c739-4621-91cb-1b1488b41aa9",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "codex-mobile-plugins",
+      "version": "1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "group": "ubuntu",
+      "name": "liblept5",
+      "version": "1.82.0-3build1",
+      "purl": "pkg:deb/ubuntu/liblept5@1.82.0-3build1?arch=arm64",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "bom-ref": "pkg:deb/ubuntu/liblept5@1.82.0-3build1?arch=arm64"
+    },
+    {
+      "type": "library",
+      "group": "ubuntu",
+      "name": "libtesseract4",
+      "version": "4.1.1-2.1build1",
+      "purl": "pkg:deb/ubuntu/libtesseract4@4.1.1-2.1build1?arch=arm64",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "bom-ref": "pkg:deb/ubuntu/libtesseract4@4.1.1-2.1build1?arch=arm64"
+    },
+    {
+      "type": "container",
+      "group": "library",
+      "name": "eclipse-temurin",
+      "version": "17.0.19_10-jre-jammy",
+      "purl": "pkg:docker/eclipse-temurin@17.0.19_10-jre-jammy?repository_url=docker.io/library",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "475d8e96b4b2bfe08999e5e854755c773af1581acdf959a4545d88f0696a2339"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "Eclipse Temurin container notices"
+          }
+        }
+      ],
+      "bom-ref": "pkg:docker/eclipse-temurin@17.0.19_10-jre-jammy?repository_url=docker.io/library"
+    },
+    {
+      "type": "library",
+      "group": "openssl",
+      "name": "openssl",
+      "version": "3.5.7",
+      "purl": "pkg:generic/openssl@3.5.7",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "bom-ref": "pkg:generic/openssl@3.5.7"
+    },
+    {
+      "type": "library",
+      "group": "tdlib",
+      "name": "td",
+      "version": "1.8.66+022d60202e446ad1287b9fb68e687c8a0760788b",
+      "purl": "pkg:github/tdlib/td@022d60202e446ad1287b9fb68e687c8a0760788b",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b0837cd880a6de8d45abdfd5024fe0f042c100eb5f241a5f185ba65579acfc32"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSL-1.0"
+          }
+        }
+      ],
+      "bom-ref": "pkg:github/tdlib/td@022d60202e446ad1287b9fb68e687c8a0760788b"
+    },
+    {
+      "type": "data",
+      "group": "tesseract-ocr",
+      "name": "tessdata_fast-eng",
+      "version": "4.1.0",
+      "purl": "pkg:github/tesseract-ocr/tessdata_fast@4.1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "bom-ref": "pkg:github/tesseract-ocr/tessdata_fast@4.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.activity/activity-compose@1.13.0",
+      "group": "androidx.activity",
+      "name": "activity-compose",
+      "version": "1.13.0",
+      "purl": "pkg:maven/androidx.activity/activity-compose@1.13.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.activity/activity-ktx@1.13.0",
+      "group": "androidx.activity",
+      "name": "activity-ktx",
+      "version": "1.13.0",
+      "purl": "pkg:maven/androidx.activity/activity-ktx@1.13.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.activity/activity@1.13.0",
+      "group": "androidx.activity",
+      "name": "activity",
+      "version": "1.13.0",
+      "purl": "pkg:maven/androidx.activity/activity@1.13.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.activity/activity@1.6.0",
+      "group": "androidx.activity",
+      "name": "activity",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.activity/activity@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation-experimental@1.3.0",
+      "group": "androidx.annotation",
+      "name": "annotation-experimental",
+      "version": "1.3.0",
+      "purl": "pkg:maven/androidx.annotation/annotation-experimental@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation-experimental@1.4.1",
+      "group": "androidx.annotation",
+      "name": "annotation-experimental",
+      "version": "1.4.1",
+      "purl": "pkg:maven/androidx.annotation/annotation-experimental@1.4.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation-jvm@1.7.0",
+      "group": "androidx.annotation",
+      "name": "annotation-jvm",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.annotation/annotation-jvm@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation-jvm@1.9.1",
+      "group": "androidx.annotation",
+      "name": "annotation-jvm",
+      "version": "1.9.1",
+      "purl": "pkg:maven/androidx.annotation/annotation-jvm@1.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation@1.3.0",
+      "group": "androidx.annotation",
+      "name": "annotation",
+      "version": "1.3.0",
+      "purl": "pkg:maven/androidx.annotation/annotation@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation@1.7.0",
+      "group": "androidx.annotation",
+      "name": "annotation",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.annotation/annotation@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.annotation/annotation@1.9.1",
+      "group": "androidx.annotation",
+      "name": "annotation",
+      "version": "1.9.1",
+      "purl": "pkg:maven/androidx.annotation/annotation@1.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.appcompat/appcompat-resources@1.6.1",
+      "group": "androidx.appcompat",
+      "name": "appcompat-resources",
+      "version": "1.6.1",
+      "purl": "pkg:maven/androidx.appcompat/appcompat-resources@1.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.appcompat/appcompat@1.6.1",
+      "group": "androidx.appcompat",
+      "name": "appcompat",
+      "version": "1.6.1",
+      "purl": "pkg:maven/androidx.appcompat/appcompat@1.6.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.arch.core/core-common@2.1.0",
+      "group": "androidx.arch.core",
+      "name": "core-common",
+      "version": "2.1.0",
+      "purl": "pkg:maven/androidx.arch.core/core-common@2.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.arch.core/core-common@2.2.0",
+      "group": "androidx.arch.core",
+      "name": "core-common",
+      "version": "2.2.0",
+      "purl": "pkg:maven/androidx.arch.core/core-common@2.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.arch.core/core-runtime@2.0.0",
+      "group": "androidx.arch.core",
+      "name": "core-runtime",
+      "version": "2.0.0",
+      "purl": "pkg:maven/androidx.arch.core/core-runtime@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.arch.core/core-runtime@2.2.0",
+      "group": "androidx.arch.core",
+      "name": "core-runtime",
+      "version": "2.2.0",
+      "purl": "pkg:maven/androidx.arch.core/core-runtime@2.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.autofill/autofill@1.0.0",
+      "group": "androidx.autofill",
+      "name": "autofill",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.autofill/autofill@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.collection/collection-jvm@1.5.0",
+      "group": "androidx.collection",
+      "name": "collection-jvm",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.collection/collection-jvm@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.collection/collection-ktx@1.5.0",
+      "group": "androidx.collection",
+      "name": "collection-ktx",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.collection/collection-ktx@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.collection/collection@1.1.0",
+      "group": "androidx.collection",
+      "name": "collection",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.collection/collection@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.collection/collection@1.5.0",
+      "group": "androidx.collection",
+      "name": "collection",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.collection/collection@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.animation/animation-android@1.11.4",
+      "group": "androidx.compose.animation",
+      "name": "animation-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.animation/animation-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.animation/animation-core-android@1.11.4",
+      "group": "androidx.compose.animation",
+      "name": "animation-core-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.animation/animation-core-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.animation/animation-core@1.11.4",
+      "group": "androidx.compose.animation",
+      "name": "animation-core",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.animation/animation-core@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.animation/animation@1.11.4",
+      "group": "androidx.compose.animation",
+      "name": "animation",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.animation/animation@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.foundation/foundation-android@1.11.4",
+      "group": "androidx.compose.foundation",
+      "name": "foundation-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.foundation/foundation-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.foundation/foundation-layout-android@1.11.4",
+      "group": "androidx.compose.foundation",
+      "name": "foundation-layout-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.foundation/foundation-layout-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.foundation/foundation-layout@1.11.4",
+      "group": "androidx.compose.foundation",
+      "name": "foundation-layout",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.foundation/foundation-layout@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.foundation/foundation@1.11.4",
+      "group": "androidx.compose.foundation",
+      "name": "foundation",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.foundation/foundation@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.material/material-ripple-android@1.11.4",
+      "group": "androidx.compose.material",
+      "name": "material-ripple-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.material/material-ripple-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.material/material-ripple@1.11.4",
+      "group": "androidx.compose.material",
+      "name": "material-ripple",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.material/material-ripple@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.material3/material3-android@1.4.0",
+      "group": "androidx.compose.material3",
+      "name": "material3-android",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.compose.material3/material3-android@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.material3/material3@1.4.0",
+      "group": "androidx.compose.material3",
+      "name": "material3",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.compose.material3/material3@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-android@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-annotation-android@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-annotation-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-annotation-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-annotation@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-annotation",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-annotation@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-retain-android@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-retain-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-retain-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-retain@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-retain",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-retain@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-saveable-android@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-saveable-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-saveable-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime-saveable@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime-saveable",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime-saveable@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.runtime/runtime@1.11.4",
+      "group": "androidx.compose.runtime",
+      "name": "runtime",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.runtime/runtime@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-geometry-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-geometry-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-geometry-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-geometry@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-geometry",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-geometry@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-graphics-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-graphics-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-graphics-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-graphics@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-graphics",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-graphics@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-text-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-text-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-text-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-text@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-text",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-text@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-unit-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-unit-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-unit-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-unit@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-unit",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-unit@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-util-android@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-util-android",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-util-android@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui-util@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui-util",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui-util@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose.ui/ui@1.11.4",
+      "group": "androidx.compose.ui",
+      "name": "ui",
+      "version": "1.11.4",
+      "purl": "pkg:maven/androidx.compose.ui/ui@1.11.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.compose/compose-bom@2026.06.01",
+      "group": "androidx.compose",
+      "name": "compose-bom",
+      "version": "2026.06.01",
+      "purl": "pkg:maven/androidx.compose/compose-bom@2026.06.01"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.concurrent/concurrent-futures-ktx@1.2.0",
+      "group": "androidx.concurrent",
+      "name": "concurrent-futures-ktx",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.concurrent/concurrent-futures-ktx@1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.concurrent/concurrent-futures@1.1.0",
+      "group": "androidx.concurrent",
+      "name": "concurrent-futures",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.concurrent/concurrent-futures@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.concurrent/concurrent-futures@1.2.0",
+      "group": "androidx.concurrent",
+      "name": "concurrent-futures",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.concurrent/concurrent-futures@1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.core/core-ktx@1.18.0",
+      "group": "androidx.core",
+      "name": "core-ktx",
+      "version": "1.18.0",
+      "purl": "pkg:maven/androidx.core/core-ktx@1.18.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.core/core-ktx@1.2.0",
+      "group": "androidx.core",
+      "name": "core-ktx",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.core/core-ktx@1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.core/core-viewtree@1.0.0",
+      "group": "androidx.core",
+      "name": "core-viewtree",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.core/core-viewtree@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.core/core@1.18.0",
+      "group": "androidx.core",
+      "name": "core",
+      "version": "1.18.0",
+      "purl": "pkg:maven/androidx.core/core@1.18.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.core/core@1.9.0",
+      "group": "androidx.core",
+      "name": "core",
+      "version": "1.9.0",
+      "purl": "pkg:maven/androidx.core/core@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.cursoradapter/cursoradapter@1.0.0",
+      "group": "androidx.cursoradapter",
+      "name": "cursoradapter",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.cursoradapter/cursoradapter@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.customview/customview-poolingcontainer@1.0.0",
+      "group": "androidx.customview",
+      "name": "customview-poolingcontainer",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.customview/customview-poolingcontainer@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.customview/customview@1.0.0",
+      "group": "androidx.customview",
+      "name": "customview",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.customview/customview@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.documentfile/documentfile@1.0.0",
+      "group": "androidx.documentfile",
+      "name": "documentfile",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.documentfile/documentfile@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.drawerlayout/drawerlayout@1.0.0",
+      "group": "androidx.drawerlayout",
+      "name": "drawerlayout",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.drawerlayout/drawerlayout@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.dynamicanimation/dynamicanimation@1.0.0",
+      "group": "androidx.dynamicanimation",
+      "name": "dynamicanimation",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.dynamicanimation/dynamicanimation@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.emoji2/emoji2-views-helper@1.4.0",
+      "group": "androidx.emoji2",
+      "name": "emoji2-views-helper",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.emoji2/emoji2-views-helper@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.emoji2/emoji2@1.4.0",
+      "group": "androidx.emoji2",
+      "name": "emoji2",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.emoji2/emoji2@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.exifinterface/exifinterface@1.0.0",
+      "group": "androidx.exifinterface",
+      "name": "exifinterface",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.exifinterface/exifinterface@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.fragment/fragment@1.3.6",
+      "group": "androidx.fragment",
+      "name": "fragment",
+      "version": "1.3.6",
+      "purl": "pkg:maven/androidx.fragment/fragment@1.3.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.graphics/graphics-path@1.0.1",
+      "group": "androidx.graphics",
+      "name": "graphics-path",
+      "version": "1.0.1",
+      "purl": "pkg:maven/androidx.graphics/graphics-path@1.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.interpolator/interpolator@1.0.0",
+      "group": "androidx.interpolator",
+      "name": "interpolator",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.interpolator/interpolator@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.legacy/legacy-support-core-utils@1.0.0",
+      "group": "androidx.legacy",
+      "name": "legacy-support-core-utils",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.legacy/legacy-support-core-utils@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-common-java8@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common-java8",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common-java8@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-common-jvm@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common-jvm",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common-jvm@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-common@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-common@2.3.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common",
+      "version": "2.3.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common@2.3.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-common@2.5.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common",
+      "version": "2.5.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common@2.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core-ktx@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-livedata-core-ktx",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core-ktx@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-livedata-core",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core@2.5.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-livedata-core",
+      "version": "2.5.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-livedata-core@2.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-livedata@2.0.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-livedata",
+      "version": "2.0.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-livedata@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-livedata@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-livedata",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-livedata@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-process@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-process",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-process@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime-compose-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime-compose-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime-compose-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime-compose@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime-compose",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime-compose@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime-ktx-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime-ktx-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime-ktx-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime-ktx@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime-ktx",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime-ktx@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-runtime@2.5.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-runtime",
+      "version": "2.5.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-runtime@2.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-compose-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-compose-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-compose-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-compose@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-compose",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-compose@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-ktx@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-ktx",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-ktx@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate-android@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-savedstate-android",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate-android@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-savedstate",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate@2.5.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel-savedstate",
+      "version": "2.5.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel-savedstate@2.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel@2.11.0",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel",
+      "version": "2.11.0",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel@2.5.1",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-viewmodel",
+      "version": "2.5.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-viewmodel@2.5.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.loader/loader@1.0.0",
+      "group": "androidx.loader",
+      "name": "loader",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.loader/loader@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.localbroadcastmanager/localbroadcastmanager@1.0.0",
+      "group": "androidx.localbroadcastmanager",
+      "name": "localbroadcastmanager",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.localbroadcastmanager/localbroadcastmanager@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.navigationevent/navigationevent-android@1.0.0",
+      "group": "androidx.navigationevent",
+      "name": "navigationevent-android",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.navigationevent/navigationevent-android@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.navigationevent/navigationevent-compose-android@1.0.0",
+      "group": "androidx.navigationevent",
+      "name": "navigationevent-compose-android",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.navigationevent/navigationevent-compose-android@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.navigationevent/navigationevent-compose@1.0.0",
+      "group": "androidx.navigationevent",
+      "name": "navigationevent-compose",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.navigationevent/navigationevent-compose@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.navigationevent/navigationevent@1.0.0",
+      "group": "androidx.navigationevent",
+      "name": "navigationevent",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.navigationevent/navigationevent@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.print/print@1.0.0",
+      "group": "androidx.print",
+      "name": "print",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.print/print@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.profileinstaller/profileinstaller@1.4.0",
+      "group": "androidx.profileinstaller",
+      "name": "profileinstaller",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.profileinstaller/profileinstaller@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.resourceinspection/resourceinspection-annotation@1.0.1",
+      "group": "androidx.resourceinspection",
+      "name": "resourceinspection-annotation",
+      "version": "1.0.1",
+      "purl": "pkg:maven/androidx.resourceinspection/resourceinspection-annotation@1.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate-android@1.4.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate-android",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate-android@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate-compose-android@1.4.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate-compose-android",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate-compose-android@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate-compose@1.4.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate-compose",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate-compose@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate-ktx@1.4.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate-ktx",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate-ktx@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate@1.2.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate@1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.savedstate/savedstate@1.4.0",
+      "group": "androidx.savedstate",
+      "name": "savedstate",
+      "version": "1.4.0",
+      "purl": "pkg:maven/androidx.savedstate/savedstate@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.startup/startup-runtime@1.1.1",
+      "group": "androidx.startup",
+      "name": "startup-runtime",
+      "version": "1.1.1",
+      "purl": "pkg:maven/androidx.startup/startup-runtime@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.test.ext/junit@1.3.0",
+      "group": "androidx.test.ext",
+      "name": "junit",
+      "version": "1.3.0",
+      "purl": "pkg:maven/androidx.test.ext/junit@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.test.services/storage@1.6.0",
+      "group": "androidx.test.services",
+      "name": "storage",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.test.services/storage@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.test/core@1.7.0",
+      "group": "androidx.test",
+      "name": "core",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.test/core@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.test/monitor@1.8.0",
+      "group": "androidx.test",
+      "name": "monitor",
+      "version": "1.8.0",
+      "purl": "pkg:maven/androidx.test/monitor@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.test/runner@1.7.0",
+      "group": "androidx.test",
+      "name": "runner",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.test/runner@1.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.tracing/tracing@1.1.0",
+      "group": "androidx.tracing",
+      "name": "tracing",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.tracing/tracing@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.tracing/tracing@1.2.0",
+      "group": "androidx.tracing",
+      "name": "tracing",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.tracing/tracing@1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.transition/transition@1.6.0",
+      "group": "androidx.transition",
+      "name": "transition",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.transition/transition@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.vectordrawable/vectordrawable-animated@1.1.0",
+      "group": "androidx.vectordrawable",
+      "name": "vectordrawable-animated",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.vectordrawable/vectordrawable-animated@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.vectordrawable/vectordrawable@1.1.0",
+      "group": "androidx.vectordrawable",
+      "name": "vectordrawable",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.vectordrawable/vectordrawable@1.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.versionedparcelable/versionedparcelable@1.1.1",
+      "group": "androidx.versionedparcelable",
+      "name": "versionedparcelable",
+      "version": "1.1.1",
+      "purl": "pkg:maven/androidx.versionedparcelable/versionedparcelable@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.viewpager/viewpager@1.0.0",
+      "group": "androidx.viewpager",
+      "name": "viewpager",
+      "version": "1.0.0",
+      "purl": "pkg:maven/androidx.viewpager/viewpager@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.window/window-core-android@1.5.0",
+      "group": "androidx.window",
+      "name": "window-core-android",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.window/window-core-android@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.window/window-core@1.5.0",
+      "group": "androidx.window",
+      "name": "window-core",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.window/window-core@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/androidx.window/window@1.5.0",
+      "group": "androidx.window",
+      "name": "window",
+      "version": "1.5.0",
+      "purl": "pkg:maven/androidx.window/window@1.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.analytics-library/protos@32.2.1",
+      "group": "com.android.tools.analytics-library",
+      "name": "protos",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.analytics-library/protos@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.analytics-library/shared@32.2.1",
+      "group": "com.android.tools.analytics-library",
+      "name": "shared",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.analytics-library/shared@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.analytics-library/tracker@32.2.1",
+      "group": "com.android.tools.analytics-library",
+      "name": "tracker",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.analytics-library/tracker@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.build/aapt2-proto@9.2.1-15009934",
+      "group": "com.android.tools.build",
+      "name": "aapt2-proto",
+      "version": "9.2.1-15009934",
+      "purl": "pkg:maven/com.android.tools.build/aapt2-proto@9.2.1-15009934"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.build/builder-model@9.2.1",
+      "group": "com.android.tools.build",
+      "name": "builder-model",
+      "version": "9.2.1",
+      "purl": "pkg:maven/com.android.tools.build/builder-model@9.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.build/manifest-merger@32.2.1",
+      "group": "com.android.tools.build",
+      "name": "manifest-merger",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.build/manifest-merger@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.ddms/ddmlib@32.2.1",
+      "group": "com.android.tools.ddms",
+      "name": "ddmlib",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.ddms/ddmlib@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.emulator/proto@32.2.1",
+      "group": "com.android.tools.emulator",
+      "name": "proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.emulator/proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.external.com-intellij/intellij-core@32.2.1",
+      "group": "com.android.tools.external.com-intellij",
+      "name": "intellij-core",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.external.com-intellij/intellij-core@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.external.com-intellij/kotlin-compiler@32.2.1",
+      "group": "com.android.tools.external.com-intellij",
+      "name": "kotlin-compiler",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.external.com-intellij/kotlin-compiler@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.external.org-jetbrains/uast@32.2.1",
+      "group": "com.android.tools.external.org-jetbrains",
+      "name": "uast",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.external.org-jetbrains/uast@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.layoutlib/layoutlib-api@32.2.1",
+      "group": "com.android.tools.layoutlib",
+      "name": "layoutlib-api",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.layoutlib/layoutlib-api@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint-api@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint-api",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint-api@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint-checks@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint-checks",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint-checks@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint-gradle@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint-gradle",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint-gradle@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint-model@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint-model",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint-model@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint-typedef-remover@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint-typedef-remover",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint-typedef-remover@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.lint/lint@32.2.1",
+      "group": "com.android.tools.lint",
+      "name": "lint",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.lint/lint@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-device-provider-ddmlib-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-device-provider-ddmlib-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-device-provider-ddmlib-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-device-provider-ddmlib@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-device-provider-ddmlib",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-device-provider-ddmlib@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-additional-test-output-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-additional-test-output-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-additional-test-output-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-additional-test-output@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-additional-test-output",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-additional-test-output@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-apk-installer-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-apk-installer-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-apk-installer-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-apk-installer@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-apk-installer",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-apk-installer@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-coverage-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-coverage-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-coverage-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-coverage@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-coverage",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-coverage@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-device-info-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-device-info-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-device-info-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-device-info@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-device-info",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-device-info@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-emulator-control-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-emulator-control-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-emulator-control-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-emulator-control@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-emulator-control",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-emulator-control@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-logcat-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-logcat-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-logcat-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-host-logcat@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-host-logcat",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-host-logcat@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-result-listener-gradle-proto@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-result-listener-gradle-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-result-listener-gradle-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/android-test-plugin-result-listener-gradle@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "android-test-plugin-result-listener-gradle",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/android-test-plugin-result-listener-gradle@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/gradle-work-action@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "gradle-work-action",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/gradle-work-action@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools.utp/utp-common@32.2.1",
+      "group": "com.android.tools.utp",
+      "name": "utp-common",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools.utp/utp-common@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/annotations@32.2.1",
+      "group": "com.android.tools",
+      "name": "annotations",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/annotations@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/common@32.2.1",
+      "group": "com.android.tools",
+      "name": "common",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/common@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/dvlib@32.2.1",
+      "group": "com.android.tools",
+      "name": "dvlib",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/dvlib@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/play-sdk-proto@32.2.1",
+      "group": "com.android.tools",
+      "name": "play-sdk-proto",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/play-sdk-proto@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/repository@32.2.1",
+      "group": "com.android.tools",
+      "name": "repository",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/repository@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/sdk-common@32.2.1",
+      "group": "com.android.tools",
+      "name": "sdk-common",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/sdk-common@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.android.tools/sdklib@32.2.1",
+      "group": "com.android.tools",
+      "name": "sdklib",
+      "version": "32.2.1",
+      "purl": "pkg:maven/com.android.tools/sdklib@32.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.github.jai-imageio/jai-imageio-core@1.4.0",
+      "group": "com.github.jai-imageio",
+      "name": "jai-imageio-core",
+      "version": "1.4.0",
+      "purl": "pkg:maven/com.github.jai-imageio/jai-imageio-core@1.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.datatransport/transport-api@2.2.1",
+      "group": "com.google.android.datatransport",
+      "name": "transport-api",
+      "version": "2.2.1",
+      "purl": "pkg:maven/com.google.android.datatransport/transport-api@2.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.datatransport/transport-backend-cct@2.3.3",
+      "group": "com.google.android.datatransport",
+      "name": "transport-backend-cct",
+      "version": "2.3.3",
+      "purl": "pkg:maven/com.google.android.datatransport/transport-backend-cct@2.3.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.datatransport/transport-runtime@2.2.6",
+      "group": "com.google.android.datatransport",
+      "name": "transport-runtime",
+      "version": "2.2.6",
+      "purl": "pkg:maven/com.google.android.datatransport/transport-runtime@2.2.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.gms/play-services-base@18.5.0",
+      "group": "com.google.android.gms",
+      "name": "play-services-base",
+      "version": "18.5.0",
+      "purl": "pkg:maven/com.google.android.gms/play-services-base@18.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.gms/play-services-basement@18.4.0",
+      "group": "com.google.android.gms",
+      "name": "play-services-basement",
+      "version": "18.4.0",
+      "purl": "pkg:maven/com.google.android.gms/play-services-basement@18.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.gms/play-services-mlkit-text-recognition-common@19.1.0",
+      "group": "com.google.android.gms",
+      "name": "play-services-mlkit-text-recognition-common",
+      "version": "19.1.0",
+      "purl": "pkg:maven/com.google.android.gms/play-services-mlkit-text-recognition-common@19.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.gms/play-services-mlkit-text-recognition@19.0.1",
+      "group": "com.google.android.gms",
+      "name": "play-services-mlkit-text-recognition",
+      "version": "19.0.1",
+      "purl": "pkg:maven/com.google.android.gms/play-services-mlkit-text-recognition@19.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.gms/play-services-tasks@18.2.0",
+      "group": "com.google.android.gms",
+      "name": "play-services-tasks",
+      "version": "18.2.0",
+      "purl": "pkg:maven/com.google.android.gms/play-services-tasks@18.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android.odml/image@1.0.0-beta1",
+      "group": "com.google.android.odml",
+      "name": "image",
+      "version": "1.0.0-beta1",
+      "purl": "pkg:maven/com.google.android.odml/image@1.0.0-beta1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.android/annotations@4.1.1.4",
+      "group": "com.google.android",
+      "name": "annotations",
+      "version": "4.1.1.4",
+      "purl": "pkg:maven/com.google.android/annotations@4.1.1.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.api.grpc/proto-google-common-protos@2.17.0",
+      "group": "com.google.api.grpc",
+      "name": "proto-google-common-protos",
+      "version": "2.17.0",
+      "purl": "pkg:maven/com.google.api.grpc/proto-google-common-protos@2.17.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.api.grpc/proto-google-common-protos@2.48.0",
+      "group": "com.google.api.grpc",
+      "name": "proto-google-common-protos",
+      "version": "2.48.0",
+      "purl": "pkg:maven/com.google.api.grpc/proto-google-common-protos@2.48.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.auto.service/auto-service-annotations@1.1.1",
+      "group": "com.google.auto.service",
+      "name": "auto-service-annotations",
+      "version": "1.1.1",
+      "purl": "pkg:maven/com.google.auto.service/auto-service-annotations@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.auto.service/auto-service@1.1.1",
+      "group": "com.google.auto.service",
+      "name": "auto-service",
+      "version": "1.1.1",
+      "purl": "pkg:maven/com.google.auto.service/auto-service@1.1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.auto/auto-common@1.2.1",
+      "group": "com.google.auto",
+      "name": "auto-common",
+      "version": "1.2.1",
+      "purl": "pkg:maven/com.google.auto/auto-common@1.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "group": "com.google.code.findbugs",
+      "name": "jsr305",
+      "version": "3.0.2",
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.code.gson/gson@2.10.1",
+      "group": "com.google.code.gson",
+      "name": "gson",
+      "version": "2.10.1",
+      "purl": "pkg:maven/com.google.code.gson/gson@2.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.code.gson/gson@2.11.0",
+      "group": "com.google.code.gson",
+      "name": "gson",
+      "version": "2.11.0",
+      "purl": "pkg:maven/com.google.code.gson/gson@2.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.code.gson/gson@2.8.9",
+      "group": "com.google.code.gson",
+      "name": "gson",
+      "version": "2.8.9",
+      "purl": "pkg:maven/com.google.code.gson/gson@2.8.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.crypto.tink/tink@1.18.0",
+      "group": "com.google.crypto.tink",
+      "name": "tink",
+      "version": "1.18.0",
+      "purl": "pkg:maven/com.google.crypto.tink/tink@1.18.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.dagger/dagger@2.48",
+      "group": "com.google.dagger",
+      "name": "dagger",
+      "version": "2.48",
+      "purl": "pkg:maven/com.google.dagger/dagger@2.48"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.errorprone/error_prone_annotations@2.23.0",
+      "group": "com.google.errorprone",
+      "name": "error_prone_annotations",
+      "version": "2.23.0",
+      "purl": "pkg:maven/com.google.errorprone/error_prone_annotations@2.23.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.errorprone/error_prone_annotations@2.28.0",
+      "group": "com.google.errorprone",
+      "name": "error_prone_annotations",
+      "version": "2.28.0",
+      "purl": "pkg:maven/com.google.errorprone/error_prone_annotations@2.28.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.errorprone/error_prone_annotations@2.30.0",
+      "group": "com.google.errorprone",
+      "name": "error_prone_annotations",
+      "version": "2.30.0",
+      "purl": "pkg:maven/com.google.errorprone/error_prone_annotations@2.30.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.firebase/firebase-annotations@16.0.0",
+      "group": "com.google.firebase",
+      "name": "firebase-annotations",
+      "version": "16.0.0",
+      "purl": "pkg:maven/com.google.firebase/firebase-annotations@16.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.firebase/firebase-components@16.1.0",
+      "group": "com.google.firebase",
+      "name": "firebase-components",
+      "version": "16.1.0",
+      "purl": "pkg:maven/com.google.firebase/firebase-components@16.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.firebase/firebase-encoders-json@17.1.0",
+      "group": "com.google.firebase",
+      "name": "firebase-encoders-json",
+      "version": "17.1.0",
+      "purl": "pkg:maven/com.google.firebase/firebase-encoders-json@17.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.firebase/firebase-encoders@16.1.0",
+      "group": "com.google.firebase",
+      "name": "firebase-encoders",
+      "version": "16.1.0",
+      "purl": "pkg:maven/com.google.firebase/firebase-encoders@16.1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/failureaccess@1.0.1",
+      "group": "com.google.guava",
+      "name": "failureaccess",
+      "version": "1.0.1",
+      "purl": "pkg:maven/com.google.guava/failureaccess@1.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/failureaccess@1.0.2",
+      "group": "com.google.guava",
+      "name": "failureaccess",
+      "version": "1.0.2",
+      "purl": "pkg:maven/com.google.guava/failureaccess@1.0.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/guava@32.0.1-jre",
+      "group": "com.google.guava",
+      "name": "guava",
+      "version": "32.0.1-jre",
+      "purl": "pkg:maven/com.google.guava/guava@32.0.1-jre"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/guava@33.3.1-jre",
+      "group": "com.google.guava",
+      "name": "guava",
+      "version": "33.3.1-jre",
+      "purl": "pkg:maven/com.google.guava/guava@33.3.1-jre"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/listenablefuture@1.0",
+      "group": "com.google.guava",
+      "name": "listenablefuture",
+      "version": "1.0",
+      "purl": "pkg:maven/com.google.guava/listenablefuture@1.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.guava/listenablefuture@9999.0-empty-to-avoid-conflict-with-guava",
+      "group": "com.google.guava",
+      "name": "listenablefuture",
+      "version": "9999.0-empty-to-avoid-conflict-with-guava",
+      "purl": "pkg:maven/com.google.guava/listenablefuture@9999.0-empty-to-avoid-conflict-with-guava"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.j2objc/j2objc-annotations@2.8",
+      "group": "com.google.j2objc",
+      "name": "j2objc-annotations",
+      "version": "2.8",
+      "purl": "pkg:maven/com.google.j2objc/j2objc-annotations@2.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.j2objc/j2objc-annotations@3.0.0",
+      "group": "com.google.j2objc",
+      "name": "j2objc-annotations",
+      "version": "3.0.0",
+      "purl": "pkg:maven/com.google.j2objc/j2objc-annotations@3.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.jimfs/jimfs@1.1",
+      "group": "com.google.jimfs",
+      "name": "jimfs",
+      "version": "1.1",
+      "purl": "pkg:maven/com.google.jimfs/jimfs@1.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.mlkit/common@18.11.0",
+      "group": "com.google.mlkit",
+      "name": "common",
+      "version": "18.11.0",
+      "purl": "pkg:maven/com.google.mlkit/common@18.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.mlkit/text-recognition-bundled-common@17.0.0",
+      "group": "com.google.mlkit",
+      "name": "text-recognition-bundled-common",
+      "version": "17.0.0",
+      "purl": "pkg:maven/com.google.mlkit/text-recognition-bundled-common@17.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.mlkit/text-recognition@16.0.1",
+      "group": "com.google.mlkit",
+      "name": "text-recognition",
+      "version": "16.0.1",
+      "purl": "pkg:maven/com.google.mlkit/text-recognition@16.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.mlkit/vision-common@17.3.0",
+      "group": "com.google.mlkit",
+      "name": "vision-common",
+      "version": "17.3.0",
+      "purl": "pkg:maven/com.google.mlkit/vision-common@17.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.mlkit/vision-interfaces@16.3.0",
+      "group": "com.google.mlkit",
+      "name": "vision-interfaces",
+      "version": "16.3.0",
+      "purl": "pkg:maven/com.google.mlkit/vision-interfaces@16.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.protobuf/protobuf-java-util@3.22.3",
+      "group": "com.google.protobuf",
+      "name": "protobuf-java-util",
+      "version": "3.22.3",
+      "purl": "pkg:maven/com.google.protobuf/protobuf-java-util@3.22.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.protobuf/protobuf-java-util@4.28.3",
+      "group": "com.google.protobuf",
+      "name": "protobuf-java-util",
+      "version": "4.28.3",
+      "purl": "pkg:maven/com.google.protobuf/protobuf-java-util@4.28.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.protobuf/protobuf-java@3.25.5",
+      "group": "com.google.protobuf",
+      "name": "protobuf-java",
+      "version": "3.25.5",
+      "purl": "pkg:maven/com.google.protobuf/protobuf-java@3.25.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.protobuf/protobuf-java@4.28.3",
+      "group": "com.google.protobuf",
+      "name": "protobuf-java",
+      "version": "4.28.3",
+      "purl": "pkg:maven/com.google.protobuf/protobuf-java@4.28.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.protobuf/protobuf-kotlin@4.28.3",
+      "group": "com.google.protobuf",
+      "name": "protobuf-kotlin",
+      "version": "4.28.3",
+      "purl": "pkg:maven/com.google.protobuf/protobuf-kotlin@4.28.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/android-device-provider-local@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "android-device-provider-local",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/android-device-provider-local@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/android-driver-instrumentation@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "android-driver-instrumentation",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/android-driver-instrumentation@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/android-test-plugin@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "android-test-plugin",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/android-test-plugin@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/core-proto@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "core-proto",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/core-proto@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/core@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "core",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/core@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.google.testing.platform/launcher@0.0.9-alpha04",
+      "group": "com.google.testing.platform",
+      "name": "launcher",
+      "version": "0.0.9-alpha04",
+      "purl": "pkg:maven/com.google.testing.platform/launcher@0.0.9-alpha04"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-android@0.41.0",
+      "group": "com.mikepenz",
+      "name": "multiplatform-markdown-renderer-android",
+      "version": "0.41.0",
+      "purl": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-android@0.41.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-m3-android@0.41.0",
+      "group": "com.mikepenz",
+      "name": "multiplatform-markdown-renderer-m3-android",
+      "version": "0.41.0",
+      "purl": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-m3-android@0.41.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-m3@0.41.0",
+      "group": "com.mikepenz",
+      "name": "multiplatform-markdown-renderer-m3",
+      "version": "0.41.0",
+      "purl": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer-m3@0.41.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer@0.41.0",
+      "group": "com.mikepenz",
+      "name": "multiplatform-markdown-renderer",
+      "version": "0.41.0",
+      "purl": "pkg:maven/com.mikepenz/multiplatform-markdown-renderer@0.41.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.sun.istack/istack-commons-runtime@3.0.8",
+      "group": "com.sun.istack",
+      "name": "istack-commons-runtime",
+      "version": "3.0.8",
+      "purl": "pkg:maven/com.sun.istack/istack-commons-runtime@3.0.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.sun.xml.fastinfoset/FastInfoset@1.2.16",
+      "group": "com.sun.xml.fastinfoset",
+      "name": "FastInfoset",
+      "version": "1.2.16",
+      "purl": "pkg:maven/com.sun.xml.fastinfoset/FastInfoset@1.2.16"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.typesafe/config@1.4.5",
+      "group": "com.typesafe",
+      "name": "config",
+      "version": "1.4.5",
+      "purl": "pkg:maven/com.typesafe/config@1.4.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/commons-codec/commons-codec@1.17.1",
+      "group": "commons-codec",
+      "name": "commons-codec",
+      "version": "1.17.1",
+      "purl": "pkg:maven/commons-codec/commons-codec@1.17.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/commons-io/commons-io@2.16.1",
+      "group": "commons-io",
+      "name": "commons-io",
+      "version": "2.16.1",
+      "purl": "pkg:maven/commons-io/commons-io@2.16.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/commons-io/commons-io@2.22.0",
+      "group": "commons-io",
+      "name": "commons-io",
+      "version": "2.22.0",
+      "purl": "pkg:maven/commons-io/commons-io@2.22.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/commons-logging/commons-logging@1.2",
+      "group": "commons-logging",
+      "name": "commons-logging",
+      "version": "1.2",
+      "purl": "pkg:maven/commons-logging/commons-logging@1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/commons-logging/commons-logging@1.3.5",
+      "group": "commons-logging",
+      "name": "commons-logging",
+      "version": "1.3.5",
+      "purl": "pkg:maven/commons-logging/commons-logging@1.3.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.github.java-diff-utils/java-diff-utils@4.12",
+      "group": "io.github.java-diff-utils",
+      "name": "java-diff-utils",
+      "version": "4.12",
+      "purl": "pkg:maven/io.github.java-diff-utils/java-diff-utils@4.12"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.github.oshai/kotlin-logging-jvm@8.0.4",
+      "group": "io.github.oshai",
+      "name": "kotlin-logging-jvm",
+      "version": "8.0.4",
+      "purl": "pkg:maven/io.github.oshai/kotlin-logging-jvm@8.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.github.oshai/kotlin-logging@8.0.4",
+      "group": "io.github.oshai",
+      "name": "kotlin-logging",
+      "version": "8.0.4",
+      "purl": "pkg:maven/io.github.oshai/kotlin-logging@8.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-api@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-api",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-api@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-api@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-api",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-api@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-context@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-context",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-context@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-context@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-context",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-context@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-core@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-core",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-core@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-core@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-core",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-core@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-netty@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-netty",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-netty@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-netty@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-netty",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-netty@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-protobuf-lite@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-protobuf-lite",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-protobuf-lite@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-protobuf-lite@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-protobuf-lite",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-protobuf-lite@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-protobuf@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-protobuf",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-protobuf@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-protobuf@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-protobuf",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-protobuf@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-services@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-services",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-services@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-stub@1.57.2",
+      "group": "io.grpc",
+      "name": "grpc-stub",
+      "version": "1.57.2",
+      "purl": "pkg:maven/io.grpc/grpc-stub@1.57.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-stub@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-stub",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-stub@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.grpc/grpc-util@1.69.1",
+      "group": "io.grpc",
+      "name": "grpc-util",
+      "version": "1.69.1",
+      "purl": "pkg:maven/io.grpc/grpc-util@1.69.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-events-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-events-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-events-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-events@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-events",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-events@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-http-cio-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-http-cio-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-http-cio-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-http-cio@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-http-cio",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-http-cio@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-http-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-http-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-http-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-http@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-http",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-http@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-io-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-io-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-io-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-io@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-io",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-io@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-network-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-network-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-network-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-network@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-network",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-network@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization-kotlinx-json-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization-kotlinx-json-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization-kotlinx-json-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization-kotlinx-json@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization-kotlinx-json",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization-kotlinx-json@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization-kotlinx-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization-kotlinx-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization-kotlinx-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization-kotlinx@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization-kotlinx",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization-kotlinx@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-serialization@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-serialization",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-serialization@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-content-negotiation-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-content-negotiation-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-content-negotiation-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-content-negotiation@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-content-negotiation",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-content-negotiation@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-core-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-core-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-core-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-core@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-core",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-core@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-sse-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-sse-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-sse-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-sse@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-sse",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-sse@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-websockets-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-websockets-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-websockets-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-server-websockets@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-server-websockets",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-server-websockets@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-sse-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-sse-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-sse-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-sse@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-sse",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-sse@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-utils-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-utils-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-utils-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-utils@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-utils",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-utils@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-websocket-serialization-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-websocket-serialization-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-websocket-serialization-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-websocket-serialization@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-websocket-serialization",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-websocket-serialization@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-websockets-jvm@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-websockets-jvm",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-websockets-jvm@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.ktor/ktor-websockets@3.4.3",
+      "group": "io.ktor",
+      "name": "ktor-websockets",
+      "version": "3.4.3",
+      "purl": "pkg:maven/io.ktor/ktor-websockets@3.4.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.legere/pdfiumandroid-api@2.0.0",
+      "group": "io.legere",
+      "name": "pdfiumandroid-api",
+      "version": "2.0.0",
+      "purl": "pkg:maven/io.legere/pdfiumandroid-api@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.legere/pdfiumandroid-core@2.0.0",
+      "group": "io.legere",
+      "name": "pdfiumandroid-core",
+      "version": "2.0.0",
+      "purl": "pkg:maven/io.legere/pdfiumandroid-core@2.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-core-jvm@0.14.0",
+      "group": "io.modelcontextprotocol",
+      "name": "kotlin-sdk-core-jvm",
+      "version": "0.14.0",
+      "purl": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-core-jvm@0.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-core@0.14.0",
+      "group": "io.modelcontextprotocol",
+      "name": "kotlin-sdk-core",
+      "version": "0.14.0",
+      "purl": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-core@0.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-server-jvm@0.14.0",
+      "group": "io.modelcontextprotocol",
+      "name": "kotlin-sdk-server-jvm",
+      "version": "0.14.0",
+      "purl": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-server-jvm@0.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-server@0.14.0",
+      "group": "io.modelcontextprotocol",
+      "name": "kotlin-sdk-server",
+      "version": "0.14.0",
+      "purl": "pkg:maven/io.modelcontextprotocol/kotlin-sdk-server@0.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-buffer@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-buffer",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-buffer@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-buffer@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-buffer",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-buffer@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-http2@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-codec-http2",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-http2@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-codec-http2",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-http@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-codec-http",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-http@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-codec-http",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-socks@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-codec-socks",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-socks@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-socks@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-codec-socks",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-socks@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-codec",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-codec@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-codec",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-codec@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-common@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-common",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-common@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-common@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-common",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-common@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-handler-proxy@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-handler-proxy",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-handler-proxy@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-handler-proxy@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-handler-proxy",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-handler-proxy@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-handler@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-handler",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-handler@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-handler@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-handler",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-handler@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-resolver@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-resolver",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-resolver@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-resolver@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-resolver",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-resolver@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-transport-native-unix-common@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-transport-native-unix-common",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-transport-native-unix-common@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-transport-native-unix-common@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-transport-native-unix-common",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-transport-native-unix-common@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-transport@4.1.110.Final",
+      "group": "io.netty",
+      "name": "netty-transport",
+      "version": "4.1.110.Final",
+      "purl": "pkg:maven/io.netty/netty-transport@4.1.110.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-transport@4.1.93.Final",
+      "group": "io.netty",
+      "name": "netty-transport",
+      "version": "4.1.93.Final",
+      "purl": "pkg:maven/io.netty/netty-transport@4.1.93.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.opencensus/opencensus-api@0.31.0",
+      "group": "io.opencensus",
+      "name": "opencensus-api",
+      "version": "0.31.0",
+      "purl": "pkg:maven/io.opencensus/opencensus-api@0.31.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.opencensus/opencensus-proto@0.2.0",
+      "group": "io.opencensus",
+      "name": "opencensus-proto",
+      "version": "0.2.0",
+      "purl": "pkg:maven/io.opencensus/opencensus-proto@0.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.perfmark/perfmark-api@0.26.0",
+      "group": "io.perfmark",
+      "name": "perfmark-api",
+      "version": "0.26.0",
+      "purl": "pkg:maven/io.perfmark/perfmark-api@0.26.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.perfmark/perfmark-api@0.27.0",
+      "group": "io.perfmark",
+      "name": "perfmark-api",
+      "version": "0.27.0",
+      "purl": "pkg:maven/io.perfmark/perfmark-api@0.27.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1",
+      "group": "jakarta.activation",
+      "name": "jakarta.activation-api",
+      "version": "1.2.1",
+      "purl": "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@2.3.2",
+      "group": "jakarta.xml.bind",
+      "name": "jakarta.xml.bind-api",
+      "version": "2.3.2",
+      "purl": "pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@2.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/javax.annotation/javax.annotation-api@1.3.2",
+      "group": "javax.annotation",
+      "name": "javax.annotation-api",
+      "version": "1.3.2",
+      "purl": "pkg:maven/javax.annotation/javax.annotation-api@1.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/javax.inject/javax.inject@1",
+      "group": "javax.inject",
+      "name": "javax.inject",
+      "version": "1",
+      "purl": "pkg:maven/javax.inject/javax.inject@1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/junit/junit@4.13.2",
+      "group": "junit",
+      "name": "junit",
+      "version": "4.13.2",
+      "purl": "pkg:maven/junit/junit@4.13.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.java.dev.jna/jna-platform@5.6.0",
+      "group": "net.java.dev.jna",
+      "name": "jna-platform",
+      "version": "5.6.0",
+      "purl": "pkg:maven/net.java.dev.jna/jna-platform@5.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.java.dev.jna/jna@5.18.1",
+      "group": "net.java.dev.jna",
+      "name": "jna",
+      "version": "5.18.1",
+      "purl": "pkg:maven/net.java.dev.jna/jna@5.18.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.java.dev.jna/jna@5.6.0",
+      "group": "net.java.dev.jna",
+      "name": "jna",
+      "version": "5.6.0",
+      "purl": "pkg:maven/net.java.dev.jna/jna@5.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.sf.kxml/kxml2@2.3.0",
+      "group": "net.sf.kxml",
+      "name": "kxml2",
+      "version": "2.3.0",
+      "purl": "pkg:maven/net.sf.kxml/kxml2@2.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.sourceforge.lept4j/lept4j@1.24.0",
+      "group": "net.sourceforge.lept4j",
+      "name": "lept4j",
+      "version": "1.24.0",
+      "purl": "pkg:maven/net.sourceforge.lept4j/lept4j@1.24.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/net.sourceforge.tess4j/tess4j@5.19.0",
+      "group": "net.sourceforge.tess4j",
+      "name": "tess4j",
+      "version": "5.19.0",
+      "purl": "pkg:maven/net.sourceforge.tess4j/tess4j@5.19.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-compress@1.27.1",
+      "group": "org.apache.commons",
+      "name": "commons-compress",
+      "version": "1.27.1",
+      "purl": "pkg:maven/org.apache.commons/commons-compress@1.27.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-lang3@3.16.0",
+      "group": "org.apache.commons",
+      "name": "commons-lang3",
+      "version": "3.16.0",
+      "purl": "pkg:maven/org.apache.commons/commons-lang3@3.16.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.httpcomponents/httpclient@4.5.6",
+      "group": "org.apache.httpcomponents",
+      "name": "httpclient",
+      "version": "4.5.6",
+      "purl": "pkg:maven/org.apache.httpcomponents/httpclient@4.5.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.httpcomponents/httpcore@4.4.16",
+      "group": "org.apache.httpcomponents",
+      "name": "httpcore",
+      "version": "4.4.16",
+      "purl": "pkg:maven/org.apache.httpcomponents/httpcore@4.4.16"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.httpcomponents/httpmime@4.5.6",
+      "group": "org.apache.httpcomponents",
+      "name": "httpmime",
+      "version": "4.5.6",
+      "purl": "pkg:maven/org.apache.httpcomponents/httpmime@4.5.6"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.pdfbox/fontbox@3.0.7",
+      "group": "org.apache.pdfbox",
+      "name": "fontbox",
+      "version": "3.0.7",
+      "purl": "pkg:maven/org.apache.pdfbox/fontbox@3.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.pdfbox/jbig2-imageio@3.0.4",
+      "group": "org.apache.pdfbox",
+      "name": "jbig2-imageio",
+      "version": "3.0.4",
+      "purl": "pkg:maven/org.apache.pdfbox/jbig2-imageio@3.0.4"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.pdfbox/pdfbox-io@3.0.7",
+      "group": "org.apache.pdfbox",
+      "name": "pdfbox-io",
+      "version": "3.0.7",
+      "purl": "pkg:maven/org.apache.pdfbox/pdfbox-io@3.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.pdfbox/pdfbox@3.0.7",
+      "group": "org.apache.pdfbox",
+      "name": "pdfbox",
+      "version": "3.0.7",
+      "purl": "pkg:maven/org.apache.pdfbox/pdfbox@3.0.7"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apiguardian/apiguardian-api@1.1.2",
+      "group": "org.apiguardian",
+      "name": "apiguardian-api",
+      "version": "1.1.2",
+      "purl": "pkg:maven/org.apiguardian/apiguardian-api@1.1.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.79",
+      "group": "org.bouncycastle",
+      "name": "bcpkix-jdk18on",
+      "version": "1.79",
+      "purl": "pkg:maven/org.bouncycastle/bcpkix-jdk18on@1.79"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.79",
+      "group": "org.bouncycastle",
+      "name": "bcprov-jdk18on",
+      "version": "1.79",
+      "purl": "pkg:maven/org.bouncycastle/bcprov-jdk18on@1.79"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.79",
+      "group": "org.bouncycastle",
+      "name": "bcutil-jdk18on",
+      "version": "1.79",
+      "purl": "pkg:maven/org.bouncycastle/bcutil-jdk18on@1.79"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.checkerframework/checker-qual@3.33.0",
+      "group": "org.checkerframework",
+      "name": "checker-qual",
+      "version": "3.33.0",
+      "purl": "pkg:maven/org.checkerframework/checker-qual@3.33.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.checkerframework/checker-qual@3.43.0",
+      "group": "org.checkerframework",
+      "name": "checker-qual",
+      "version": "3.43.0",
+      "purl": "pkg:maven/org.checkerframework/checker-qual@3.43.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.codehaus.groovy/groovy@3.0.22",
+      "group": "org.codehaus.groovy",
+      "name": "groovy",
+      "version": "3.0.22",
+      "purl": "pkg:maven/org.codehaus.groovy/groovy@3.0.22"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.codehaus.mojo/animal-sniffer-annotations@1.23",
+      "group": "org.codehaus.mojo",
+      "name": "animal-sniffer-annotations",
+      "version": "1.23",
+      "purl": "pkg:maven/org.codehaus.mojo/animal-sniffer-annotations@1.23"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.codehaus.mojo/animal-sniffer-annotations@1.24",
+      "group": "org.codehaus.mojo",
+      "name": "animal-sniffer-annotations",
+      "version": "1.24",
+      "purl": "pkg:maven/org.codehaus.mojo/animal-sniffer-annotations@1.24"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.fusesource.jansi/jansi@2.4.2",
+      "group": "org.fusesource.jansi",
+      "name": "jansi",
+      "version": "2.4.2",
+      "purl": "pkg:maven/org.fusesource.jansi/jansi@2.4.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.glassfish.jaxb/jaxb-runtime@2.3.2",
+      "group": "org.glassfish.jaxb",
+      "name": "jaxb-runtime",
+      "version": "2.3.2",
+      "purl": "pkg:maven/org.glassfish.jaxb/jaxb-runtime@2.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.glassfish.jaxb/txw2@2.3.2",
+      "group": "org.glassfish.jaxb",
+      "name": "txw2",
+      "version": "2.3.2",
+      "purl": "pkg:maven/org.glassfish.jaxb/txw2@2.3.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "group": "org.hamcrest",
+      "name": "hamcrest-core",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jboss.logging/jboss-logging@3.1.4.GA",
+      "group": "org.jboss.logging",
+      "name": "jboss-logging",
+      "version": "3.1.4.GA",
+      "purl": "pkg:maven/org.jboss.logging/jboss-logging@3.1.4.GA"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jboss/jboss-vfs@3.2.17.Final",
+      "group": "org.jboss",
+      "name": "jboss-vfs",
+      "version": "3.2.17.Final",
+      "purl": "pkg:maven/org.jboss/jboss-vfs@3.2.17.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/abi-tools-api@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "abi-tools-api",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/abi-tools-api@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/abi-tools@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "abi-tools",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/abi-tools@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-api@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-build-tools-api",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-api@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-compat@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-build-tools-compat",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-compat@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-impl@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-build-tools-impl",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-build-tools-impl@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-compiler-embeddable@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-compiler-embeddable",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-compiler-embeddable@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-compiler-runner@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-compiler-runner",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-compiler-runner@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-daemon-client@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-daemon-client",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-daemon-client@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-daemon-embeddable@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-daemon-embeddable",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-daemon-embeddable@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-klib-abi-reader@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-klib-abi-reader",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-klib-abi-reader@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-klib-commonizer-embeddable@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-klib-commonizer-embeddable",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-klib-commonizer-embeddable@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-metadata-jvm@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-metadata-jvm",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-metadata-jvm@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@1.6.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-reflect",
+      "version": "1.6.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@1.6.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@1.8.21",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-reflect",
+      "version": "1.8.21",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@1.8.21"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@2.2.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-reflect",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@2.2.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@2.3.0",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-reflect",
+      "version": "2.3.0",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-reflect@2.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-script-runtime@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-script-runtime",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-script-runtime@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-common@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-scripting-common",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-common@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-scripting-compiler-embeddable",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-scripting-compiler-impl-embeddable",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-jvm@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-scripting-jvm",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-scripting-jvm@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@1.8.21",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-common",
+      "version": "1.8.21",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@1.8.21"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@1.9.0",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-common",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@2.2.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-common",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@2.2.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-common",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-common@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk7@1.8.20",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-jdk7",
+      "version": "1.8.20",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk7@1.8.20"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk7@2.2.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-jdk7",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk7@2.2.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@1.8.20",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-jdk8",
+      "version": "1.8.20",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@1.8.20"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.2.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib-jdk8",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib-jdk8@2.2.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@1.8.21",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "1.8.21",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@1.8.21"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@1.9.0",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.2.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.2.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.3.21",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "2.3.21",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.3.21"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-test-junit5@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-test-junit5",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-test-junit5@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-test-junit@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-test-junit",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-test-junit@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-test@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-test",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-test@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlin/kotlin-tooling-core@2.3.10",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-tooling-core",
+      "version": "2.3.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-tooling-core@2.3.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/atomicfu-jvm@0.22.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "atomicfu-jvm",
+      "version": "0.22.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/atomicfu-jvm@0.22.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/atomicfu@0.22.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "atomicfu",
+      "version": "0.22.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/atomicfu@0.22.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/atomicfu@0.23.1",
+      "group": "org.jetbrains.kotlinx",
+      "name": "atomicfu",
+      "version": "0.23.1",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/atomicfu@0.23.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable-jvm@0.4.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-collections-immutable-jvm",
+      "version": "0.4.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable-jvm@0.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable-jvm@0.5.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-collections-immutable-jvm",
+      "version": "0.5.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable-jvm@0.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable@0.4.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-collections-immutable",
+      "version": "0.4.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable@0.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable@0.5.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-collections-immutable",
+      "version": "0.5.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-collections-immutable@0.5.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-android@1.10.2",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-android",
+      "version": "1.10.2",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-android@1.10.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.10.2",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-bom",
+      "version": "1.10.2",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.10.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-bom",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.7.3",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-bom",
+      "version": "1.7.3",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.7.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-bom",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.10.2",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.10.2",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.10.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.7.3",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.7.3",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.7.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.8.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.8.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.10.2",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core",
+      "version": "1.10.2",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.10.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.7.3",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core",
+      "version": "1.7.3",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.7.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-bytestring-jvm@0.9.1",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-io-bytestring-jvm",
+      "version": "0.9.1",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-bytestring-jvm@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-bytestring@0.9.1",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-io-bytestring",
+      "version": "0.9.1",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-bytestring@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-core-jvm@0.9.1",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-io-core-jvm",
+      "version": "0.9.1",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-core-jvm@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-core@0.9.1",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-io-core",
+      "version": "0.9.1",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-io-core@0.9.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-bom@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-bom",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-bom@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-bom@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-bom",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-bom@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core-jvm@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-core-jvm",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core-jvm@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core-jvm@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-core-jvm",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core-jvm@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-core",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-core",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-core@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-io-jvm@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json-io-jvm",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-io-jvm@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-io@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json-io",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-io@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json-jvm",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json-jvm",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json@1.11.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json",
+      "version": "1.11.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json@1.11.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json@1.9.0",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-serialization-json",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-serialization-json@1.9.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains/annotations@13.0",
+      "group": "org.jetbrains",
+      "name": "annotations",
+      "version": "13.0",
+      "purl": "pkg:maven/org.jetbrains/annotations@13.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains/annotations@23.0.0",
+      "group": "org.jetbrains",
+      "name": "annotations",
+      "version": "23.0.0",
+      "purl": "pkg:maven/org.jetbrains/annotations@23.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains/markdown-jvm@0.7.3",
+      "group": "org.jetbrains",
+      "name": "markdown-jvm",
+      "version": "0.7.3",
+      "purl": "pkg:maven/org.jetbrains/markdown-jvm@0.7.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jetbrains/markdown@0.7.3",
+      "group": "org.jetbrains",
+      "name": "markdown",
+      "version": "0.7.3",
+      "purl": "pkg:maven/org.jetbrains/markdown@0.7.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.json/json@20250517",
+      "group": "org.json",
+      "name": "json",
+      "version": "20250517",
+      "purl": "pkg:maven/org.json/json@20250517"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jspecify/jspecify@1.0.0",
+      "group": "org.jspecify",
+      "name": "jspecify",
+      "version": "1.0.0",
+      "purl": "pkg:maven/org.jspecify/jspecify@1.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit.jupiter/junit-jupiter-api@5.10.1",
+      "group": "org.junit.jupiter",
+      "name": "junit-jupiter-api",
+      "version": "5.10.1",
+      "purl": "pkg:maven/org.junit.jupiter/junit-jupiter-api@5.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit.jupiter/junit-jupiter-engine@5.10.1",
+      "group": "org.junit.jupiter",
+      "name": "junit-jupiter-engine",
+      "version": "5.10.1",
+      "purl": "pkg:maven/org.junit.jupiter/junit-jupiter-engine@5.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit.platform/junit-platform-commons@1.10.1",
+      "group": "org.junit.platform",
+      "name": "junit-platform-commons",
+      "version": "1.10.1",
+      "purl": "pkg:maven/org.junit.platform/junit-platform-commons@1.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit.platform/junit-platform-engine@1.10.1",
+      "group": "org.junit.platform",
+      "name": "junit-platform-engine",
+      "version": "1.10.1",
+      "purl": "pkg:maven/org.junit.platform/junit-platform-engine@1.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit.platform/junit-platform-launcher@1.10.1",
+      "group": "org.junit.platform",
+      "name": "junit-platform-launcher",
+      "version": "1.10.1",
+      "purl": "pkg:maven/org.junit.platform/junit-platform-launcher@1.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.junit/junit-bom@5.10.1",
+      "group": "org.junit",
+      "name": "junit-bom",
+      "version": "5.10.1",
+      "purl": "pkg:maven/org.junit/junit-bom@5.10.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.jvnet.staxex/stax-ex@1.8.1",
+      "group": "org.jvnet.staxex",
+      "name": "stax-ex",
+      "version": "1.8.1",
+      "purl": "pkg:maven/org.jvnet.staxex/stax-ex@1.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.opentest4j/opentest4j@1.3.0",
+      "group": "org.opentest4j",
+      "name": "opentest4j",
+      "version": "1.3.0",
+      "purl": "pkg:maven/org.opentest4j/opentest4j@1.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.ow2.asm/asm-analysis@9.9",
+      "group": "org.ow2.asm",
+      "name": "asm-analysis",
+      "version": "9.9",
+      "purl": "pkg:maven/org.ow2.asm/asm-analysis@9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.ow2.asm/asm-commons@9.9",
+      "group": "org.ow2.asm",
+      "name": "asm-commons",
+      "version": "9.9",
+      "purl": "pkg:maven/org.ow2.asm/asm-commons@9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.ow2.asm/asm-tree@9.9",
+      "group": "org.ow2.asm",
+      "name": "asm-tree",
+      "version": "9.9",
+      "purl": "pkg:maven/org.ow2.asm/asm-tree@9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.ow2.asm/asm@9.9",
+      "group": "org.ow2.asm",
+      "name": "asm",
+      "version": "9.9",
+      "purl": "pkg:maven/org.ow2.asm/asm@9.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.slf4j/slf4j-api@2.0.18",
+      "group": "org.slf4j",
+      "name": "slf4j-api",
+      "version": "2.0.18",
+      "purl": "pkg:maven/org.slf4j/slf4j-api@2.0.18"
+    }
+  ]
+}

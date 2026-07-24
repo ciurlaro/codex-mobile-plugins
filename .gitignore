@@ -1,0 +1,7 @@
+.gradle/
+build/
+**/build/
+local.properties
+*.jks
+*.keystore
+android/telegram/src/main/jniLibs/

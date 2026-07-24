@@ -1,0 +1,6 @@
+.git
+.gradle
+**/build
+android
+build
+local.properties

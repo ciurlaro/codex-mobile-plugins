@@ -1,0 +1,20 @@
+{
+  "name": "documents",
+  "version": "1.0.0",
+  "description": "Read, render, OCR, create, and safely edit documents.",
+  "author": { "name": "Codex Mobile" },
+  "homepage": "https://github.com/ciurlaro/codex-mobile-plugins",
+  "repository": "https://github.com/ciurlaro/codex-mobile-plugins",
+  "license": "Apache-2.0",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Documents",
+    "shortDescription": "Read and edit local documents",
+    "longDescription": "Bounded PDF, image, and Office reading plus transactional Office edits.",
+    "developerName": "Codex Mobile",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "brandColor": "#4F46E5"
+  }
+}
