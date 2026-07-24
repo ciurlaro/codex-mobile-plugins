@@ -68,7 +68,7 @@ fi
 grep -q 'schemaDigest' .agents/plugins/plugins/documents/codex-mobile-addon.json
 grep -q 'schemaDigest' .agents/plugins/plugins/telegram/codex-mobile-addon.json
 grep -q -- '--dependency-verification=off' scripts/build-android-providers.sh
-grep -q '94c543921730feb37372e3c0b9ee4bf93f270053' .github/workflows/verify.yml
+grep -q 'f2ca8803fbcd5761097f9942542cb0be1e7418e3' .github/workflows/verify.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1
