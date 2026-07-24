@@ -83,7 +83,7 @@ the provider repository's locked and audited dependency inventory rather than
 copying provider checksums into the host.
 
 The `1.0.0` Android provider release targets Codex Mobile host version code 4 at
-commit `f2ca8803fbcd5761097f9942542cb0be1e7418e3`. CI checks out that exact generic
+commit `b1ea90a3f064dd1c54560081675b41abaa7bc37c`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
 For release builds, pass `release` and the matching host signing properties.
