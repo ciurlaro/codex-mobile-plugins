@@ -1,3 +1,4 @@
+// GPL-3.0-or-later; the ML Kit linking permission in LICENSES/MLKIT-EXCEPTION.txt applies.
 package io.github.ciurlaro.codexmobile.platform.android
 
 import android.content.Context

@@ -5,7 +5,7 @@
     "max": 2
   },
   "host": {
-    "versionCode": 3
+    "versionCode": 4
   },
   "pluginId": "telegram@codex-mobile",
   "implementationVersion": "1.0.0",
@@ -24,7 +24,7 @@
       "arm64-v8a"
     ],
     "package": {
-      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.1/provider_telegram.apk",
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.2/provider_telegram.apk",
       "sha256": "44a03c5abb60c7eb3cdf6463d0cbbe7e82073df8199262802be14034cc20cf75"
     }
   }

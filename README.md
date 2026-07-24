@@ -1,6 +1,6 @@
 # Codex Mobile Plugins
 
-This repository distributes the Documents and Telegram plugins for Codex.
+This is the canonical repository for owner-reviewed Codex Mobile providers. It distributes the Documents and Telegram plugins for Codex.
 Each plugin has one standard Codex bundle, one shared Kotlin schema, an Android
 feature split for Codex Mobile, and a Dockerized MCP provider for desktop Codex.
 
@@ -12,7 +12,7 @@ Add this source in Codex Mobile:
 https://github.com/ciurlaro/codex-mobile-plugins
 ```
 
-Select a plugin and approve Android's package installation prompt. The app
+The official Codex Mobile app accepts Android provider code only from this Git origin. Ordinary Codex plugins without Android code remain installable from any source. Select a plugin and approve Android's package installation prompt. The app
 restarts, verifies the split against the plugin schema and host version, disables
 the plugin's MCP process on Android, and finishes the standard plugin install.
 Telegram then asks for the application's API ID and API hash in its Settings
@@ -73,6 +73,8 @@ docker build -t codex-mobile-plugins:local .
 bash scripts/verify-mcp.sh
 ```
 
+GitHub Actions is authoritative for the full Android, emulator, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
+
 `build-android-providers.sh` uses the generic provider-project hook in the exact
 host checkout because Android dynamic-feature modules must compile with their
 base application. The host does not name or depend on either provider. Gradle's
@@ -80,15 +82,15 @@ root-only dependency-verification file remains host-owned, so the script uses
 the provider repository's locked and audited dependency inventory rather than
 copying provider checksums into the host.
 
-The `1.0.0` Android provider release targets Codex Mobile host version code 3 at
-commit `967bfc422b6bd041be9741adac98f02a4bb9780b`. CI checks out that exact generic
+The `1.0.0` Android provider release targets Codex Mobile host version code 4 at
+commit `9c7d18ee07ea52cd55f8e7f7523259f19e4f9c7f`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
 For release builds, pass `release` and the matching host signing properties.
 Application credentials are configured per installed plugin and never enter the
 build. Publish the feature APKs only after
-`scripts/write-addon-checksums.py` records their exact SHA-256 values in the
-add-on manifests. Before upload, run `scripts/verify-release-artifacts.sh` with
+`scripts/write-release-metadata.py` records their release URLs, exact SHA-256
+values, and immutable MCP image digest. Before upload, run `scripts/verify-release-artifacts.sh` with
 the signed host, Documents, and Telegram APKs; it verifies the common signer,
 package/version/split identity, manifest hashes, native allowlists, and absence
 of retired helper payloads.
@@ -124,3 +126,9 @@ split; it does not use MCP, HTTP, Binder, a shell, or a helper process.
 The Linux and Android backends implement the same schemas but use platform-
 appropriate libraries. No runtime code or OCR model download occurs after the
 Android split or Docker image is installed.
+
+The Android Documents provider uses bundled Google ML Kit OCR. Recognition is available offline, but Google's terms state that ML Kit may contact Google for metrics, fixes, model updates, or compatibility information. The exact runtime closure is recorded in the release SBOM.
+
+## Licence
+
+Project code is distributed under `GPL-3.0-or-later`. The narrow section-7 permission in [`LICENSES/MLKIT-EXCEPTION.txt`](LICENSES/MLKIT-EXCEPTION.txt) applies only to the Documents provider's declared ML Kit Android OCR closure. It grants no permission for another proprietary dependency. Every bundled library and model retains its own licence and notice.

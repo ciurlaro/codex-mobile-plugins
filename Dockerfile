@@ -51,7 +51,7 @@ FROM eclipse-temurin:17-jre-jammy@sha256:475d8e96b4b2bfe08999e5e854755c773af1581
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL org.opencontainers.image.source="https://github.com/ciurlaro/codex-mobile-plugins" \
       org.opencontainers.image.version="1.0.0" \
-      org.opencontainers.image.licenses="Apache-2.0"
+      org.opencontainers.image.licenses="GPL-3.0-or-later"
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates fontconfig fonts-dejavu-core libgomp1 libtesseract4 zlib1g \
     && rm -rf /var/lib/apt/lists/*

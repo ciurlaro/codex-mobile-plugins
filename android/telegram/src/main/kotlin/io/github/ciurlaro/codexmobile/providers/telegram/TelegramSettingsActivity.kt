@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecretStore
 import io.github.ciurlaro.codexmobile.platform.android.TelegramAuthEvent
 import io.github.ciurlaro.codexmobile.platform.android.AndroidProviderSecretStore
 import io.github.ciurlaro.codexmobile.platform.android.TelegramAuthPrompt
@@ -25,7 +26,7 @@ import kotlinx.coroutines.withContext
 
 class TelegramSettingsActivity : Activity() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    private lateinit var secrets: AndroidProviderSecretStore
+    private lateinit var secrets: ProviderSecretStore
     private lateinit var telegram: TelegramIntegration
     private lateinit var status: TextView
     private lateinit var apiId: EditText

@@ -1,4 +1,4 @@
-name: verify
+name: Verify
 
 on:
   push:
@@ -8,36 +8,70 @@ permissions:
   contents: read
 
 jobs:
-  verify:
+  android:
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           path: providers
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           repository: ciurlaro/codex-mobile
-          ref: 967bfc422b6bd041be9741adac98f02a4bb9780b
+          ref: 9c7d18ee07ea52cd55f8e7f7523259f19e4f9c7f
           path: host
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
           distribution: temurin
-          java-version: 17
-          cache: gradle
-      - uses: android-actions/setup-android@v3
+          java-version: "17"
+      - uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
       - name: Install Android toolchain
-        run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "ndk;29.0.14206865"
-      - name: Verify shared schemas and MCP
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libarchive-tools ninja-build patchelf ripgrep zip
+          sdkmanager "platforms;android-37.0" "build-tools;36.0.0" "ndk;29.0.14206865"
+      - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+      - name: Verify contracts, schemas, SBOM, and JVM tests
         working-directory: providers
         run: |
           bash scripts/verify-structure.sh
           ./gradlew --no-daemon test
-      - name: Build Android feature providers
-        working-directory: providers
-        run: bash scripts/build-android-providers.sh ../host debug
-      - name: Build and exercise Docker MCP provider
-        working-directory: providers
+      - name: Build and lint Android feature providers
         run: |
-          docker build -t codex-mobile-plugins:verify .
-          bash scripts/verify-mcp.sh codex-mobile-plugins:verify
+          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
+          providers/scripts/build-android-providers.sh host debug
+          host/gradlew -p host --dependency-verification=off \
+            "-PcodexMobile.providerProjects=$GITHUB_WORKSPACE/providers/android/documents|$GITHUB_WORKSPACE/providers/android/telegram" \
+            :provider_documents:lintDebug :provider_telegram:lintDebug
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: provider-android-tests
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            host/app/android/build/outputs/apk/debug/android-debug.apk
+            providers/android/documents/build/outputs/apk/debug/provider_documents-debug.apk
+            providers/android/documents/build/outputs/apk/androidTest/debug/provider_documents-debug-androidTest.apk
+            providers/android/telegram/build/outputs/apk/debug/provider_telegram-debug.apk
+            providers/android/telegram/build/outputs/apk/androidTest/debug/provider_telegram-debug-androidTest.apk
+            providers/docs/sbom.cdx.json
+            providers/LICENSE
+            providers/LICENSES/MLKIT-EXCEPTION.txt
+            providers/THIRD_PARTY_NOTICES.md
+
+  container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [linux/amd64, linux/arm64]
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Build and exercise MCP image
+        run: |
+          image="codex-mobile-plugins:verify"
+          docker buildx build --platform "${{ matrix.platform }}" --load --tag "$image" .
+          bash scripts/verify-mcp.sh "$image"

@@ -18,7 +18,7 @@ case "$variant" in
     tasks=(
       :provider_documents:assembleRelease
       :provider_telegram:assembleRelease
-      :app:android:bundleRelease
+      :app:android:assembleRelease
     )
     ;;
   *) echo "Usage: $0 [codex-mobile-checkout] [debug|release]" >&2; exit 2 ;;

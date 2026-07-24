@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import pathlib
 import re
@@ -85,9 +86,26 @@ bom = {
     "specVersion": "1.5",
     "serialNumber": "urn:uuid:9bf34c77-c739-4621-91cb-1b1488b41aa9",
     "version": 1,
-    "metadata": {"component": {"type": "application", "name": "codex-mobile-plugins", "version": "1.0.0"}},
+    "metadata": {"component": {
+        "type": "application",
+        "name": "codex-mobile-plugins",
+        "version": "1.0.0",
+        "licenses": [{"license": {"id": "GPL-3.0-or-later"}}],
+        "properties": [{
+            "name": "codex-mobile:additional-permission",
+            "value": "LICENSES/MLKIT-EXCEPTION.txt",
+        }],
+    }},
     "components": [components[key] for key in sorted(components)],
 }
 destination = root / "docs/sbom.cdx.json"
 destination.parent.mkdir(exist_ok=True)
-destination.write_text(json.dumps(bom, indent=2) + "\n")
+generated = json.dumps(bom, indent=2) + "\n"
+parser = argparse.ArgumentParser()
+parser.add_argument("--check", action="store_true")
+args = parser.parse_args()
+if args.check:
+    if not destination.is_file() or destination.read_text() != generated:
+        raise SystemExit("docs/sbom.cdx.json is stale; run scripts/generate-sbom.py")
+else:
+    destination.write_text(generated)

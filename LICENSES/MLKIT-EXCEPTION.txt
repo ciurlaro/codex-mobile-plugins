@@ -1,0 +1,24 @@
+Additional permission under GNU GPL version 3 section 7
+
+If you modify Codex Mobile Plugins, or any covered work, by linking or combining
+it with the unmodified Google ML Kit Android OCR runtime selected by
+com.google.mlkit:text-recognition:16.0.1 and its exact runtime dependencies
+recorded in the corresponding release SBOM (the "ML Kit Runtime"), the
+licensors of Codex Mobile Plugins grant you additional permission to convey the
+resulting work.
+
+This permission applies only when the ML Kit Runtime is used through its
+published Android APIs to provide the Documents provider's on-device text
+recognition. It does not permit linking with another nonfree library, does not
+grant rights in the ML Kit Runtime itself, and does not replace the ML Kit
+Terms of Service, the Android Software Development Kit License, or any other
+terms that apply to those components.
+
+Corresponding Source for a combination covered by this permission need not
+include source code for the unmodified ML Kit Runtime where that source is not
+available to the distributor.
+
+This exception is an additional permission under section 7 of the GNU General
+Public License, version 3. Recipients may remove it from a modified version;
+without it, that version may not be conveyed in combination with the ML Kit
+Runtime unless another applicable permission allows it.

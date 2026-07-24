@@ -7,7 +7,20 @@
     "component": {
       "type": "application",
       "name": "codex-mobile-plugins",
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "codex-mobile:additional-permission",
+          "value": "LICENSES/MLKIT-EXCEPTION.txt"
+        }
+      ]
     }
   },
   "components": [

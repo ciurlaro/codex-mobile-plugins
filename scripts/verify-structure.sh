@@ -4,6 +4,12 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
 
+test -f LICENSE
+test -f LICENSES/MLKIT-EXCEPTION.txt
+test -f THIRD_PARTY_NOTICES.md
+grep -q 'GNU GENERAL PUBLIC LICENSE' LICENSE
+grep -q 'GNU GPL version 3 section 7' LICENSES/MLKIT-EXCEPTION.txt
+
 test -f .agents/plugins/marketplace.json
 for plugin in documents telegram; do
   test -f ".agents/plugins/plugins/$plugin/.codex-plugin/plugin.json"
@@ -13,6 +19,8 @@ for plugin in documents telegram; do
   python3 -m json.tool ".agents/plugins/plugins/$plugin/.codex-plugin/plugin.json" >/dev/null
   python3 -m json.tool ".agents/plugins/plugins/$plugin/.mcp.json" >/dev/null
   python3 -m json.tool ".agents/plugins/plugins/$plugin/codex-mobile-addon.json" >/dev/null
+  grep -q '"license": "GPL-3.0-or-later"' ".agents/plugins/plugins/$plugin/.codex-plugin/plugin.json"
+  grep -q '"versionCode": 4' ".agents/plugins/plugins/$plugin/codex-mobile-addon.json"
 done
 
 test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/DocumentsTools.kt
@@ -23,7 +31,9 @@ test -f mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/
 test -f Dockerfile
 test -x scripts/verify-mcp.sh
 test -x scripts/verify-release-artifacts.sh
+test -x scripts/write-release-metadata.py
 test -f .github/workflows/verify.yml
+test -f .github/workflows/release.yml
 
 if rg -n 'ProcessBuilder|Runtime\.getRuntime\(\)\.exec|java\.lang\.Process|/bin/(sh|bash)' android --glob '!**/build/**'; then
   echo "Android providers must not launch helper processes" >&2
@@ -47,6 +57,7 @@ if rg -n 'CODEX_MOBILE_TELEGRAM_API_|buildConfigField\([^\n]*TELEGRAM_API_|TELEG
   exit 1
 fi
 grep -q 'TDLIB_COMMIT' android/telegram/build.gradle.kts
+grep -q 'org.opencontainers.image.licenses="GPL-3.0-or-later"' Dockerfile
 grep -q -- '--target tdjson_static' Dockerfile
 grep -q -- '-DTD_ENABLE_JNI=ON' Dockerfile
 grep -q -- '-DTD_INSTALL_SHARED_LIBRARIES=OFF' Dockerfile
@@ -57,5 +68,11 @@ fi
 grep -q 'schemaDigest' .agents/plugins/plugins/documents/codex-mobile-addon.json
 grep -q 'schemaDigest' .agents/plugins/plugins/telegram/codex-mobile-addon.json
 grep -q -- '--dependency-verification=off' scripts/build-android-providers.sh
+grep -q '9c7d18ee07ea52cd55f8e7f7523259f19e4f9c7f' .github/workflows/verify.yml
+if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
+  echo "GitHub Actions must be pinned to immutable revisions" >&2
+  exit 1
+fi
+scripts/generate-sbom.py --check
 
 echo "Provider structure verified."

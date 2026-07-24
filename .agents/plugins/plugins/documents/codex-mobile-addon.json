@@ -5,7 +5,7 @@
     "max": 2
   },
   "host": {
-    "versionCode": 3
+    "versionCode": 4
   },
   "pluginId": "documents@codex-mobile",
   "implementationVersion": "1.0.0",
@@ -23,7 +23,7 @@
       "arm64-v8a"
     ],
     "package": {
-      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.1/provider_documents.apk",
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.2/provider_documents.apk",
       "sha256": "f015532284f2c5a7c155377469b529694bfebad768afd61737ef23f891c34405"
     }
   }

@@ -31,12 +31,12 @@ verify_feature() {
   local plugin=$1 split=$2 apk=$3 manifest entries expected_sha actual_sha
   manifest=$("$tools/aapt2" dump xmltree "$apk" --file AndroidManifest.xml)
   grep -q 'package="io.github.ciurlaro.codexmobile"' <<<"$manifest"
-  grep -q 'versionCode.*=3' <<<"$manifest"
+  grep -q 'versionCode.*=4' <<<"$manifest"
   grep -q "split=\"$split\"" <<<"$manifest"
   entries=$(unzip -Z1 "$apk")
   ! grep -Eqi 'mutool|tesseract|officecli|tg_?cli|node_modules|(^|/)node($|/)|(^|/)npm($|/)|private-backend' <<<"$entries"
   expected_sha=$(jq -r '.android.package.sha256' "$root/.agents/plugins/plugins/$plugin/codex-mobile-addon.json")
-  actual_sha=$(shasum -a 256 "$apk" | cut -d' ' -f1)
+  actual_sha=$(sha256sum "$apk" | cut -d' ' -f1)
   test "$actual_sha" = "$expected_sha"
 }
 
