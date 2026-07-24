@@ -45,8 +45,8 @@ class TelegramProvider(context: Context) : CodexMobileProvider {
         implementationVersion = "1.0.0",
         tools = telegramTools.map { BuiltInToolDefinition(it.pluginId, it.name, it.description, it.inputSchema, it.mutation) },
         providerApi = 2,
-        minHostVersionCode = 3,
-        maxHostVersionCode = 3,
+        minHostVersionCode = 4,
+        maxHostVersionCode = 4,
         displayName = "Telegram",
         settingsEntryPoint = "io.github.ciurlaro.codexmobile.providers.telegram.TelegramSettingsActivity",
         secrets = listOf(

@@ -27,6 +27,10 @@ test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/do
 test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramTools.kt
 test -f android/documents/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/DocumentsProvider.kt
 test -f android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/TelegramProvider.kt
+for provider in android/{documents,telegram}/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*Provider.kt; do
+  grep -q 'minHostVersionCode = 4' "$provider"
+  grep -q 'maxHostVersionCode = 4' "$provider"
+done
 test -f mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
 test -f Dockerfile
 test -x scripts/verify-mcp.sh
