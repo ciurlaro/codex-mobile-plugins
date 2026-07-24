@@ -42,7 +42,7 @@ jobs:
           providers/scripts/build-android-providers.sh host debug
           host/gradlew -p host --dependency-verification=off \
             "-PcodexMobile.providerProjects=$GITHUB_WORKSPACE/providers/android/documents|$GITHUB_WORKSPACE/providers/android/telegram" \
-            :provider_documents:lintDebug :provider_telegram:lintDebug
+            :provider_documents:lintAnalyzeDebug :provider_telegram:lintAnalyzeDebug
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: provider-android-tests
