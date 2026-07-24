@@ -41,7 +41,7 @@ jobs:
       - name: Install Android toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install --yes libarchive-tools ninja-build patchelf ripgrep zip
+          sudo apt-get install --yes gperf libarchive-tools ninja-build patchelf ripgrep zip
           sdkmanager "platforms;android-37.0" "build-tools;36.0.0" "ndk;29.0.14206865"
       - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
       - name: Create ephemeral build key
