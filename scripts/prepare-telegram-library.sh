@@ -31,7 +31,7 @@ download() {
   printf '%s  %s\n' "$sha" "$target" | shasum -a 256 --check --status
 }
 
-download "https://github.com/tdlib/td/archive/$td_commit.tar.gz" "$td_sha256" "$work/tdlib.tar.gz"
+download "https://codeload.github.com/tdlib/td/tar.gz/$td_commit" "$td_sha256" "$work/tdlib.tar.gz"
 mkdir "$work/source"
 tar -xzf "$work/tdlib.tar.gz" -C "$work/source" --strip-components=1
 grep -Fq "project(TDLib VERSION $td_version" "$work/source/CMakeLists.txt"

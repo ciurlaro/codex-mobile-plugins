@@ -29,7 +29,7 @@ RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     && ./config no-shared no-module no-legacy no-tests no-apps no-docs --prefix=/opt/openssl --libdir=lib \
     && make -s -j"$(nproc)" install_sw
 RUN curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors --proto '=https' --tlsv1.2 \
-        https://github.com/tdlib/td/archive/022d60202e446ad1287b9fb68e687c8a0760788b.tar.gz \
+        https://codeload.github.com/tdlib/td/tar.gz/022d60202e446ad1287b9fb68e687c8a0760788b \
         --output tdlib.tar.gz \
     && echo 'b0837cd880a6de8d45abdfd5024fe0f042c100eb5f241a5f185ba65579acfc32  tdlib.tar.gz' | sha256sum --check \
     && mkdir tdlib-source && tar -xzf tdlib.tar.gz -C tdlib-source --strip-components=1 \
