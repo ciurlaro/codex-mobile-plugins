@@ -1,13 +1,14 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:17-jdk-jammy@sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94 AS kotlin-build
+FROM gradle:9.4.1-jdk17-jammy@sha256:9b07999154cd6688633b38209ef417269c7fa102ab59b90005b5ab9ec4396bbb AS kotlin-build
+USER root
 WORKDIR /source
-COPY gradlew gradlew.bat settings.gradle.kts build.gradle.kts gradle.properties ./
+COPY settings.gradle.kts build.gradle.kts gradle.properties ./
 COPY gradle ./gradle
 COPY shared ./shared
 COPY mcp-server ./mcp-server
 RUN --mount=type=cache,id=codex-mobile-provider-gradle,target=/root/.gradle \
-    ./gradlew --no-daemon :mcp-server:installDist
+    gradle --no-daemon :mcp-server:installDist
 
 FROM eclipse-temurin:17-jdk-jammy@sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94 AS tdlib-build
 ARG DEBIAN_FRONTEND=noninteractive
@@ -17,16 +18,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /build
 RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     --mount=type=cache,id=codex-mobile-tdlib-java,target=/build/tdlib-java \
-    curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
-        https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz \
+    curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors \
+        --header 'Accept: application/octet-stream' --header 'X-GitHub-Api-Version: 2022-11-28' \
+        --proto '=https' --tlsv1.2 \
+        https://api.github.com/repos/openssl/openssl/releases/assets/442677812 \
         --output openssl.tar.gz \
     && echo 'a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8  openssl.tar.gz' | sha256sum --check \
     && mkdir openssl-source && tar -xzf openssl.tar.gz -C openssl-source --strip-components=1 \
     && cd openssl-source \
     && ./config no-shared no-module no-legacy no-tests no-apps no-docs --prefix=/opt/openssl --libdir=lib \
     && make -s -j"$(nproc)" install_sw
-RUN curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
-        https://github.com/tdlib/td/archive/022d60202e446ad1287b9fb68e687c8a0760788b.tar.gz \
+RUN curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors --proto '=https' --tlsv1.2 \
+        https://codeload.github.com/tdlib/td/tar.gz/022d60202e446ad1287b9fb68e687c8a0760788b \
         --output tdlib.tar.gz \
     && echo 'b0837cd880a6de8d45abdfd5024fe0f042c100eb5f241a5f185ba65579acfc32  tdlib.tar.gz' | sha256sum --check \
     && mkdir tdlib-source && tar -xzf tdlib.tar.gz -C tdlib-source --strip-components=1 \

@@ -25,11 +25,13 @@ work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 download() {
   local url=$1 sha=$2 target=$3
-  curl --fail --location --proto '=https' --tlsv1.2 "$url" --output "$target"
+  curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors \
+    --header 'Accept: application/octet-stream' --header 'X-GitHub-Api-Version: 2022-11-28' \
+    --proto '=https' --tlsv1.2 "$url" --output "$target"
   printf '%s  %s\n' "$sha" "$target" | shasum -a 256 --check --status
 }
 
-download "https://github.com/tdlib/td/archive/$td_commit.tar.gz" "$td_sha256" "$work/tdlib.tar.gz"
+download "https://codeload.github.com/tdlib/td/tar.gz/$td_commit" "$td_sha256" "$work/tdlib.tar.gz"
 mkdir "$work/source"
 tar -xzf "$work/tdlib.tar.gz" -C "$work/source" --strip-components=1
 grep -Fq "project(TDLib VERSION $td_version" "$work/source/CMakeLists.txt"
@@ -39,7 +41,7 @@ mkdir "$work/source/.git"
 printf '%s\n' "$td_commit" > "$work/source/.git/HEAD"
 
 download \
-  "https://github.com/openssl/openssl/releases/download/openssl-$openssl_version/openssl-$openssl_version.tar.gz" \
+  "https://api.github.com/repos/openssl/openssl/releases/assets/442677812" \
   "$openssl_sha256" "$work/openssl.tar.gz"
 mkdir "$work/openssl-source" "$work/openssl"
 tar -xzf "$work/openssl.tar.gz" -C "$work/openssl-source" --strip-components=1
