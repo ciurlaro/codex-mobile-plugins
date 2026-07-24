@@ -73,7 +73,7 @@ docker build -t codex-mobile-plugins:local .
 bash scripts/verify-mcp.sh
 ```
 
-GitHub Actions is authoritative for the full Android, emulator, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
+GitHub Actions is authoritative for Android instrumentation builds, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
 
 `build-android-providers.sh` uses the generic provider-project hook in the exact
 host checkout because Android dynamic-feature modules must compile with their
