@@ -12,6 +12,7 @@ grep -q 'GNU GPL version 3 section 7' LICENSES/MLKIT-EXCEPTION.txt
 
 test -f .agents/plugins/marketplace.json
 for plugin in documents telegram; do
+  grep -q '"path": "\./\.agents/plugins/plugins/'"$plugin"'"' .agents/plugins/marketplace.json
   test -f ".agents/plugins/plugins/$plugin/.codex-plugin/plugin.json"
   test -f ".agents/plugins/plugins/$plugin/.mcp.json"
   test -f ".agents/plugins/plugins/$plugin/codex-mobile-addon.json"
