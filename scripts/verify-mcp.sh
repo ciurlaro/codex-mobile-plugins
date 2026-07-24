@@ -32,7 +32,7 @@ verify() {
   cid=$(<"$cidfile")
   active_cid=$cid
   valid "$output" "$expected"
-  "$docker_bin" stop -t 1 "$cid" >/dev/null
+  "$docker_bin" stop -t 1 "$cid" >/dev/null 2>&1 || true
   wait "$client" || true
   active_cid=
 }
