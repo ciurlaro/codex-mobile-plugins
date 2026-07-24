@@ -49,8 +49,9 @@ RUN curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1
 
 FROM eclipse-temurin:17-jre-jammy@sha256:475d8e96b4b2bfe08999e5e854755c773af1581acdf959a4545d88f0696a2339
 ARG DEBIAN_FRONTEND=noninteractive
-ARG CODEX_MOBILE_TELEGRAM_API_ID=""
-ARG CODEX_MOBILE_TELEGRAM_API_HASH=""
+LABEL org.opencontainers.image.source="https://github.com/ciurlaro/codex-mobile-plugins" \
+      org.opencontainers.image.version="1.0.0" \
+      org.opencontainers.image.licenses="Apache-2.0"
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates fontconfig fonts-dejavu-core libgomp1 libtesseract4 zlib1g \
     && rm -rf /var/lib/apt/lists/*
@@ -60,11 +61,10 @@ ADD --checksum=sha256:7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a5213255642
     /opt/tessdata/eng.traineddata
 COPY --from=kotlin-build /source/mcp-server/build/install/mcp-server /opt/provider
 COPY --from=tdlib-build /opt/tdlib/libtdjsonjava.so /opt/provider/lib/native/libtdjsonjava.so
+COPY THIRD_PARTY_NOTICES.md /opt/provider/THIRD_PARTY_NOTICES.md
 ENV CODEX_MCP_WORKSPACE=/workspace \
     CODEX_MCP_STATE=/state \
     JAVA_OPTS="-Djava.awt.headless=true -Djava.library.path=/opt/provider/lib/native" \
-    TESSDATA_PREFIX=/opt/tessdata \
-    TELEGRAM_API_ID="$CODEX_MOBILE_TELEGRAM_API_ID" \
-    TELEGRAM_API_HASH="$CODEX_MOBILE_TELEGRAM_API_HASH"
+    TESSDATA_PREFIX=/opt/tessdata
 WORKDIR /workspace
 ENTRYPOINT ["/opt/provider/bin/mcp-server"]

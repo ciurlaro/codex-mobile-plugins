@@ -2,7 +2,10 @@ package io.github.ciurlaro.codexmobile.platform.android
 
 import android.content.Context
 import io.github.ciurlaro.codexmobile.agent.codex.ProviderRemovalResult
+import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecrets
 import io.github.ciurlaro.codexmobile.providers.telegram.BuildConfig
+import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_HASH_SECRET
+import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_ID_SECRET
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -13,16 +16,15 @@ import org.json.JSONObject
 
 internal class TelegramIntegration(
     context: Context,
+    private val credentials: TelegramCredentials,
 ) : TelegramClient {
     private val store = TelegramSessionStore(context)
-    private val apiId = BuildConfig.TELEGRAM_API_ID.toIntOrNull()
-    private val apiHash = BuildConfig.TELEGRAM_API_HASH
     private var activeAuthority: TelegramAuthority? = null
     private var activeSession: TdLibSession? = null
     private var authentication: Authentication? = null
 
     override val available: Boolean
-        get() = apiId?.let { it > 0 } == true && apiHash.isNotBlank()
+        get() = credentials.valid
 
     @Synchronized
     override fun status(): TelegramStatus {
@@ -38,7 +40,7 @@ internal class TelegramIntegration(
 
     @Synchronized
     override fun startAuthentication(phoneNumber: String): TelegramAuthSession {
-        check(available) { "Telegram credentials are not configured in this build" }
+        check(available) { "Telegram application credentials are not configured" }
         require(PHONE.matches(phoneNumber.trim())) { "Use an international phone number such as +41790000000" }
         check(authentication == null) { "Telegram authentication is already active" }
         val (authority, directory) = store.createStaging()
@@ -258,7 +260,7 @@ internal class TelegramIntegration(
 
     @Synchronized
     private fun healthySession(): TdLibSession {
-        check(available) { "Telegram is unavailable in this build" }
+        check(available) { "Telegram application credentials are required" }
         val authority = store.authority() ?: error("Telegram authentication is required")
         if (activeAuthority?.sessionId != authority.sessionId || activeSession == null) {
             closeActive()
@@ -279,10 +281,16 @@ internal class TelegramIntegration(
     private fun openSession(authority: TelegramAuthority, directory: File) = TdLibSession(
         directory = directory,
         encryptionKey = authority.encryptionKey,
-        apiId = checkNotNull(apiId),
-        apiHash = apiHash,
+        apiId = checkNotNull(credentials.apiId),
+        apiHash = credentials.apiHash,
         applicationVersion = "Codex Mobile TDLib ${BuildConfig.TDLIB_VERSION}",
     )
+
+    @Synchronized
+    fun close() {
+        authentication?.cancel()
+        closeActive()
+    }
 
     private fun closeActive() {
         activeSession?.close()
@@ -366,6 +374,21 @@ internal class TelegramIntegration(
 
     private companion object {
         val PHONE = Regex("^\\+[1-9][0-9]{6,14}$")
+    }
+}
+
+internal data class TelegramCredentials(
+    val apiId: Int?,
+    val apiHash: String,
+) {
+    val valid: Boolean
+        get() = apiId?.let { it > 0 } == true && apiHash.matches(Regex("[0-9a-fA-F]{32}"))
+
+    companion object {
+        fun from(secrets: ProviderSecrets) = TelegramCredentials(
+            secrets.get(TELEGRAM_API_ID_SECRET)?.toIntOrNull(),
+            secrets.get(TELEGRAM_API_HASH_SECRET).orEmpty(),
+        )
     }
 }
 

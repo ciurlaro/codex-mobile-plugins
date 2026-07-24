@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ciurlaro/codex-mobile
-          ref: 845d022d86465ccd09d12252dfd3a3b4ac0f792e
+          ref: 967bfc422b6bd041be9741adac98f02a4bb9780b
           path: host
       - uses: actions/setup-java@v4
         with:

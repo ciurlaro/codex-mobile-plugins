@@ -8,6 +8,10 @@ import io.github.ciurlaro.codexmobile.agent.codex.CodexMobileProvider
 import io.github.ciurlaro.codexmobile.agent.codex.ProviderDescriptor
 import io.github.ciurlaro.codexmobile.agent.codex.ProviderContext
 import io.github.ciurlaro.codexmobile.agent.codex.ProviderRemovalResult
+import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecretDefinition
+import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecrets
+import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_HASH_SECRET
+import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_ID_SECRET
 import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_PLUGIN_ID
 import io.github.ciurlaro.codexmobile.providers.telegram.telegramTools
 import java.io.File
@@ -31,7 +35,8 @@ import org.json.JSONObject
 
 class TelegramProvider(context: Context) : CodexMobileProvider {
     private val appContext = context.applicationContext
-    private val telegram = TelegramIntegration(appContext)
+    private lateinit var telegram: TelegramIntegration
+    private var activeCredentials: TelegramCredentials? = null
     private val workspace = WorkspaceManager(appContext)
     private val journal = BuiltInMutationJournal(appContext)
 
@@ -39,17 +44,30 @@ class TelegramProvider(context: Context) : CodexMobileProvider {
         pluginId = TELEGRAM_PLUGIN_ID,
         implementationVersion = "1.0.0",
         tools = telegramTools.map { BuiltInToolDefinition(it.pluginId, it.name, it.description, it.inputSchema, it.mutation) },
-        providerApi = 1,
+        providerApi = 2,
         minHostVersionCode = 3,
         maxHostVersionCode = 3,
         displayName = "Telegram",
         settingsEntryPoint = "io.github.ciurlaro.codexmobile.providers.telegram.TelegramSettingsActivity",
+        secrets = listOf(
+            ProviderSecretDefinition(
+                TELEGRAM_API_ID_SECRET,
+                "Telegram API ID",
+                "Application ID from my.telegram.org",
+            ),
+            ProviderSecretDefinition(
+                TELEGRAM_API_HASH_SECRET,
+                "Telegram API hash",
+                "Application hash from my.telegram.org",
+            ),
+        ),
     )
 
     override suspend fun execute(
         call: BuiltInToolCall,
         context: ProviderContext,
     ): BuiltInToolResult = withContext(Dispatchers.IO) {
+        configure(context.secrets)
         when (call.tool) {
             "telegram_list_chats" -> listChats(call)
             "telegram_list_messages" -> listMessages(call)
@@ -62,19 +80,29 @@ class TelegramProvider(context: Context) : CodexMobileProvider {
         }
     }
 
-    override suspend fun replay(call: BuiltInToolCall): BuiltInToolResult? = withContext(Dispatchers.IO) {
+    override suspend fun replay(call: BuiltInToolCall, context: ProviderContext): BuiltInToolResult? = withContext(Dispatchers.IO) {
         if (call.tool !in MUTATIONS) return@withContext null
         val existing = journal.find(call) ?: return@withContext null
         when (existing.state) {
             MutationState.PREPARED -> null
             MutationState.SUCCEEDED, MutationState.FAILED, MutationState.INDETERMINATE ->
                 checkNotNull(existing.result) { "Mutation journal terminal result is missing" }
-            MutationState.DISPATCHED -> execute(call, ProviderContext {})
+            MutationState.DISPATCHED -> execute(call, context)
         }
     }
 
-    override suspend fun prepareUninstall(): ProviderRemovalResult = withContext(Dispatchers.IO) {
+    override suspend fun prepareUninstall(context: ProviderContext): ProviderRemovalResult = withContext(Dispatchers.IO) {
+        configure(context.secrets)
         telegram.prepareRemoval()
+    }
+
+    @Synchronized
+    private fun configure(secrets: ProviderSecrets) {
+        val credentials = TelegramCredentials.from(secrets)
+        if (credentials == activeCredentials) return
+        if (::telegram.isInitialized) telegram.close()
+        telegram = TelegramIntegration(appContext, credentials)
+        activeCredentials = credentials
     }
 
     private fun listChats(call: BuiltInToolCall): BuiltInToolResult {

@@ -18,7 +18,10 @@ verify() {
       '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"provider-verifier","version":"1"}}}' \
       '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
       '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' |
-      "$docker_bin" run --rm -i --cidfile "$cidfile" -e "CODEX_PROVIDER=$provider" "$image" >"$output"
+      "$docker_bin" run --rm -i --cidfile "$cidfile" \
+        --cap-drop=ALL --security-opt=no-new-privileges --read-only \
+        --tmpfs /tmp:rw,noexec,nosuid,size=256m --tmpfs /state:rw,noexec,nosuid,size=64m \
+        --pids-limit=256 -e "CODEX_PROVIDER=$provider" "$image" >"$output"
   ) &
   client=$!
   for ((attempt = 0; attempt < 100; attempt++)); do

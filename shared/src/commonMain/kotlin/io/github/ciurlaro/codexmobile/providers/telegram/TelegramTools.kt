@@ -15,6 +15,8 @@ data class TelegramTool(
 )
 
 const val TELEGRAM_PLUGIN_ID = "telegram@codex-mobile"
+const val TELEGRAM_API_ID_SECRET = "api_id"
+const val TELEGRAM_API_HASH_SECRET = "api_hash"
 
 val telegramTools = listOf(
     TelegramTool(TELEGRAM_PLUGIN_ID, "telegram_list_chats", "List bounded Telegram chats.", chatsSchema()),

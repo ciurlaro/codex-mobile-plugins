@@ -35,7 +35,7 @@ internal class TelegramIntegration(
 
     @Synchronized
     override fun startAuthentication(phoneNumber: String): TelegramAuthSession {
-        check(available) { "Telegram credentials are not configured in this build" }
+        check(available) { "Telegram application credentials are not configured" }
         require(PHONE.matches(phoneNumber.trim())) { "Use an international phone number such as +41790000000" }
         check(authentication == null) { "Telegram authentication is already active" }
         val (authority, directory) = store.createStaging()
@@ -211,7 +211,7 @@ internal class TelegramIntegration(
 
     @Synchronized
     private fun healthySession(): TdLibSession {
-        check(available) { "Telegram is unavailable in this build" }
+        check(available) { "Telegram application credentials are required" }
         val authority = store.authority() ?: error("Telegram authentication is required")
         if (activeAuthority?.sessionId != authority.sessionId || activeSession == null) {
             closeActive()

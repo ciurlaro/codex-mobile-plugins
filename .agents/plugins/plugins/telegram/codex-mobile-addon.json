@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "providerApi": {
-    "min": 1,
-    "max": 1
+    "min": 2,
+    "max": 2
   },
   "host": {
     "versionCode": 3
@@ -25,7 +25,7 @@
     ],
     "package": {
       "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.1/provider_telegram.apk",
-      "sha256": "983693de41a737350f962b02974d1edfed8d980d43c73a6e57e5aca45591af85"
+      "sha256": "44a03c5abb60c7eb3cdf6463d0cbbe7e82073df8199262802be14034cc20cf75"
     }
   }
 }

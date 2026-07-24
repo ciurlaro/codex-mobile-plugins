@@ -37,11 +37,13 @@ fi
 
 grep -q 'io.modelcontextprotocol:kotlin-sdk-server:0.14.0' mcp-server/build.gradle.kts
 grep -q 'kotlin-logging.logStartupMessage' mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
+grep -q 'COPY THIRD_PARTY_NOTICES.md /opt/provider/THIRD_PARTY_NOTICES.md' Dockerfile
 grep -q 'network=none' .agents/plugins/plugins/documents/.mcp.json
-grep -q 'CODEX_MOBILE_TELEGRAM_API_ID' Dockerfile
-grep -q 'CODEX_MOBILE_TELEGRAM_API_HASH' Dockerfile
-if rg -n -- '-e TELEGRAM_API_(ID|HASH)' .agents/plugins; then
-  echo "Published Telegram application credentials belong in the provider image, not user configuration" >&2
+grep -q -- '-e TELEGRAM_API_ID -e TELEGRAM_API_HASH' .agents/plugins/plugins/telegram/.mcp.json
+grep -q 'ProviderSecretDefinition' android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/TelegramProvider.kt
+if rg -n 'CODEX_MOBILE_TELEGRAM_API_|buildConfigField\([^\n]*TELEGRAM_API_|TELEGRAM_API_(ID|HASH)=' \
+    Dockerfile android .agents --glob '!**/build/**'; then
+  echo "Telegram application credentials must be supplied per installation, not embedded in artifacts" >&2
   exit 1
 fi
 grep -q 'TDLIB_COMMIT' android/telegram/build.gradle.kts

@@ -46,7 +46,7 @@ class DocumentsProvider(context: Context) : CodexMobileProvider {
         pluginId = DOCUMENTS_PLUGIN_ID,
         implementationVersion = "1.0.0",
         tools = documentsTools.map { BuiltInToolDefinition(it.pluginId, it.name, it.description, it.inputSchema, it.mutation) },
-        providerApi = 1,
+        providerApi = 2,
         minHostVersionCode = 3,
         maxHostVersionCode = 3,
         displayName = "Documents",
@@ -64,18 +64,18 @@ class DocumentsProvider(context: Context) : CodexMobileProvider {
         }
     }
 
-    override suspend fun replay(call: BuiltInToolCall): BuiltInToolResult? = withContext(Dispatchers.IO) {
+    override suspend fun replay(call: BuiltInToolCall, context: ProviderContext): BuiltInToolResult? = withContext(Dispatchers.IO) {
         if (call.tool != "documents_edit") return@withContext null
         val existing = journal.find(call) ?: return@withContext null
         when (existing.state) {
             MutationState.PREPARED -> null
             MutationState.SUCCEEDED, MutationState.FAILED, MutationState.INDETERMINATE ->
                 checkNotNull(existing.result) { "Mutation journal terminal result is missing" }
-            MutationState.DISPATCHED -> execute(call, ProviderContext {})
+            MutationState.DISPATCHED -> execute(call, context)
         }
     }
 
-    override suspend fun prepareUninstall(): ProviderRemovalResult = withContext(Dispatchers.IO) {
+    override suspend fun prepareUninstall(context: ProviderContext): ProviderRemovalResult = withContext(Dispatchers.IO) {
         check(snapshots.directory.deleteRecursively() || !snapshots.directory.exists()) {
             "Document snapshots could not be removed"
         }

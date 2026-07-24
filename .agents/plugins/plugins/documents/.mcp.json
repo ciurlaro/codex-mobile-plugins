@@ -4,7 +4,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "workspace=\"${CODEX_MCP_WORKSPACE:-$PWD}\"; exec docker run --rm -i --pull=missing --network=none -v \"$workspace:/workspace\" -v codex-mobile-documents:/state -e CODEX_MCP_HOST_WORKSPACE=\"$workspace\" ghcr.io/ciurlaro/codex-mobile-plugins:1.0.0 documents"
+        "workspace=\"${CODEX_MCP_WORKSPACE:-$PWD}\"; exec docker run --rm -i --pull=missing --network=none --cap-drop=ALL --security-opt=no-new-privileges --read-only --tmpfs /tmp:rw,noexec,nosuid,size=256m --pids-limit=256 -v \"$workspace:/workspace\" -v codex-mobile-documents:/state -e CODEX_MCP_HOST_WORKSPACE=\"$workspace\" ghcr.io/ciurlaro/codex-mobile-plugins:1.0.0 documents"
       ]
     }
   }

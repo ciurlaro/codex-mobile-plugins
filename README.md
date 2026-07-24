@@ -15,6 +15,9 @@ https://github.com/ciurlaro/codex-mobile-plugins
 Select a plugin and approve Android's package installation prompt. The app
 restarts, verifies the split against the plugin schema and host version, disables
 the plugin's MCP process on Android, and finishes the standard plugin install.
+Telegram then asks for the application's API ID and API hash in its Settings
+screen. Codex Mobile encrypts them in Telegram's own Android Keystore-backed
+secret namespace; they are not part of the feature APK.
 
 Desktop Codex uses the same marketplace:
 
@@ -25,14 +28,21 @@ codex plugin marketplace add https://github.com/ciurlaro/codex-mobile-plugins.gi
 The standard bundles start `ghcr.io/ciurlaro/codex-mobile-plugins:1.0.0` over
 stdio. Docker must be installed. Documents mounts the current workspace and has
 networking disabled. Telegram persists its TDLib session in a named Docker
-volume. The official image contains the publisher's Telegram application ID and
-hash; users authenticate only with their phone, code, and optional password.
-Connect once before using its tools:
+volume and reads its separately supplied application credentials from the
+desktop environment. Connect once before using its tools:
 
 ```sh
+export TELEGRAM_API_ID=...
+export TELEGRAM_API_HASH=...
 docker run --rm -it -v codex-mobile-telegram:/state \
+  -e TELEGRAM_API_ID -e TELEGRAM_API_HASH \
   ghcr.io/ciurlaro/codex-mobile-plugins:1.0.0 telegram-auth
 ```
+
+Obtain one application credential pair from
+[`my.telegram.org`](https://my.telegram.org). It identifies the Telegram client,
+not the user's authenticated session. Keep these variables available when Codex
+starts the Telegram MCP provider.
 
 ## Repository layout
 
@@ -71,41 +81,37 @@ the provider repository's locked and audited dependency inventory rather than
 copying provider checksums into the host.
 
 The `1.0.0` Android provider release targets Codex Mobile host version code 3 at
-commit `845d022d86465ccd09d12252dfd3a3b4ac0f792e`. CI checks out that exact generic
+commit `967bfc422b6bd041be9741adac98f02a4bb9780b`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
-For release builds, pass `release`, the matching host signing properties, and
-publisher-owned `CODEX_MOBILE_TELEGRAM_API_ID` and
-`CODEX_MOBILE_TELEGRAM_API_HASH` secrets. The signed Telegram split embeds
-those application credentials so end users authenticate with only their phone,
-code, and optional password. Publish the feature APKs only after
+For release builds, pass `release` and the matching host signing properties.
+Application credentials are configured per installed plugin and never enter the
+build. Publish the feature APKs only after
 `scripts/write-addon-checksums.py` records their exact SHA-256 values in the
 add-on manifests. Before upload, run `scripts/verify-release-artifacts.sh` with
 the signed host, Documents, and Telegram APKs; it verifies the common signer,
 package/version/split identity, manifest hashes, native allowlists, and absence
 of retired helper payloads.
 
-Build the official MCP image with the same publisher-owned application
-credentials:
+Build the MCP image without credentials:
 
 ```sh
-docker build \
-  --build-arg CODEX_MOBILE_TELEGRAM_API_ID \
-  --build-arg CODEX_MOBILE_TELEGRAM_API_HASH \
-  -t codex-mobile-plugins:local .
+docker build -t codex-mobile-plugins:local .
 ```
 
-These identify the published Telegram application and are embedded in both
-distributed clients; they are not user sessions or bot tokens. A custom image
-must supply its own values.
+The Telegram MCP process reads `TELEGRAM_API_ID` and `TELEGRAM_API_HASH` only at
+runtime. The image, repository, Android split, and add-on metadata contain no
+configured application credentials.
 
 ## Runtime behavior
 
 App Server plugin configuration is the sole enablement authority. Disabling a
-plugin revokes tool execution immediately but retains its split and data.
+plugin revokes tool execution immediately but retains its split, secret
+namespace, and data.
 Uninstall first disables the plugin. Documents removes its snapshots. Telegram
 must confirm remote logout before its split and local session can be removed;
 ambiguous revocation leaves removal pending for an explicit retry.
+The host deletes the plugin's secret namespace only after that cleanup succeeds.
 If an obsolete authorization cannot be identified by the current client, local
 cleanup reports that limitation and directs the user to Telegram's Devices
 screen rather than claiming remote revocation.
