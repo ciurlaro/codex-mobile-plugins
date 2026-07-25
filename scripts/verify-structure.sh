@@ -93,8 +93,8 @@ if rg -n 'project\(":(app:android|agent:codex|platform:android)"\)|codexMobile\.
   exit 1
 fi
 grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
-grep -q '84171210bedc07fc126402cf875b3fb9a880774d' .github/workflows/verify.yml
-grep -q '84171210bedc07fc126402cf875b3fb9a880774d' .github/workflows/release.yml
+grep -q 'a758b27742270b75b9446c4417a9d6d225753a8f' .github/workflows/verify.yml
+grep -q 'a758b27742270b75b9446c4417a9d6d225753a8f' .github/workflows/release.yml
 grep -q 'write-release-manifest.py' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2

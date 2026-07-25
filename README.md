@@ -88,7 +88,7 @@ or build directory enters the host graph. Gradle dependency verification stays
 enabled for the complete Android dependency closure.
 
 The `1.0.0` Android provider release targets Codex Mobile host version code 4 at
-commit `84171210bedc07fc126402cf875b3fb9a880774d`. CI checks out that exact generic
+commit `a758b27742270b75b9446c4417a9d6d225753a8f`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
 For release builds, pass `release` and the matching host signing properties.
