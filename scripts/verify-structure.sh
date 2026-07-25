@@ -100,6 +100,9 @@ grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
 grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/verify.yml
 grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/release.yml
 grep -q 'write-release-manifest.py' .github/workflows/release.yml
+grep -Fq 'path: candidate/host' .github/workflows/release.yml
+grep -Eq '^[[:space:]]+local input=\$1 output=\$2$' .github/workflows/release.yml
+grep -Eq '^[[:space:]]+local aligned=' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1
