@@ -12,6 +12,7 @@ import android.widget.TextView
 import io.github.ciurlaro.codexmobile.provider.api.ProviderSecrets
 import io.github.ciurlaro.codexmobile.platform.android.androidTelegramIntegration
 import io.github.ciurlaro.codexmobile.platform.android.telegramCredentials
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -123,17 +124,23 @@ abstract class TelegramSettingsActivityBase : Activity() {
     private fun changeCredentials() {
         changeCredentials.isEnabled = false
         scope.launch {
-            val result = withContext(Dispatchers.IO) { telegram.disconnect() }
-            if (result == TelegramDisconnectResult.INDETERMINATE) {
-                status.text = "Remote logout could not be confirmed; API credentials were not changed."
+            try {
+                val result = withContext(Dispatchers.IO) { telegram.disconnect() }
+                if (result == TelegramDisconnectResult.INDETERMINATE) {
+                    status.text = "Remote logout could not be confirmed; API credentials were not changed."
+                    return@launch
+                }
+                secrets.clear()
+                telegram.close()
+                telegram = androidTelegramIntegration(applicationContext, TelegramCredentials(null, ""))
+                refresh("Disconnected. Enter replacement Telegram application credentials.")
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                status.text = error.message ?: "Telegram API credentials could not be changed"
+            } finally {
                 changeCredentials.isEnabled = true
-                return@launch
             }
-            secrets.clear()
-            telegram.close()
-            telegram = androidTelegramIntegration(applicationContext, TelegramCredentials(null, ""))
-            refresh("Disconnected. Enter replacement Telegram application credentials.")
-            changeCredentials.isEnabled = true
         }
     }
 
@@ -182,10 +189,17 @@ abstract class TelegramSettingsActivityBase : Activity() {
     private fun disconnect() {
         disconnect.isEnabled = false
         scope.launch {
-            val result = withContext(Dispatchers.IO) { telegram.disconnect() }
-            refresh(if (result == TelegramDisconnectResult.CONFIRMED) "Disconnected"
-            else "Local session removed; remote logout could not be confirmed")
-            disconnect.isEnabled = true
+            try {
+                val result = withContext(Dispatchers.IO) { telegram.disconnect() }
+                refresh(if (result == TelegramDisconnectResult.CONFIRMED) "Disconnected"
+                else "Local session removed; remote logout could not be confirmed")
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                status.text = error.message ?: "Telegram could not be disconnected"
+            } finally {
+                disconnect.isEnabled = true
+            }
         }
     }
 }

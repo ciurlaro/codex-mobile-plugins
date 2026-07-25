@@ -13,6 +13,7 @@ import io.modelcontextprotocol.kotlin.sdk.types.ServerCapabilities
 import io.modelcontextprotocol.kotlin.sdk.types.TextContent
 import io.modelcontextprotocol.kotlin.sdk.types.ToolSchema
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -90,7 +91,10 @@ private suspend fun runProvider(args: Array<String>) {
             ) { request ->
                 val result = runCatching {
                     withContext(Dispatchers.IO) { backend.execute(tool.name, request.arguments ?: JsonObject(emptyMap())) }
-                }.getOrElse { error -> McpResult.text(error.message ?: "Provider operation failed", success = false) }
+                }.getOrElse { error ->
+                    if (error is CancellationException) throw error
+                    McpResult.text(error.message ?: "Provider operation failed", success = false)
+                }
                 CallToolResult(
                     content = result.content.map(McpContent::protocolContent),
                     isError = !result.success,
