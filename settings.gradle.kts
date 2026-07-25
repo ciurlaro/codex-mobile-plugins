@@ -15,5 +15,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "codex-mobile-plugins"
-include(":shared")
+providers.gradleProperty("codexMobile.providerApiBuild").orNull?.let(::includeBuild)
+include(":documents")
+include(":telegram")
 include(":mcp-server")
+include(":documents-android")
+project(":documents-android").projectDir = file("android/documents")
+include(":telegram-android")
+project(":telegram-android").projectDir = file("android/telegram")

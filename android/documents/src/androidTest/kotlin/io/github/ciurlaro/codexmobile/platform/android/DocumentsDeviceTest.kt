@@ -1,12 +1,13 @@
 package io.github.ciurlaro.codexmobile.platform.android
 
+import io.github.ciurlaro.codexmobile.providers.documents.OfficeDocuments
+import io.github.ciurlaro.codexmobile.providers.documents.DocumentOperation
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
-import android.os.Build
 import android.os.ParcelFileDescriptor
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.ByteArrayInputStream
@@ -14,8 +15,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -162,58 +161,6 @@ class DocumentsDeviceTest {
                 false,
                 listOf(DocumentOperation("append_paragraph", path = "/body", text = "no")),
             )
-        }
-    }
-
-    @Test
-    @Suppress("DEPRECATION")
-    fun installedSplitRequiresTheExactDescriptorAcrossRestart() {
-        val records = File(context.noBackupFilesDir, "providers")
-        records.deleteRecursively()
-        try {
-            val provider = DocumentsProvider(context)
-            val descriptor = provider.descriptor
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            val hostVersion = if (Build.VERSION.SDK_INT >= 28) {
-                packageInfo.longVersionCode.toInt()
-            } else {
-                packageInfo.versionCode
-            }
-            val record = InstalledProvider(
-                pluginId = descriptor.pluginId,
-                providerApi = descriptor.providerApi,
-                hostVersionCode = hostVersion,
-                implementationVersion = descriptor.implementationVersion,
-                displayName = descriptor.displayName,
-                splitNames = listOf("provider_documents"),
-                entryPoint = DocumentsProvider::class.java.name,
-                settingsEntryPoint = null,
-                schemaDigest = descriptor.schemaDigest,
-                mcpServerNames = listOf("codex-mobile-documents"),
-                pluginName = "documents",
-                marketplaceName = "device-test",
-                marketplacePath = null,
-                marketplaceRepository = "ciurlaro/codex-mobile-plugins",
-                state = ProviderPackageState.INSTALLING,
-            )
-
-            AndroidProviderRegistry(context).apply {
-                recordInstalling(record)
-                assertTrue(isVerified(descriptor.pluginId))
-                installCompleted(descriptor.pluginId)
-            }
-            AndroidProviderRegistry(context).also { restarted ->
-                assertTrue(restarted.isVerified(descriptor.pluginId))
-                assertEquals(descriptor.tools.map { it.name }, restarted.dispatcher.definitions().map { it.name })
-                restarted.recordInstalling(record.copy(schemaDigest = "0".repeat(64)))
-                assertFalse(restarted.isVerified(descriptor.pluginId))
-                assertTrue(restarted.dispatcher.definitions().isEmpty())
-                restarted.recordInstalling(record.copy(state = ProviderPackageState.ACTIVE))
-                restarted.markSplitRemovalPending(descriptor.pluginId)
-                assertTrue(restarted.dispatcher.definitions().isEmpty())
-            }
-        } finally {
-            records.deleteRecursively()
         }
     }
 

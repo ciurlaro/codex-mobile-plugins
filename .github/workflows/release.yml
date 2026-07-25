@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           repository: ciurlaro/codex-mobile
-          ref: b1ea90a3f064dd1c54560081675b41abaa7bc37c
+          ref: 84171210bedc07fc126402cf875b3fb9a880774d
           path: host
       - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
@@ -60,7 +60,7 @@ jobs:
           test "${{ inputs.image_tag }}" = "$(jq -r '.version' providers/.agents/plugins/plugins/telegram/.codex-plugin/plugin.json)"
           export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
           bash providers/scripts/verify-structure.sh
-          providers/gradlew -p providers --no-daemon test
+          providers/gradlew -p providers --no-daemon :test
           providers/scripts/build-android-providers.sh host release
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -70,8 +70,8 @@ jobs:
           path: |
             host/app/android/build/outputs/apk/release/android-release.apk
             host/release-signing-certificate.sha256
-            providers/android/documents/build/outputs/apk/release/provider_documents-release.apk
-            providers/android/telegram/build/outputs/apk/release/provider_telegram-release.apk
+            host/providers/documents/build/outputs/apk/release/provider_documents-release.apk
+            host/providers/telegram/build/outputs/apk/release/provider_telegram-release.apk
 
   image:
     needs: candidate
@@ -150,8 +150,8 @@ jobs:
             rm -f "$aligned"
           }
           sign candidate/host/app/android/build/outputs/apk/release/android-release.apk release/codex-mobile-host.apk
-          sign candidate/providers/android/documents/build/outputs/apk/release/provider_documents-release.apk release/provider_documents.apk
-          sign candidate/providers/android/telegram/build/outputs/apk/release/provider_telegram-release.apk release/provider_telegram.apk
+          sign candidate/host/providers/documents/build/outputs/apk/release/provider_documents-release.apk release/provider_documents.apk
+          sign candidate/host/providers/telegram/build/outputs/apk/release/provider_telegram-release.apk release/provider_telegram.apk
           actual=$("$tools/apksigner" verify --print-certs release/codex-mobile-host.apk | awk -F': ' '/certificate SHA-256 digest/ {print tolower($2); exit}')
           expected=$(cat candidate/host/release-signing-certificate.sha256)
           test "$actual" = "$expected"
@@ -196,6 +196,23 @@ jobs:
           git commit -m "Publish ${{ inputs.tag }} metadata"
           git push origin HEAD:main
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          repository: ciurlaro/codex-mobile
+          ref: 84171210bedc07fc126402cf875b3fb9a880774d
+          path: host
+      - name: Write aggregate release manifest
+        run: |
+          scripts/write-release-manifest.py \
+            --host-root host \
+            --host-revision 84171210bedc07fc126402cf875b3fb9a880774d \
+            --provider-revision "${{ steps.metadata.outputs.commit }}" \
+            --host-apk release/codex-mobile-host.apk \
+            --documents-apk release/provider_documents.apk \
+            --telegram-apk release/provider_telegram.apk \
+            --mcp-image-digest "${{ steps.image.outputs.digest }}" \
+            --output release/release-manifest.json
+          sha256sum release/release-manifest.json > release/release-manifest.json.sha256
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: signed-provider-release
@@ -205,6 +222,8 @@ jobs:
             release/provider_documents.apk.sha256
             release/provider_telegram.apk
             release/provider_telegram.apk.sha256
+            release/release-manifest.json
+            release/release-manifest.json.sha256
             docs/sbom.cdx.json
             LICENSE
             LICENSES/MLKIT-EXCEPTION.txt
@@ -215,5 +234,5 @@ jobs:
         run: |
           args=(release create "${{ inputs.tag }}" --target "${{ steps.metadata.outputs.commit }}" --generate-notes --title "Codex Mobile providers ${{ inputs.image_tag }}")
           if [[ "${{ inputs.tag }}" == *preview* ]]; then args+=(--prerelease); fi
-          args+=(release/provider_documents.apk release/provider_documents.apk.sha256 release/provider_telegram.apk release/provider_telegram.apk.sha256 docs/sbom.cdx.json LICENSE LICENSES/MLKIT-EXCEPTION.txt THIRD_PARTY_NOTICES.md)
+          args+=(release/provider_documents.apk release/provider_documents.apk.sha256 release/provider_telegram.apk release/provider_telegram.apk.sha256 release/release-manifest.json release/release-manifest.json.sha256 docs/sbom.cdx.json LICENSE LICENSES/MLKIT-EXCEPTION.txt THIRD_PARTY_NOTICES.md)
           gh "${args[@]}"

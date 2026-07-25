@@ -1,7 +1,7 @@
 # Codex Mobile Plugins
 
 This is the canonical repository for owner-reviewed Codex Mobile providers. It distributes the Documents and Telegram plugins for Codex.
-Each plugin has one standard Codex bundle, one shared Kotlin schema, an Android
+Each plugin has one standard Codex bundle, one Kotlin capability artifact, an Android
 feature split for Codex Mobile, and a Dockerized MCP provider for desktop Codex.
 
 ## Install
@@ -48,9 +48,10 @@ starts the Telegram MCP provider.
 
 - `.agents/plugins/` contains the Codex marketplace, manifests, skills, MCP
   configuration, and Android add-on metadata.
-- `shared/` contains the KMP tool schemas used by Android and MCP.
-- `android/` contains direct Kotlin Android feature providers. Documents uses
-  PdfiumAndroid and bundled ML Kit OCR; Telegram uses TDLib through JNI.
+- `documents/` and `telegram/` contain the shared capability semantics used by Android and MCP.
+- `android/` contains publishable Android provider implementation libraries. Documents uses
+  PdfiumAndroid and bundled ML Kit OCR; Telegram uses TDLib through JNI. The base-app feature
+  wrappers live in `codex-mobile` and contain no provider behavior.
 - `mcp-server/` contains the official Kotlin MCP SDK stdio server. Its Documents
   backend uses PDFBox and offline Tess4J; its Telegram backend uses TDLib JNI.
 - `Dockerfile` builds the Linux MCP provider and its audited runtime assets.
@@ -61,12 +62,17 @@ and be signed by the same certificate. Official artifacts are therefore built
 with the corresponding Codex Mobile release. Forks sign their own base and
 matching feature splits.
 
+Android provider release builds are shrunk and optimized without name
+obfuscation. The host preserves the project-owned provider API names, so a
+split built and published separately never depends on a particular base APK's
+R8 mapping.
+
 ## Build and verify
 
 Set Java 17 and the Android SDK, then run:
 
 ```sh
-./gradlew test
+./gradlew :test
 bash scripts/build-android-providers.sh ../codex-mobile debug
 bash scripts/verify-structure.sh
 docker build -t codex-mobile-plugins:local .
@@ -75,15 +81,14 @@ bash scripts/verify-mcp.sh
 
 GitHub Actions is authoritative for Android instrumentation builds, multi-architecture Docker, SBOM, and release verification. Local Docker and release builds are optional diagnostics; production signing and publishing happen only in the manually approved CI release environment.
 
-`build-android-providers.sh` uses the generic provider-project hook in the exact
-host checkout because Android dynamic-feature modules must compile with their
-base application. The host does not name or depend on either provider. Gradle's
-root-only dependency-verification file remains host-owned, so the script uses
-the provider repository's locked and audited dependency inventory rather than
-copying provider checksums into the host.
+`build-android-providers.sh` uses a composite build to substitute the same
+published capability and Android implementation coordinates. The host-owned
+dynamic-feature wrappers compile with their base application; no provider source
+or build directory enters the host graph. Gradle dependency verification stays
+enabled for the complete Android dependency closure.
 
 The `1.0.0` Android provider release targets Codex Mobile host version code 4 at
-commit `b1ea90a3f064dd1c54560081675b41abaa7bc37c`. CI checks out that exact generic
+commit `84171210bedc07fc126402cf875b3fb9a880774d`. CI checks out that exact generic
 host revision and builds this repository's feature projects against it.
 
 For release builds, pass `release` and the matching host signing properties.
@@ -93,7 +98,10 @@ build. Publish the feature APKs only after
 values, and immutable MCP image digest. Before upload, run `scripts/verify-release-artifacts.sh` with
 the signed host, Documents, and Telegram APKs; it verifies the common signer,
 package/version/split identity, manifest hashes, native allowlists, and absence
-of retired helper payloads.
+of retired helper payloads. The release also includes one deterministic
+`release-manifest.json` binding the exact host, App Server protocol/runtime,
+provider API, plugin content, signed APKs, MCP image, compatibility ranges, and
+SBOMs by version and SHA-256.
 
 Build the MCP image without credentials:
 

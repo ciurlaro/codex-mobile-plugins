@@ -27,8 +27,13 @@ test -n "$host_certificate"
 test "$(certificate "$documents_apk")" = "$host_certificate"
 test "$(certificate "$telegram_apk")" = "$host_certificate"
 
+host_dump=$(mktemp)
+trap 'rm -f "$host_dump"' EXIT
+"$tools/dexdump" -f "$host_apk" > "$host_dump"
+grep -Fq "Class descriptor  : 'Lio/github/ciurlaro/codexmobile/provider/api/CodexMobileProvider;'" "$host_dump"
+
 verify_feature() {
-  local plugin=$1 split=$2 apk=$3 manifest entries expected_sha actual_sha
+  local plugin=$1 split=$2 apk=$3 manifest entries expected_sha actual_sha dump entry_point descriptor
   manifest=$("$tools/aapt2" dump xmltree "$apk" --file AndroidManifest.xml)
   grep -q 'package="io.github.ciurlaro.codexmobile"' <<<"$manifest"
   grep -q 'versionCode.*=4' <<<"$manifest"
@@ -38,6 +43,16 @@ verify_feature() {
   expected_sha=$(jq -r '.android.package.sha256' "$root/.agents/plugins/plugins/$plugin/codex-mobile-addon.json")
   actual_sha=$(sha256sum "$apk" | cut -d' ' -f1)
   test "$actual_sha" = "$expected_sha"
+
+  dump=$(mktemp)
+  "$tools/dexdump" -f "$apk" > "$dump"
+  for entry_point in $(jq -r '.android.entryPoint, .android.settingsEntryPoint // empty' "$root/.agents/plugins/plugins/$plugin/codex-mobile-addon.json"); do
+    descriptor=${entry_point//./\/}
+    grep -Fq "Class descriptor  : 'L$descriptor;'" "$dump"
+  done
+  grep -Fq "Lio/github/ciurlaro/codexmobile/provider/api/CodexMobileProvider;" "$dump"
+  ! grep -Eq "Class descriptor  : 'L[a-z][a-z0-9]{0,2};'" "$dump"
+  rm -f "$dump"
 }
 
 verify_feature documents provider_documents "$documents_apk"

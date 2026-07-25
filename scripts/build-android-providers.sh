@@ -24,8 +24,6 @@ case "$variant" in
   *) echo "Usage: $0 [codex-mobile-checkout] [debug|release]" >&2; exit 2 ;;
 esac
 
-projects="$provider_root/android/documents|$provider_root/android/telegram"
 exec "$host_root/gradlew" -p "$host_root" \
-  --dependency-verification=off \
-  -PcodexMobile.providerProjects="$projects" \
+  -PcodexMobile.providerBuild="$provider_root" \
   "${tasks[@]}"

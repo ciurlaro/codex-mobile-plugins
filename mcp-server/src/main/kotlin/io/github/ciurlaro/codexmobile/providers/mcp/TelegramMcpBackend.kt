@@ -1,5 +1,6 @@
 package io.github.ciurlaro.codexmobile.providers.mcp
 
+import io.github.ciurlaro.codexmobile.providers.telegram.*
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -7,138 +8,94 @@ import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
 import java.time.Instant
 import java.util.UUID
-import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.booleanOrNull
-import kotlinx.serialization.json.contentOrNull
-import kotlinx.serialization.json.intOrNull
-import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.longOrNull
-import org.json.JSONArray
-import org.json.JSONObject
 
 internal class TelegramMcpBackend : McpBackend {
     private val hostWorkspace = Path.of(System.getenv("CODEX_MCP_HOST_WORKSPACE") ?: "/workspace").toAbsolutePath().normalize()
     private val workspace = Path.of(System.getenv("CODEX_MCP_WORKSPACE") ?: "/workspace").toRealPath()
-    private val telegram = TelegramIntegration(telegramStateDirectory())
+    private val telegram = mcpTelegramIntegration()
 
-    override suspend fun execute(tool: String, arguments: JsonObject): McpResult = when (tool) {
-        "telegram_list_chats" -> listChats(arguments)
-        "telegram_list_messages" -> listMessages(arguments)
-        "telegram_search_messages" -> searchMessages(arguments)
-        "telegram_search_contacts" -> searchContacts(arguments)
-        "telegram_download_media" -> downloadMedia(arguments)
-        "telegram_send_text" -> sendText(arguments)
-        "telegram_send_file" -> sendFile(arguments)
-        else -> error("Unknown Telegram tool")
-    }
+    override suspend fun execute(tool: String, arguments: JsonObject): McpResult =
+        when (val request = parseTelegramRequest(tool, arguments, UUID.randomUUID().toString())) {
+            is TelegramRequest.ListChats -> listChats(request)
+            is TelegramRequest.ListMessages -> listMessages(request)
+            is TelegramRequest.SearchMessages -> searchMessages(request)
+            is TelegramRequest.SearchContacts -> searchContacts(request)
+            is TelegramRequest.DownloadMedia -> downloadMedia(request)
+            is TelegramRequest.SendText -> sendText(request.value)
+            is TelegramRequest.SendFile -> sendFile(request)
+        }
 
     override fun close() = telegram.close()
 
-    private fun listChats(args: JsonObject): McpResult {
-        args.requireTelegramOnly("query", "limit")
-        val chats = telegram.listChats(args.telegramStringOrNull("query"), args.telegramInt("limit", 20, 1, 50))
-        return McpResult.text(JSONObject().put("returned", chats.size).put("chats", JSONArray(chats.map(TelegramChat::json))).toString())
-    }
+    private fun listChats(request: TelegramRequest.ListChats) = McpResult.text(
+        telegramChatsJson(telegram.listChats(request.query, request.limit)),
+    )
 
-    private fun listMessages(args: JsonObject): McpResult {
-        args.requireTelegramOnly("chat", "limit", "source", "beforeId", "afterId")
-        return McpResult.text(telegram.listMessages(
-            args.telegramString("chat"),
-            args.telegramInt("limit", 50, 1, 100),
-            args.source(),
-            args.telegramLongOrNull("beforeId"),
-            args.telegramLongOrNull("afterId"),
-        ).json().toString())
-    }
+    private fun listMessages(request: TelegramRequest.ListMessages) = McpResult.text(
+        telegram.listMessages(
+            request.chat, request.limit, request.source, request.beforeId, request.afterId,
+        ).jsonString(),
+    )
 
-    private fun searchMessages(args: JsonObject): McpResult {
-        args.requireTelegramOnly("query", "chat", "limit", "source", "after", "before")
-        return McpResult.text(telegram.searchMessages(
-            args.telegramString("query"),
-            args.telegramStringOrNull("chat"),
-            args.telegramInt("limit", 50, 1, 100),
-            args.source(),
-            args.telegramStringOrNull("after")?.let { Instant.parse(it).epochSecond },
-            args.telegramStringOrNull("before")?.let { Instant.parse(it).epochSecond },
-        ).json().toString())
-    }
+    private fun searchMessages(request: TelegramRequest.SearchMessages) = McpResult.text(
+        telegram.searchMessages(
+            request.query,
+            request.chat,
+            request.limit,
+            request.source,
+            request.after?.let { Instant.parse(it).epochSecond },
+            request.before?.let { Instant.parse(it).epochSecond },
+        ).jsonString(),
+    )
 
-    private fun searchContacts(args: JsonObject): McpResult {
-        args.requireTelegramOnly("query", "limit")
-        val contacts = telegram.searchContacts(args.telegramString("query"), args.telegramInt("limit", 20, 1, 50))
-        return McpResult.text(JSONObject().put("returned", contacts.size)
-            .put("contacts", JSONArray(contacts.map(TelegramContact::json))).toString())
-    }
+    private fun searchContacts(request: TelegramRequest.SearchContacts) = McpResult.text(
+        telegramContactsJson(telegram.searchContacts(request.query, request.limit)),
+    )
 
-    private fun downloadMedia(args: JsonObject): McpResult {
-        args.requireTelegramOnly("chat", "messageId", "outputPath")
-        val destination = resolve(args.telegramString("outputPath"), mustExist = false)
+    private fun downloadMedia(request: TelegramRequest.DownloadMedia): McpResult {
+        val destination = resolve(request.outputPath, mustExist = false)
         require(!Files.exists(destination)) { "Download destination already exists" }
         Files.createDirectories(checkNotNull(destination.parent))
         val stage = destination.resolveSibling(".${destination.fileName}.${UUID.randomUUID()}.download")
         return try {
-            val outcome = telegram.downloadMedia(
-                args.telegramString("chat"),
-                args.telegramLong("messageId", 1),
-                stage.toFile(),
-            ) {}
+            val outcome = telegram.downloadMedia(request.chat, request.messageId, stage.toFile()) {}
             if (outcome.state == TelegramMutationState.SUCCEEDED && Files.size(stage) > 0) {
                 val hash = sha256(stage)
                 Files.move(stage, destination, StandardCopyOption.ATOMIC_MOVE)
-                McpResult.text("Downloaded media to ${args.telegramString("outputPath")} (SHA-256 $hash).")
+                McpResult.text("Downloaded media to ${request.outputPath} (SHA-256 $hash).")
             } else mutationResult(outcome, "Telegram media download")
         } finally {
             Files.deleteIfExists(stage)
         }
     }
 
-    private fun sendText(args: JsonObject): McpResult {
-        args.requireTelegramOnly("to", "message", "parseMode", "topic", "replyTo", "silent", "disablePreview")
-        return mutationResult(telegram.sendText(
-            TelegramTextSend(
-                callKey = UUID.randomUUID().toString(),
-                to = args.telegramString("to"),
-                message = args.telegramString("message"),
-                parseMode = args.parseMode(),
-                topic = args.telegramLongOrNull("topic"),
-                replyTo = args.telegramLongOrNull("replyTo"),
-                silent = args.telegramBoolean("silent", false),
-                disablePreview = args.telegramBoolean("disablePreview", false),
-            ),
-        ) {}, "Telegram send")
-    }
+    private fun sendText(request: TelegramTextSend) =
+        mutationResult(telegram.sendText(request) {}, "Telegram send")
 
-    private fun sendFile(args: JsonObject): McpResult {
-        args.requireTelegramOnly("to", "path", "caption", "parseMode", "topic", "replyTo", "silent", "forceDocument")
-        val path = args.telegramString("path")
+    private fun sendFile(request: TelegramRequest.SendFile): McpResult {
+        val path = request.path
         val file = resolve(path, mustExist = true)
-        require(Files.size(file) in 1..MAX_FILE_BYTES) { "Telegram file is empty or too large" }
+        require(Files.size(file) in 1..MAX_TELEGRAM_FILE_BYTES) { "Telegram file is empty or too large" }
         return mutationResult(telegram.sendFile(
             TelegramFileSend(
-                callKey = UUID.randomUUID().toString(),
-                to = args.telegramString("to"),
+                callKey = request.callKey,
+                to = request.to,
                 file = file.toFile(),
-                caption = args.telegramStringOrNull("caption"),
-                parseMode = args.parseMode(),
-                topic = args.telegramLongOrNull("topic"),
-                replyTo = args.telegramLongOrNull("replyTo"),
-                silent = args.telegramBoolean("silent", false),
-                forceDocument = args.telegramBoolean("forceDocument", false),
+                caption = request.caption,
+                parseMode = request.parseMode,
+                topic = request.topic,
+                replyTo = request.replyTo,
+                silent = request.silent,
+                forceDocument = request.forceDocument,
             ),
         ) {
             require(resolve(path, mustExist = true) == file) { "Telegram file path changed before dispatch" }
         }, "Telegram send")
     }
 
-    private fun mutationResult(outcome: TelegramMutationOutcome, operation: String): McpResult = when (outcome.state) {
-        TelegramMutationState.SUCCEEDED -> McpResult.text(outcome.message)
-        TelegramMutationState.FAILED -> McpResult.text(outcome.message.ifBlank { "$operation failed" }, false)
-        TelegramMutationState.INDETERMINATE -> McpResult.text(
-            "$operation outcome is indeterminate; inspect Telegram before deciding what to do next.",
-            false,
-        )
-    }
+    private fun mutationResult(outcome: TelegramMutationOutcome, operation: String): McpResult =
+        outcome.result(operation).let { McpResult.text(it.message, it.success) }
 
     private fun resolve(value: String, mustExist: Boolean): Path {
         val input = Path.of(value)
@@ -179,71 +136,20 @@ internal class TelegramMcpBackend : McpBackend {
         return digest.digest().joinToString("") { "%02x".format(it.toInt() and 0xff) }
     }
 
-    private companion object { const val MAX_FILE_BYTES = 100L * 1024 * 1024 }
 }
 
 internal fun telegramStateDirectory(): File = Path.of(System.getenv("CODEX_MCP_STATE") ?: "/state")
     .resolve("telegram-client").toFile()
 
-private fun JsonObject.requireTelegramOnly(vararg allowed: String) = apply {
-    require(keys.all { it in allowed }) { "Unexpected tool argument" }
-}
-
-private fun JsonObject.telegramString(name: String, default: String? = null): String =
-    telegramStringOrNull(name) ?: default ?: error("Missing $name")
-
-private fun JsonObject.telegramStringOrNull(name: String): String? =
-    get(name)?.takeUnless { it is JsonNull }?.jsonPrimitive?.contentOrNull
-
-private fun JsonObject.telegramBoolean(name: String, default: Boolean): Boolean =
-    get(name)?.takeUnless { it is JsonNull }?.jsonPrimitive?.booleanOrNull ?: default
-
-private fun JsonObject.telegramInt(name: String, default: Int, minimum: Int, maximum: Int): Int =
-    (get(name)?.takeUnless { it is JsonNull }?.jsonPrimitive?.intOrNull ?: default).also {
-        require(it in minimum..maximum) { "$name is out of range" }
-    }
-
-private fun JsonObject.telegramLong(name: String, minimum: Long): Long =
-    (get(name)?.jsonPrimitive?.longOrNull ?: error("Missing $name")).also {
-        require(it >= minimum) { "$name is out of range" }
-    }
-
-private fun JsonObject.telegramLongOrNull(name: String): Long? =
-    get(name)?.takeUnless { it is JsonNull }?.jsonPrimitive?.longOrNull?.also {
-        require(it > 0) { "$name is out of range" }
-    }
-
-private fun JsonObject.source(): TelegramSource = when (telegramString("source", "both")) {
-    "archive" -> TelegramSource.ARCHIVE
-    "live" -> TelegramSource.LIVE
-    "both" -> TelegramSource.BOTH
-    else -> error("Unsupported Telegram source")
-}
-
-private fun JsonObject.parseMode(): String = telegramString("parseMode", "none").also {
-    require(it in setOf("none", "markdown", "html"))
-}
-
-private fun TelegramChat.json() = JSONObject()
-    .put("id", id).put("type", type).put("title", title).put("username", username)
-    .put("chatType", chatType).put("isForum", isForum).put("isGroup", isGroup)
-    .put("unreadCount", unreadCount).put("unreadMentionsCount", unreadMentionsCount)
-
-private fun TelegramMessages.json() = JSONObject()
-    .put("source", source).put("returned", messages.size).put("hasMore", hasMore)
-    .put("messages", JSONArray(messages.map(TelegramMessage::json)))
-    .apply { nextBeforeId?.let { put("nextBeforeId", it) } }
-
-private fun TelegramMessage.json() = JSONObject()
-    .put("channelId", channelId).put("peerTitle", peerTitle).put("username", username)
-    .put("messageId", messageId).put("date", date).put("fromId", fromId)
-    .put("fromUsername", fromUsername).put("fromDisplayName", fromDisplayName)
-    .put("fromPeerType", fromPeerType).put("fromIsBot", fromIsBot).put("text", text)
-    .put("urls", JSONArray(urls)).put("media", media?.json()).put("topicId", topicId).put("source", source)
-
-private fun TelegramMedia.json() = JSONObject()
-    .put("type", type).put("fileId", fileId).put("fileName", fileName).put("mimeType", mimeType).put("size", size)
-
-private fun TelegramContact.json() = JSONObject()
-    .put("id", id).put("username", username).put("displayName", displayName)
-    .put("phoneNumber", phoneNumber).put("isBot", isBot)
+internal fun mcpTelegramIntegration() = TelegramIntegration(
+    JvmTelegramSessionStorage(telegramStateDirectory()),
+    TelegramCredentials(
+        System.getenv("TELEGRAM_API_ID")?.toIntOrNull(),
+        System.getenv("TELEGRAM_API_HASH").orEmpty(),
+    ),
+    TelegramClientInfo(
+        System.getProperty("os.name") ?: "Linux",
+        System.getProperty("os.version") ?: "unknown",
+        "Codex plugin TDLib 1.8.66",
+    ),
+)

@@ -1,7 +1,7 @@
 package io.github.ciurlaro.codexmobile.platform.android
 
 import androidx.test.platform.app.InstrumentationRegistry
-import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecrets
+import io.github.ciurlaro.codexmobile.provider.api.ProviderSecrets
 import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_HASH_SECRET
 import io.github.ciurlaro.codexmobile.providers.telegram.TELEGRAM_API_ID_SECRET
 import org.junit.Assert.assertEquals
@@ -21,7 +21,7 @@ class TelegramCredentialsDeviceTest {
             provider.descriptor.secrets.map { it.name },
         )
 
-        val integration = TelegramIntegration(context, TelegramCredentials.from(ProviderSecrets.EMPTY))
+        val integration = androidTelegramIntegration(context, telegramCredentials(ProviderSecrets.EMPTY))
         assertFalse(integration.status().available)
         assertThrows(IllegalStateException::class.java) {
             integration.startAuthentication("+41790000000")

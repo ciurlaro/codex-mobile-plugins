@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           repository: ciurlaro/codex-mobile
-          ref: b1ea90a3f064dd1c54560081675b41abaa7bc37c
+          ref: 84171210bedc07fc126402cf875b3fb9a880774d
           path: host
       - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
@@ -35,13 +35,13 @@ jobs:
         working-directory: providers
         run: |
           bash scripts/verify-structure.sh
-          ./gradlew --no-daemon test
+          ./gradlew --no-daemon :test
       - name: Build and lint Android feature providers
         run: |
           export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
           providers/scripts/build-android-providers.sh host debug
-          host/gradlew -p host --dependency-verification=off \
-            "-PcodexMobile.providerProjects=$GITHUB_WORKSPACE/providers/android/documents|$GITHUB_WORKSPACE/providers/android/telegram" \
+          host/gradlew -p host \
+            "-PcodexMobile.providerBuild=$GITHUB_WORKSPACE/providers" \
             :provider_documents:lintAnalyzeDebug :provider_telegram:lintAnalyzeDebug
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -50,10 +50,10 @@ jobs:
           if-no-files-found: error
           path: |
             host/app/android/build/outputs/apk/debug/android-debug.apk
-            providers/android/documents/build/outputs/apk/debug/provider_documents-debug.apk
-            providers/android/documents/build/outputs/apk/androidTest/debug/provider_documents-debug-androidTest.apk
-            providers/android/telegram/build/outputs/apk/debug/provider_telegram-debug.apk
-            providers/android/telegram/build/outputs/apk/androidTest/debug/provider_telegram-debug-androidTest.apk
+            host/providers/documents/build/outputs/apk/debug/provider_documents-debug.apk
+            host/providers/telegram/build/outputs/apk/debug/provider_telegram-debug.apk
+            providers/android/documents/build/outputs/apk/androidTest/debug/documents-android-debug-androidTest.apk
+            providers/android/telegram/build/outputs/apk/androidTest/debug/telegram-android-debug-androidTest.apk
             providers/docs/sbom.cdx.json
             providers/LICENSE
             providers/LICENSES/MLKIT-EXCEPTION.txt

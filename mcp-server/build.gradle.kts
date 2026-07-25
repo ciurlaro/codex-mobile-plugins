@@ -6,7 +6,8 @@ plugins {
 kotlin { jvmToolchain(17) }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":documents"))
+    implementation(project(":telegram"))
     implementation("io.modelcontextprotocol:kotlin-sdk-server:0.14.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")

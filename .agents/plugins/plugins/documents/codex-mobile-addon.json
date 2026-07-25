@@ -10,7 +10,7 @@
   "pluginId": "documents@codex-mobile",
   "implementationVersion": "1.0.0",
   "displayName": "Documents",
-  "schemaDigest": "9314495f4203b798f8fd8035cfceb6fb3c91d4bb116e9c5ff0b2b5a380ec9315",
+  "schemaDigest": "fb0cd10ddaa94b991daee6a12b65ac4448c2c7a09ead8352a2522045775d00d9",
   "mcpServerNames": [
     "codex-mobile-documents"
   ],

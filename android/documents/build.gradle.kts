@@ -1,24 +1,33 @@
 plugins {
-    id("com.android.dynamic-feature")
+    id("com.android.library")
+    `maven-publish`
 }
+
+group = "io.github.ciurlaro.codexmobile.providers"
+version = "1.0.0"
 
 android {
     namespace = "io.github.ciurlaro.codexmobile.providers.documents"
     compileSdk = 37
     defaultConfig { minSdk = 26 }
-    sourceSets["main"].kotlin.directories.add(
-        project.file("../../shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents").path,
-    )
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    publishing { singleVariant("release") { withSourcesJar() } }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") { from(components["release"]) }
+        }
+    }
 }
 
 dependencies {
-    implementation(project(":app:android"))
-    implementation(project(":agent:codex"))
-    implementation(project(":platform:android"))
+    api(project(":documents"))
+    api("io.github.ciurlaro.codexmobile:provider-api:2.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     implementation("io.legere:pdfiumandroid-core:2.0.0") {

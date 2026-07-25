@@ -1,6 +1,10 @@
 plugins {
-    id("com.android.dynamic-feature")
+    id("com.android.library")
+    `maven-publish`
 }
+
+group = "io.github.ciurlaro.codexmobile.providers"
+version = "1.0.0"
 
 val telegramNdk = providers.gradleProperty("codexMobile.androidNdkPath")
     .orElse(providers.environmentVariable("ANDROID_NDK_HOME"))
@@ -18,12 +22,18 @@ android {
         buildConfigField("String", "TDLIB_COMMIT", "022d60202e446ad1287b9fb68e687c8a0760788b".asBuildConfigString())
     }
     buildFeatures { buildConfig = true }
-    sourceSets["main"].kotlin.directories.add(
-        project.file("../../shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram").path,
-    )
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    publishing { singleVariant("release") { withSourcesJar() } }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") { from(components["release"]) }
+        }
     }
 }
 
@@ -42,9 +52,8 @@ val prepareTelegramLibrary = tasks.register<Exec>("prepareTelegramLibrary") {
 tasks.named("preBuild").configure { dependsOn(prepareTelegramLibrary) }
 
 dependencies {
-    implementation(project(":app:android"))
-    implementation(project(":agent:codex"))
-    implementation(project(":platform:android"))
+    api(project(":telegram"))
+    api("io.github.ciurlaro.codexmobile:provider-api:2.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")

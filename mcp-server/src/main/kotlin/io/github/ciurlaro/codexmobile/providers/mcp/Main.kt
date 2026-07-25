@@ -1,7 +1,7 @@
 package io.github.ciurlaro.codexmobile.providers.mcp
 
 import io.github.ciurlaro.codexmobile.providers.documents.documentsTools
-import io.github.ciurlaro.codexmobile.providers.telegram.telegramTools
+import io.github.ciurlaro.codexmobile.providers.telegram.*
 import io.modelcontextprotocol.kotlin.sdk.server.Server
 import io.modelcontextprotocol.kotlin.sdk.server.ServerOptions
 import io.modelcontextprotocol.kotlin.sdk.server.StdioServerTransport
@@ -150,7 +150,7 @@ private fun canonicalJson(value: JsonElement): String = when (value) {
 }
 
 private fun telegramAuthenticate() {
-    val telegram = TelegramIntegration(telegramStateDirectory())
+    val telegram = mcpTelegramIntegration()
     try {
         check(telegram.available) { "Set TELEGRAM_API_ID and TELEGRAM_API_HASH" }
         if (telegram.status().connected) {
@@ -182,7 +182,7 @@ private fun telegramAuthenticate() {
 }
 
 private fun telegramStatus() {
-    val telegram = TelegramIntegration(telegramStateDirectory())
+    val telegram = mcpTelegramIntegration()
     try {
         val status = telegram.status()
         println(when {
@@ -196,7 +196,7 @@ private fun telegramStatus() {
 }
 
 private fun telegramDisconnect() {
-    val telegram = TelegramIntegration(telegramStateDirectory())
+    val telegram = mcpTelegramIntegration()
     try {
         when (telegram.disconnect()) {
             TelegramDisconnectResult.CONFIRMED -> println("Remote logout and local cleanup completed.")

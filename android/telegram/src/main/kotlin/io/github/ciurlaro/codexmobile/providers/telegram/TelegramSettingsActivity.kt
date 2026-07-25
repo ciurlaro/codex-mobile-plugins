@@ -9,14 +9,9 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import io.github.ciurlaro.codexmobile.agent.codex.ProviderSecretStore
-import io.github.ciurlaro.codexmobile.platform.android.TelegramAuthEvent
-import io.github.ciurlaro.codexmobile.platform.android.AndroidProviderSecretStore
-import io.github.ciurlaro.codexmobile.platform.android.TelegramAuthPrompt
-import io.github.ciurlaro.codexmobile.platform.android.TelegramAuthSession
-import io.github.ciurlaro.codexmobile.platform.android.TelegramCredentials
-import io.github.ciurlaro.codexmobile.platform.android.TelegramDisconnectResult
-import io.github.ciurlaro.codexmobile.platform.android.TelegramIntegration
+import io.github.ciurlaro.codexmobile.provider.api.ProviderSecrets
+import io.github.ciurlaro.codexmobile.platform.android.androidTelegramIntegration
+import io.github.ciurlaro.codexmobile.platform.android.telegramCredentials
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,9 +19,15 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TelegramSettingsActivity : Activity() {
+interface TelegramCredentialStore {
+    fun snapshot(): ProviderSecrets
+    fun replace(values: Map<String, String>)
+    fun clear()
+}
+
+abstract class TelegramSettingsActivityBase : Activity() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    private lateinit var secrets: ProviderSecretStore
+    private lateinit var secrets: TelegramCredentialStore
     private lateinit var telegram: TelegramIntegration
     private lateinit var status: TextView
     private lateinit var apiId: EditText
@@ -39,10 +40,12 @@ class TelegramSettingsActivity : Activity() {
     private var authentication: TelegramAuthSession? = null
     private var prompt: TelegramAuthPrompt? = null
 
+    protected abstract fun credentialStore(): TelegramCredentialStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        secrets = AndroidProviderSecretStore(applicationContext, TELEGRAM_PLUGIN_ID)
-        telegram = TelegramIntegration(applicationContext, TelegramCredentials.from(secrets.snapshot()))
+        secrets = credentialStore()
+        telegram = androidTelegramIntegration(applicationContext, telegramCredentials(secrets.snapshot()))
         status = TextView(this).apply { textSize = 18f }
         apiId = EditText(this).apply { hint = "Telegram API ID"; inputType = InputType.TYPE_CLASS_NUMBER }
         apiHash = EditText(this).apply {
@@ -108,7 +111,7 @@ class TelegramSettingsActivity : Activity() {
                 ),
             )
             telegram.close()
-            telegram = TelegramIntegration(applicationContext, credentials)
+            telegram = androidTelegramIntegration(applicationContext, credentials)
             apiId.setText(""); apiHash.setText("")
         }.onSuccess {
             refresh("Telegram application credentials saved")
@@ -128,7 +131,7 @@ class TelegramSettingsActivity : Activity() {
             }
             secrets.clear()
             telegram.close()
-            telegram = TelegramIntegration(applicationContext, TelegramCredentials(null, ""))
+            telegram = androidTelegramIntegration(applicationContext, TelegramCredentials(null, ""))
             refresh("Disconnected. Enter replacement Telegram application credentials.")
             changeCredentials.isEnabled = true
         }

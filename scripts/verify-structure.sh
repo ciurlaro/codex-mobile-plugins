@@ -7,6 +7,7 @@ cd "$root"
 test -f LICENSE
 test -f LICENSES/MLKIT-EXCEPTION.txt
 test -f THIRD_PARTY_NOTICES.md
+test -f gradle/verification-metadata.xml
 grep -q 'GNU GENERAL PUBLIC LICENSE' LICENSE
 grep -q 'GNU GPL version 3 section 7' LICENSES/MLKIT-EXCEPTION.txt
 
@@ -24,10 +25,18 @@ for plugin in documents telegram; do
   grep -q '"versionCode": 4' ".agents/plugins/plugins/$plugin/codex-mobile-addon.json"
 done
 
-test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/DocumentsTools.kt
-test -f shared/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramTools.kt
+test -f documents/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/DocumentsTools.kt
+test -f documents/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/DocumentsSemantics.kt
+test -f telegram/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramTools.kt
+test -f telegram/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramSemantics.kt
+test -f telegram/src/jvmMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/TelegramIntegration.kt
+test "$(find . -path '*/src/*' -name TelegramIntegration.kt | wc -l | tr -d ' ')" = 1
+test "$(find . -path '*/src/*' -name TdLibTransport.kt | wc -l | tr -d ' ')" = 1
+test "$(find . -path '*/src/*' -name JsonClient.java | wc -l | tr -d ' ')" = 1
 test -f android/documents/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/DocumentsProvider.kt
 test -f android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/TelegramProvider.kt
+grep -q 'id("com.android.library")' android/documents/build.gradle.kts
+grep -q 'id("com.android.library")' android/telegram/build.gradle.kts
 for provider in android/{documents,telegram}/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*Provider.kt; do
   grep -q 'minHostVersionCode = 4' "$provider"
   grep -q 'maxHostVersionCode = 4' "$provider"
@@ -37,6 +46,7 @@ test -f Dockerfile
 test -x scripts/verify-mcp.sh
 test -x scripts/verify-release-artifacts.sh
 test -x scripts/write-release-metadata.py
+test -x scripts/write-release-manifest.py
 test -f .github/workflows/verify.yml
 test -f .github/workflows/release.yml
 
@@ -72,9 +82,20 @@ if rg -n '^FROM [^@ ]+( AS .+)?$|--target install' Dockerfile; then
 fi
 grep -q 'schemaDigest' .agents/plugins/plugins/documents/codex-mobile-addon.json
 grep -q 'schemaDigest' .agents/plugins/plugins/telegram/codex-mobile-addon.json
-grep -q -- '--dependency-verification=off' scripts/build-android-providers.sh
-grep -q 'b1ea90a3f064dd1c54560081675b41abaa7bc37c' .github/workflows/verify.yml
-grep -q 'b1ea90a3f064dd1c54560081675b41abaa7bc37c' .github/workflows/release.yml
+if rg -n -- '--dependency-verification=off|src/commonMain.*directories|sourceSets\[[^]]+\]\.kotlin\.directories' \
+    scripts/build-android-providers.sh android settings.gradle.kts; then
+  echo "Provider builds must use verified artifacts, not verification bypasses or injected sources" >&2
+  exit 1
+fi
+if rg -n 'project\(":(app:android|agent:codex|platform:android)"\)|codexMobile\.providerProjects' \
+    android scripts settings.gradle.kts; then
+  echo "Provider implementations must not depend on the mobile host graph" >&2
+  exit 1
+fi
+grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
+grep -q '84171210bedc07fc126402cf875b3fb9a880774d' .github/workflows/verify.yml
+grep -q '84171210bedc07fc126402cf875b3fb9a880774d' .github/workflows/release.yml
+grep -q 'write-release-manifest.py' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1
