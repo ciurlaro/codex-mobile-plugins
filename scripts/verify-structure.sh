@@ -22,7 +22,7 @@ for plugin in documents telegram; do
   python3 -m json.tool ".agents/plugins/plugins/$plugin/.mcp.json" >/dev/null
   python3 -m json.tool ".agents/plugins/plugins/$plugin/codex-mobile-addon.json" >/dev/null
   grep -q '"license": "GPL-3.0-or-later"' ".agents/plugins/plugins/$plugin/.codex-plugin/plugin.json"
-  grep -q '"versionCode": 4' ".agents/plugins/plugins/$plugin/codex-mobile-addon.json"
+  grep -q '"versionCode": 5' ".agents/plugins/plugins/$plugin/codex-mobile-addon.json"
 done
 
 test -f documents/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/DocumentsTools.kt
@@ -38,11 +38,13 @@ test -f android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform
 grep -q 'id("com.android.library")' android/documents/build.gradle.kts
 grep -q 'id("com.android.library")' android/telegram/build.gradle.kts
 for provider in android/{documents,telegram}/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*Provider.kt; do
-  grep -q 'minHostVersionCode = 4' "$provider"
-  grep -q 'maxHostVersionCode = 4' "$provider"
+  grep -q 'minHostVersionCode = 5' "$provider"
+  grep -q 'maxHostVersionCode = 5' "$provider"
 done
 test -f mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
 test -f Dockerfile
+grep -q '^COPY documents ./documents$' Dockerfile
+grep -q '^COPY telegram ./telegram$' Dockerfile
 test -x scripts/verify-mcp.sh
 test -x scripts/verify-release-artifacts.sh
 test -x scripts/write-release-metadata.py
@@ -73,6 +75,8 @@ if rg -n 'CODEX_MOBILE_TELEGRAM_API_|buildConfigField\([^\n]*TELEGRAM_API_|TELEG
 fi
 grep -q 'TDLIB_COMMIT' android/telegram/build.gradle.kts
 grep -q 'org.opencontainers.image.licenses="GPL-3.0-or-later"' Dockerfile
+grep -q 'github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz' Dockerfile
+grep -q 'github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz' scripts/prepare-telegram-library.sh
 grep -q -- '--target tdjson_static' Dockerfile
 grep -q -- '-DTD_ENABLE_JNI=ON' Dockerfile
 grep -q -- '-DTD_INSTALL_SHARED_LIBRARIES=OFF' Dockerfile
@@ -93,8 +97,8 @@ if rg -n 'project\(":(app:android|agent:codex|platform:android)"\)|codexMobile\.
   exit 1
 fi
 grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
-grep -q 'a758b27742270b75b9446c4417a9d6d225753a8f' .github/workflows/verify.yml
-grep -q 'a758b27742270b75b9446c4417a9d6d225753a8f' .github/workflows/release.yml
+grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/verify.yml
+grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/release.yml
 grep -q 'write-release-manifest.py' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2

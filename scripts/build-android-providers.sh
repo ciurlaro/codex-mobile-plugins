@@ -8,6 +8,7 @@ variant="${2:-debug}"
 case "$variant" in
   debug)
     tasks=(
+      :app:android:assembleDebug
       :provider_documents:assembleDebug
       :provider_telegram:assembleDebug
       :provider_documents:assembleDebugAndroidTest

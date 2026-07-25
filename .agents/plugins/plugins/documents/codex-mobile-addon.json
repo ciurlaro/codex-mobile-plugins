@@ -5,7 +5,7 @@
     "max": 2
   },
   "host": {
-    "versionCode": 4
+    "versionCode": 5
   },
   "pluginId": "documents@codex-mobile",
   "implementationVersion": "1.0.0",
