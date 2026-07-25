@@ -5,7 +5,8 @@ USER root
 WORKDIR /source
 COPY settings.gradle.kts build.gradle.kts gradle.properties ./
 COPY gradle ./gradle
-COPY shared ./shared
+COPY documents ./documents
+COPY telegram ./telegram
 COPY mcp-server ./mcp-server
 RUN --mount=type=cache,id=codex-mobile-provider-gradle,target=/root/.gradle \
     gradle --no-daemon :mcp-server:installDist
@@ -21,7 +22,7 @@ RUN --mount=type=cache,id=codex-mobile-tdlib-linux,target=/build/tdlib \
     curl --fail --location --retry 10 --retry-delay 5 --retry-max-time 180 --retry-all-errors \
         --header 'Accept: application/octet-stream' --header 'X-GitHub-Api-Version: 2022-11-28' \
         --proto '=https' --tlsv1.2 \
-        https://api.github.com/repos/openssl/openssl/releases/assets/442677812 \
+        https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz \
         --output openssl.tar.gz \
     && echo 'a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8  openssl.tar.gz' | sha256sum --check \
     && mkdir openssl-source && tar -xzf openssl.tar.gz -C openssl-source --strip-components=1 \

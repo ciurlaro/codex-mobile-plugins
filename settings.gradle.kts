@@ -19,7 +19,9 @@ providers.gradleProperty("codexMobile.providerApiBuild").orNull?.let(::includeBu
 include(":documents")
 include(":telegram")
 include(":mcp-server")
-include(":documents-android")
-project(":documents-android").projectDir = file("android/documents")
-include(":telegram-android")
-project(":telegram-android").projectDir = file("android/telegram")
+if (file("android").isDirectory) {
+    include(":documents-android")
+    project(":documents-android").projectDir = file("android/documents")
+    include(":telegram-android")
+    project(":telegram-android").projectDir = file("android/telegram")
+}

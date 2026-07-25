@@ -37,8 +37,8 @@ class DocumentsProvider(context: Context) : CodexMobileProvider {
         implementationVersion = "1.0.0",
         tools = providerTools,
         providerApi = 2,
-        minHostVersionCode = 4,
-        maxHostVersionCode = 4,
+        minHostVersionCode = 5,
+        maxHostVersionCode = 5,
         displayName = "Documents",
         schemaDigest = DOCUMENTS_SCHEMA_DIGEST,
     )

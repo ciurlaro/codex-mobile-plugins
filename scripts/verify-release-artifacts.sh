@@ -36,7 +36,7 @@ verify_feature() {
   local plugin=$1 split=$2 apk=$3 manifest entries expected_sha actual_sha dump entry_point descriptor
   manifest=$("$tools/aapt2" dump xmltree "$apk" --file AndroidManifest.xml)
   grep -q 'package="io.github.ciurlaro.codexmobile"' <<<"$manifest"
-  grep -q 'versionCode.*=4' <<<"$manifest"
+  grep -q 'versionCode.*=5' <<<"$manifest"
   grep -q "split=\"$split\"" <<<"$manifest"
   entries=$(unzip -Z1 "$apk")
   ! grep -Eqi 'mutool|tesseract|officecli|tg_?cli|node_modules|(^|/)node($|/)|(^|/)npm($|/)|private-backend' <<<"$entries"

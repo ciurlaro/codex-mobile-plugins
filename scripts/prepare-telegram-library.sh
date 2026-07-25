@@ -41,7 +41,7 @@ mkdir "$work/source/.git"
 printf '%s\n' "$td_commit" > "$work/source/.git/HEAD"
 
 download \
-  "https://api.github.com/repos/openssl/openssl/releases/assets/442677812" \
+  "https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz" \
   "$openssl_sha256" "$work/openssl.tar.gz"
 mkdir "$work/openssl-source" "$work/openssl"
 tar -xzf "$work/openssl.tar.gz" -C "$work/openssl-source" --strip-components=1
