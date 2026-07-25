@@ -23,8 +23,8 @@
       "arm64-v8a"
     ],
     "package": {
-      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.2/provider_documents.apk",
-      "sha256": "e0a99063f6c03ee30c17d00aeb5aeea9f5b8149ffc447a56c8aa56a87246548f"
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.3/provider_documents.apk",
+      "sha256": "6e81a407f88f9dee640f06e4244fd8032523a316ae48680ee3515120cf84b80c"
     }
   }
 }

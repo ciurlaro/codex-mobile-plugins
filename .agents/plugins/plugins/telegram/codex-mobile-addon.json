@@ -24,8 +24,8 @@
       "arm64-v8a"
     ],
     "package": {
-      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.2/provider_telegram.apk",
-      "sha256": "718a8b50b6a90090295984cb6fbb9b46ec22f02d00afdd5e0354571c7eae70cc"
+      "url": "https://github.com/ciurlaro/codex-mobile-plugins/releases/download/providers-0.2.0-preview.3/provider_telegram.apk",
+      "sha256": "65fb8eaddb251f45b4a22881930635bb45734a5eb7e2859ca4079c721ff63a94"
     }
   }
 }
