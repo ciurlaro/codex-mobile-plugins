@@ -2,7 +2,8 @@
 
 This is the canonical repository for owner-reviewed Codex Mobile providers. It distributes the Documents and Telegram plugins for Codex.
 Each plugin has one standard Codex bundle, one Kotlin capability artifact, an Android
-feature split for Codex Mobile, and a Dockerized MCP provider for desktop Codex.
+implementation library compiled into Codex Mobile, and a Dockerized MCP provider
+for desktop Codex.
 
 ## Install
 
@@ -12,12 +13,14 @@ Add this source in Codex Mobile:
 https://github.com/ciurlaro/codex-mobile-plugins
 ```
 
-The official Codex Mobile app accepts Android provider code only from this Git origin. Ordinary Codex plugins without Android code remain installable from any source. Select a plugin and approve Android's package installation prompt. The app
-restarts, verifies the split against the plugin schema and host version, disables
-the plugin's MCP process on Android, and finishes the standard plugin install.
+The official Codex Mobile app accepts Android provider metadata only from this
+Git origin. Ordinary Codex plugins remain installable from any source. The app
+verifies the metadata against the provider implementation already bundled from
+its pinned repository revision, disables the plugin's MCP process on Android,
+and finishes the standard plugin install without downloading executable code.
 Telegram then asks for the application's API ID and API hash in its Settings
 screen. Codex Mobile encrypts them in Telegram's own Android Keystore-backed
-secret namespace; they are not part of the feature APK.
+secret namespace; they are not part of the app artifact.
 
 Desktop Codex uses the same marketplace:
 
@@ -50,22 +53,15 @@ starts the Telegram MCP provider.
   configuration, and Android add-on metadata.
 - `documents/` and `telegram/` contain the shared capability semantics used by Android and MCP.
 - `android/` contains publishable Android provider implementation libraries. Documents uses
-  PdfiumAndroid and bundled ML Kit OCR; Telegram uses TDLib through JNI. The base-app feature
-  wrappers live in `codex-mobile` and contain no provider behavior.
+  PdfiumAndroid and bundled ML Kit OCR; Telegram uses TDLib through JNI. The host
+  compiles these libraries into its base APK from the pinned provider revision.
 - `mcp-server/` contains the official Kotlin MCP SDK stdio server. Its Documents
   backend uses PDFBox and offline Tess4J; its Telegram backend uses TDLib JNI.
 - `Dockerfile` builds the Linux MCP provider and its audited runtime assets.
 
-The Android base app contains none of these provider implementations, models,
-or JNI libraries. Feature APKs must match the base package name and version code
-and be signed by the same certificate. Official artifacts are therefore built
-with the corresponding Codex Mobile release. Forks sign their own base and
-matching feature splits.
-
-Android provider release builds are shrunk and optimized without name
-obfuscation. The host preserves the project-owned provider API names, so a
-split built and published separately never depends on a particular base APK's
-R8 mapping.
+Android provider release builds publish auditable AARs and are also compiled
+into the corresponding Codex Mobile base APK. The host preserves the existing
+provider API ABI and validates plugin metadata before activating bundled code.
 
 ## Build and verify
 
@@ -87,21 +83,16 @@ dynamic-feature wrappers compile with their base application; no provider source
 or build directory enters the host graph. Gradle dependency verification stays
 enabled for the complete Android dependency closure.
 
-The `1.0.0` Android provider release targets Codex Mobile host version code 5 at
-commit `83360ff8b637e88abf29db3e1b6d4e83bf7c6d75`. CI checks out that exact generic
-host revision and builds this repository's feature projects against it.
+The `1.0.0` Android provider release targets Codex Mobile host version code 5.
+`codexMobile.hostRevision` in `gradle.properties` is the single authoritative
+host revision; CI checks out that immutable commit before building the Android
+providers and base app together.
 
 For release builds, pass `release` and the matching host signing properties.
 Application credentials are configured per installed plugin and never enter the
-build. Publish the feature APKs only after
-`scripts/write-release-metadata.py` records their release URLs, exact SHA-256
-values, and immutable MCP image digest. Before upload, run `scripts/verify-release-artifacts.sh` with
-the signed host, Documents, and Telegram APKs; it verifies the common signer,
-package/version/split identity, manifest hashes, native allowlists, and absence
-of retired helper payloads. The release also includes one deterministic
-`release-manifest.json` binding the exact host, App Server protocol/runtime,
-provider API, plugin content, signed APKs, MCP image, compatibility ranges, and
-SBOMs by version and SHA-256.
+build. Provider releases publish the two AARs, the SBOM, and a deterministic
+`release-manifest.json` that binds the provider revision, provider API, plugin
+content, AAR hashes, and immutable MCP image digest.
 
 Build the MCP image without credentials:
 
@@ -116,10 +107,10 @@ configured application credentials.
 ## Runtime behavior
 
 App Server plugin configuration is the sole enablement authority. Disabling a
-plugin revokes tool execution immediately but retains its split, secret
-namespace, and data.
+plugin revokes tool execution immediately but retains its bundled
+implementation, secret namespace, and data.
 Uninstall first disables the plugin. Documents removes its snapshots. Telegram
-must confirm remote logout before its split and local session can be removed;
+must confirm remote logout before its local session can be removed;
 ambiguous revocation leaves removal pending for an explicit retry.
 The host deletes the plugin's secret namespace only after that cleanup succeeds.
 If an obsolete authorization cannot be identified by the current client, local
@@ -128,12 +119,12 @@ screen rather than claiming remote revocation.
 
 Installed providers expose project-owned calls and results only. The host keeps
 approval, deadline, cancellation, workspace, and mutation-journal checks around
-provider execution. Android provider code is loaded directly from the verified
-split; it does not use MCP, HTTP, Binder, a shell, or a helper process.
+provider execution. Android provider code is loaded from the pinned bundled
+libraries; it does not use MCP, HTTP, Binder, a shell, or a helper process.
 
 The Linux and Android backends implement the same schemas but use platform-
 appropriate libraries. No runtime code or OCR model download occurs after the
-Android split or Docker image is installed.
+Android app or Docker image is installed.
 
 The Android Documents provider uses bundled Google ML Kit OCR. Recognition is available offline, but Google's terms state that ML Kit may contact Google for metrics, fixes, model updates, or compatibility information. The exact runtime closure is recorded in the release SBOM.
 

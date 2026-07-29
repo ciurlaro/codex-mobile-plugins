@@ -1,11 +1,11 @@
 # Third-party notices
 
-The Android Documents split includes PdfiumAndroid (Apache-2.0), PDFium and its
-transitive native libraries (BSD-style notices packaged in the split), and
+The Android Documents provider includes PdfiumAndroid (Apache-2.0), PDFium and its
+transitive native libraries (BSD-style notices packaged with the provider), and
 bundled ML Kit text recognition under the ML Kit Terms of Service. Exact notices
 are under `android/documents/src/main/assets/`.
 
-The Android Telegram split includes TDLib 1.8.66 at commit
+The Android Telegram provider includes TDLib 1.8.66 at commit
 `022d60202e446ad1287b9fb68e687c8a0760788b` (Boost Software License 1.0) and
 statically linked OpenSSL 3.5.7 (Apache-2.0). Its notice is packaged under
 `android/telegram/src/main/assets/`.
@@ -21,7 +21,7 @@ The Docker MCP provider includes:
 - Kotlin, kotlinx.coroutines, and kotlinx.serialization (Apache-2.0);
 - their dependency-locked transitive JVM and native libraries.
 
-Android ML Kit OCR is bundled with the feature split and needs neither Google
+Android ML Kit OCR is bundled with the host app and needs neither Google
 Play Services nor a runtime model download. The Docker OCR model is copied into
 the image at build time and verified by SHA-256. TDLib requires Telegram network
 access; Documents does not.

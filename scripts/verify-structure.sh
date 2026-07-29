@@ -46,7 +46,7 @@ test -f Dockerfile
 grep -q '^COPY documents ./documents$' Dockerfile
 grep -q '^COPY telegram ./telegram$' Dockerfile
 test -x scripts/verify-mcp.sh
-test -x scripts/verify-release-artifacts.sh
+test -x scripts/verify-telegram-library.sh
 test -x scripts/write-release-metadata.py
 test -x scripts/write-release-manifest.py
 test -f .github/workflows/verify.yml
@@ -57,7 +57,7 @@ if rg -n 'ProcessBuilder|Runtime\.getRuntime\(\)\.exec|java\.lang\.Process|/bin/
   exit 1
 fi
 if rg -n 'mutool|officecli|tg_?cli|node_modules|preparePrivateBackends|PrivateBackendBundle' . \
-    --glob '!**/build/**' --glob '!scripts/verify-structure.sh' --glob '!scripts/verify-release-artifacts.sh'; then
+    --glob '!**/build/**' --glob '!scripts/verify-structure.sh'; then
   echo "A removed command backend remains" >&2
   exit 1
 fi
@@ -97,12 +97,20 @@ if rg -n 'project\(":(app:android|agent:codex|platform:android)"\)|codexMobile\.
   exit 1
 fi
 grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
-grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/verify.yml
-grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/release.yml
+grep -q ':documents-android:assembleDebug' scripts/build-android-providers.sh
+grep -q ':telegram-android:assembleDebug' scripts/build-android-providers.sh
+grep -q ':app:assembleDebug' scripts/build-android-providers.sh
+host_revision=$(sed -n 's/^codexMobile.hostRevision=//p' gradle.properties)
+[[ "$host_revision" =~ ^[0-9a-f]{40}$ ]]
+grep -Fq 'ref: ${{ steps.host.outputs.revision }}' .github/workflows/verify.yml
+if rg -n 'io\.github\.ciurlaro\.codexmobile:provider-api|codexMobile\.providerApiBuild|host/provider-api|:provider_(documents|telegram)|:app:android|host/app/android|host/providers/' \
+    settings.gradle.kts android scripts .github README.md docs CONTRIBUTING.md SECURITY.md THIRD_PARTY_NOTICES.md \
+    --glob '!scripts/verify-structure.sh'; then
+  echo "Legacy provider API coordinates, modules, or artifact paths remain" >&2
+  exit 1
+fi
 grep -q 'write-release-manifest.py' .github/workflows/release.yml
-grep -Fq 'path: candidate/host' .github/workflows/release.yml
-grep -Eq '^[[:space:]]+local input=\$1 output=\$2$' .github/workflows/release.yml
-grep -Eq '^[[:space:]]+local aligned=' .github/workflows/release.yml
+grep -Fq 'name: codex-mobile-provider-candidate' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1
