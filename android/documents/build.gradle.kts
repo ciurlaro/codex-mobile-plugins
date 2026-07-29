@@ -27,7 +27,7 @@ afterEvaluate {
 
 dependencies {
     api(project(":documents"))
-    api("io.github.ciurlaro.codexmobile:provider-api:2.0.0")
+    api("io.github.ciurlaro.codexmobile:extension-provider-api:2.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     implementation("io.legere:pdfiumandroid-core:2.0.0") {

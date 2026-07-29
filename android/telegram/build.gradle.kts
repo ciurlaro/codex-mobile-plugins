@@ -53,7 +53,7 @@ tasks.named("preBuild").configure { dependsOn(prepareTelegramLibrary) }
 
 dependencies {
     api(project(":telegram"))
-    api("io.github.ciurlaro.codexmobile:provider-api:2.0.0")
+    api("io.github.ciurlaro.codexmobile:extension-provider-api:2.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")

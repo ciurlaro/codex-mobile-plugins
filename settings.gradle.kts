@@ -15,7 +15,14 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "codex-mobile-plugins"
-providers.gradleProperty("codexMobile.providerApiBuild").orNull?.let(::includeBuild)
+providers.gradleProperty("codexMobile.extensionProviderApiBuild").orNull?.let { apiBuild ->
+    includeBuild(apiBuild) {
+        dependencySubstitution {
+            substitute(module("io.github.ciurlaro.codexmobile:extension-provider-api"))
+                .using(project(":"))
+        }
+    }
+}
 include(":documents")
 include(":telegram")
 include(":mcp-server")
