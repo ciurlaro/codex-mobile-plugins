@@ -46,6 +46,7 @@ test -f Dockerfile
 grep -q '^COPY documents ./documents$' Dockerfile
 grep -q '^COPY telegram ./telegram$' Dockerfile
 test -x scripts/verify-mcp.sh
+test -x scripts/run-android-device-tests.sh
 test -x scripts/verify-telegram-library.sh
 test -x scripts/write-release-metadata.py
 test -x scripts/write-release-manifest.py
