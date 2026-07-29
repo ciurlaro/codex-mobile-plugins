@@ -87,9 +87,7 @@ jobs:
             host/modules/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             providers/android/documents/build/outputs/aar/documents-android-debug.aar
             providers/android/telegram/build/outputs/aar/telegram-android-debug.aar
-            providers/android/documents/build/outputs/apk/debug/provider_documents-debug.apk
             providers/android/documents/build/outputs/apk/androidTest/debug/documents-android-debug-androidTest.apk
-            providers/android/telegram/build/outputs/apk/debug/provider_telegram-debug.apk
             providers/android/telegram/build/outputs/apk/androidTest/debug/telegram-android-debug-androidTest.apk
             providers/scripts/run-android-device-tests.sh
             providers/docs/sbom.cdx.json
