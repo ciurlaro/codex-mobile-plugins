@@ -161,7 +161,7 @@ internal class DocumentEngine(private val context: Context) {
         const val MAX_OCR_PAGES = 5
         const val MAX_BITMAP_PIXELS = 20_000_000L
         const val MAX_RENDER_BYTES = 2 * 1024 * 1024
-        const val OCR_TIMEOUT_SECONDS = 30L
+        const val OCR_TIMEOUT_SECONDS = 120L
         val IMAGE_EXTENSIONS = setOf("png", "jpg", "jpeg", "gif", "bmp", "webp")
         val OFFICE_EXTENSIONS = setOf("docx", "xlsx", "pptx")
     }
