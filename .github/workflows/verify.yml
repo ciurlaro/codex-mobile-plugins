@@ -47,7 +47,7 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: providers/android/telegram/src/main/jniLibs/arm64-v8a/libtdjsonjava.so
-          key: telegram-jni-${{ runner.os }}-${{ runner.arch }}-ndk29-${{ hashFiles('providers/scripts/prepare-telegram-library.sh', 'providers/scripts/verify-telegram-library.sh', 'providers/android/telegram/build.gradle.kts') }}
+          key: telegram-jni-${{ runner.os }}-${{ runner.arch }}-ndk29-${{ hashFiles('providers/scripts/prepare-telegram-library.sh', 'providers/scripts/verify-telegram-library.sh', 'providers/android/telegram/build.gradle.kts', 'providers/build-logic/src/main/kotlin/PrepareTelegramLibraryTask.kt', 'providers/build-logic/src/main/kotlin/codexmobile.telegram-library.gradle.kts', 'providers/gradle/libs.versions.toml') }}
       - name: Verify restored Telegram native library
         if: steps.telegram-cache.outputs.cache-hit == 'true'
         run: providers/scripts/verify-telegram-library.sh "$ANDROID_HOME/ndk/29.0.14206865" providers/android/telegram/src/main/jniLibs/arm64-v8a/libtdjsonjava.so
@@ -55,7 +55,7 @@ jobs:
         working-directory: providers
         run: |
           bash scripts/verify-structure.sh
-          ./gradlew --no-daemon :test
+          ./gradlew --no-daemon :codex-mobile-plugins-build-logic:test :test
       - name: Build and lint Android feature providers
         run: |
           export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
@@ -112,9 +112,12 @@ jobs:
             providers/THIRD_PARTY_NOTICES.md
             providers/source-revision.txt
 
-  container:
+  container-pr:
+    if: github.event_name == 'pull_request'
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 240
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -133,11 +136,69 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           load: true
-          tags: codex-mobile-plugins:verify-${{ matrix.suffix }}
+          tags: ghcr.io/ciurlaro/codex-mobile-plugins:candidate-${{ github.sha }}-${{ matrix.suffix }}
           cache-from: type=gha,scope=${{ matrix.suffix }}
           cache-to: type=gha,mode=max,scope=${{ matrix.suffix }}
-      - name: Exercise MCP image
-        run: bash scripts/verify-mcp.sh codex-mobile-plugins:verify-${{ matrix.suffix }}
+      - name: Exercise the image
+        run: >-
+          bash scripts/verify-mcp.sh
+          ghcr.io/ciurlaro/codex-mobile-plugins:candidate-${{ github.sha }}-${{ matrix.suffix }}
+
+  container-main:
+    if: github.event_name == 'push'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 240
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            suffix: amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            suffix: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - id: image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          push: true
+          tags: ghcr.io/ciurlaro/codex-mobile-plugins:candidate-${{ github.sha }}-${{ matrix.suffix }}
+          cache-from: type=gha,scope=${{ matrix.suffix }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.suffix }}
+      - name: Exercise the exact pushed image
+        run: >-
+          bash scripts/verify-mcp.sh
+          ghcr.io/ciurlaro/codex-mobile-plugins@${{ steps.image.outputs.digest }}
+      - name: Record verified image provenance
+        run: |
+          mkdir -p image-provenance
+          jq -n \
+            --arg source "$GITHUB_SHA" \
+            --arg platform "${{ matrix.platform }}" \
+            --arg repository "ghcr.io/ciurlaro/codex-mobile-plugins" \
+            --arg digest "${{ steps.image.outputs.digest }}" \
+            '{source: $source, platform: $platform, repository: $repository, digest: $digest}' \
+            > "image-provenance/${{ matrix.suffix }}.json"
+      - name: Upload verified image provenance
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: codex-mobile-provider-image-${{ matrix.suffix }}
+          retention-days: 14
+          if-no-files-found: error
+          path: image-provenance/${{ matrix.suffix }}.json
 
   device:
     needs: android

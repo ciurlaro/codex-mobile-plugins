@@ -1,21 +1,18 @@
 plugins {
-    kotlin("jvm")
-    application
+    id("codexmobile.provider-jvm-application")
 }
-
-kotlin { jvmToolchain(17) }
 
 dependencies {
     implementation(project(":documents"))
     implementation(project(":telegram"))
-    implementation("io.modelcontextprotocol:kotlin-sdk-server:0.14.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("org.apache.pdfbox:pdfbox:3.0.7")
-    implementation("net.sourceforge.tess4j:tess4j:5.19.0") {
+    implementation(libs.mcp.server)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.pdfbox)
+    implementation(libs.tess4j) {
         exclude(group = "org.apache.pdfbox", module = "pdfbox-tools")
     }
-    implementation("org.json:json:20250517")
+    implementation(libs.json)
     testImplementation(kotlin("test"))
 }
 

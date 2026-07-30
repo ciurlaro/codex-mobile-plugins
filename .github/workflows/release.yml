@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       run_id: ${{ steps.verify.outputs.run_id }}
+      amd64_digest: ${{ steps.images.outputs.amd64_digest }}
+      arm64_digest: ${{ steps.images.outputs.arm64_digest }}
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Verify requested versions
@@ -47,48 +49,34 @@ jobs:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
           run-id: ${{ steps.verify.outputs.run_id }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: codex-mobile-provider-image-*
+          path: candidate/images
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.verify.outputs.run_id }}
       - name: Verify candidate provenance
         run: |
           test "$(cat candidate/providers/source-revision.txt)" = "$GITHUB_SHA"
           test -s candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar
           test -s candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar
-
-  image:
-    needs: candidate
-    runs-on: ${{ matrix.runner }}
-    timeout-minutes: 300
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: linux/amd64
-            suffix: amd64
-            runner: ubuntu-24.04
-          - platform: linux/arm64
-            suffix: arm64
-            runner: ubuntu-24.04-arm
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
-      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ github.token }}
-      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
-        with:
-          context: .
-          platforms: ${{ matrix.platform }}
-          push: true
-          tags: ghcr.io/ciurlaro/codex-mobile-plugins:${{ inputs.image_tag }}-${{ matrix.suffix }}
-          cache-from: type=gha,scope=${{ matrix.suffix }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.suffix }}
+      - id: images
+        name: Verify tested image digests
+        run: |
+          for suffix in amd64 arm64; do
+            file="candidate/images/$suffix.json"
+            test "$(jq -r .source "$file")" = "$GITHUB_SHA"
+            test "$(jq -r .platform "$file")" = "linux/$suffix"
+            test "$(jq -r .repository "$file")" = "ghcr.io/ciurlaro/codex-mobile-plugins"
+            digest=$(jq -r .digest "$file")
+            [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+            echo "${suffix}_digest=$digest" >> "$GITHUB_OUTPUT"
+          done
 
   publish:
-    needs: [candidate, image]
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 300
     permissions:
@@ -115,8 +103,11 @@ jobs:
       - id: image
         name: Publish the multi-architecture image manifest
         run: |
-          image="ghcr.io/ciurlaro/codex-mobile-plugins:${{ inputs.image_tag }}"
-          docker buildx imagetools create --tag "$image" "$image-amd64" "$image-arm64"
+          repository="ghcr.io/ciurlaro/codex-mobile-plugins"
+          image="$repository:${{ inputs.image_tag }}"
+          docker buildx imagetools create --tag "$image" \
+            "$repository@${{ needs.candidate.outputs.amd64_digest }}" \
+            "$repository@${{ needs.candidate.outputs.arm64_digest }}"
           echo "digest=sha256:$(docker buildx imagetools inspect --raw "$image" | sha256sum | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
       - name: Finalize immutable release metadata
         run: |
@@ -159,8 +150,11 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          TARGET_COMMIT: ${{ steps.metadata.outputs.commit }}
         run: |
-          args=(release create "${{ inputs.tag }}" --target "${{ steps.metadata.outputs.commit }}" --generate-notes --title "Codex Mobile providers ${{ inputs.image_tag }}")
-          if [[ "${{ inputs.tag }}" == *preview* ]]; then args+=(--prerelease); fi
+          args=(release create "$RELEASE_TAG" --target "$TARGET_COMMIT" --generate-notes --title "Codex Mobile providers $IMAGE_TAG")
+          case "$RELEASE_TAG" in *preview*) args+=(--prerelease) ;; esac
           args+=(candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar release/release-manifest.json release/release-manifest.json.sha256 candidate/providers/docs/sbom.cdx.json candidate/providers/LICENSE candidate/providers/LICENSES/MLKIT-EXCEPTION.txt candidate/providers/THIRD_PARTY_NOTICES.md)
           gh "${args[@]}"

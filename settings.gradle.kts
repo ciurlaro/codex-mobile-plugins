@@ -1,4 +1,7 @@
 pluginManagement {
+    includeBuild("build-logic") {
+        name = "codex-mobile-plugins-build-logic"
+    }
     repositories {
         google()
         mavenCentral()
