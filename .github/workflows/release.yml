@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: GitHub release tag for the Android provider splits
+        description: GitHub release tag for provider integrations
         required: true
         default: providers-0.2.0-preview.3
       image_tag:
@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: codex-mobile-providers-release
@@ -23,142 +24,76 @@ jobs:
   candidate:
     if: github.repository == 'ciurlaro/codex-mobile-plugins' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 240
+    outputs:
+      run_id: ${{ steps.verify.outputs.run_id }}
+      amd64_digest: ${{ steps.images.outputs.amd64_digest }}
+      arm64_digest: ${{ steps.images.outputs.arm64_digest }}
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          path: providers
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          repository: ciurlaro/codex-mobile
-          ref: 83360ff8b637e88abf29db3e1b6d4e83bf7c6d75
-          path: host
-      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
-        with:
-          distribution: temurin
-          java-version: "17"
-      - uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
-      - name: Install Android toolchain
+      - name: Verify requested versions
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes gperf libarchive-tools ninja-build patchelf ripgrep zip
-          sdkmanager "platforms;android-37.0" "build-tools;36.0.0" "ndk;29.0.14206865"
-      - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
-      - name: Create ephemeral build key
-        run: >-
-          keytool -genkeypair -noprompt -keystore "$RUNNER_TEMP/release.jks"
-          -storepass android -keypass android -alias ci-release -keyalg RSA
-          -keysize 3072 -validity 1 -dname "CN=Codex Mobile Provider CI"
-      - name: Build release candidates
+          test "${{ inputs.image_tag }}" = "$(jq -r '.version' .agents/plugins/plugins/documents/.codex-plugin/plugin.json)"
+          test "${{ inputs.image_tag }}" = "$(jq -r '.version' .agents/plugins/plugins/telegram/.codex-plugin/plugin.json)"
+      - id: verify
+        name: Find the successful verification for this exact revision
         env:
-          CODEX_MOBILE_RELEASE_STORE_FILE: ${{ runner.temp }}/release.jks
-          CODEX_MOBILE_RELEASE_STORE_PASSWORD: android
-          CODEX_MOBILE_RELEASE_KEY_ALIAS: ci-release
-          CODEX_MOBILE_RELEASE_KEY_PASSWORD: android
+          GH_TOKEN: ${{ github.token }}
         run: |
-          test "${{ inputs.image_tag }}" = "$(jq -r '.version' providers/.agents/plugins/plugins/documents/.codex-plugin/plugin.json)"
-          test "${{ inputs.image_tag }}" = "$(jq -r '.version' providers/.agents/plugins/plugins/telegram/.codex-plugin/plugin.json)"
-          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
-          bash providers/scripts/verify-structure.sh
-          providers/gradlew -p providers --no-daemon :test
-          providers/scripts/build-android-providers.sh host release
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+          run_id=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/verify.yml/runs?head_sha=$GITHUB_SHA&event=push&status=completed&per_page=20" --jq '[.workflow_runs[] | select(.conclusion == "success")][0].id // empty')
+          test -n "$run_id" || { echo "No successful Verify run exists for $GITHUB_SHA" >&2; exit 1; }
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          name: unsigned-provider-release
-          retention-days: 14
-          if-no-files-found: error
-          path: |
-            host/app/android/build/outputs/apk/release/android-release.apk
-            host/release-signing-certificate.sha256
-            host/providers/documents/build/outputs/apk/release/provider_documents-release.apk
-            host/providers/telegram/build/outputs/apk/release/provider_telegram-release.apk
-
-  image:
-    needs: candidate
-    runs-on: ${{ matrix.runner }}
-    timeout-minutes: 300
-    environment: release
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: linux/amd64
-            suffix: amd64
-            runner: ubuntu-24.04
-          - platform: linux/arm64
-            suffix: arm64
-            runner: ubuntu-24.04-arm
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
-      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+          name: codex-mobile-provider-candidate
+          path: candidate
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.verify.outputs.run_id }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ github.token }}
-      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
-        with:
-          context: .
-          platforms: ${{ matrix.platform }}
-          push: true
-          tags: ghcr.io/ciurlaro/codex-mobile-plugins:${{ inputs.image_tag }}-${{ matrix.suffix }}
-          cache-from: type=gha,scope=${{ matrix.suffix }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.suffix }}
+          pattern: codex-mobile-provider-image-*
+          path: candidate/images
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.verify.outputs.run_id }}
+      - name: Verify candidate provenance
+        run: |
+          test "$(cat candidate/providers/source-revision.txt)" = "$GITHUB_SHA"
+          test -s candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar
+          test -s candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar
+      - id: images
+        name: Verify tested image digests
+        run: |
+          for suffix in amd64 arm64; do
+            file="candidate/images/$suffix.json"
+            test "$(jq -r .source "$file")" = "$GITHUB_SHA"
+            test "$(jq -r .platform "$file")" = "linux/$suffix"
+            test "$(jq -r .repository "$file")" = "ghcr.io/ciurlaro/codex-mobile-plugins"
+            digest=$(jq -r .digest "$file")
+            [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+            echo "${suffix}_digest=$digest" >> "$GITHUB_OUTPUT"
+          done
 
   publish:
-    needs: [candidate, image]
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 300
-    environment: release
     permissions:
       contents: write
       packages: write
+      actions: read
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          name: unsigned-provider-release
-          path: candidate/host
-      - uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
-      - run: sdkmanager "build-tools;36.0.0"
-      - name: Sign with the production identity
-        env:
-          KEYSTORE_BASE64: ${{ secrets.ANDROID_RELEASE_KEYSTORE_BASE64 }}
-          STORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_STORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.ANDROID_RELEASE_KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
-        run: |
-          set -euo pipefail
-          tools="$ANDROID_HOME/build-tools/36.0.0"
-          mkdir release
-          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
-          sign() {
-            local input=$1 output=$2
-            local aligned="$RUNNER_TEMP/$(basename "$output").aligned.apk"
-            "$tools/zipalign" -f -p 4 "$input" "$aligned"
-            "$tools/apksigner" sign \
-              --ks "$RUNNER_TEMP/release.jks" \
-              --ks-pass env:STORE_PASSWORD \
-              --ks-key-alias "$KEY_ALIAS" \
-              --key-pass env:KEY_PASSWORD \
-              --out "$output" "$aligned"
-            "$tools/apksigner" verify --verbose --print-certs "$output"
-            rm -f "$aligned"
-          }
-          sign candidate/host/app/android/build/outputs/apk/release/android-release.apk release/codex-mobile-host.apk
-          sign candidate/host/providers/documents/build/outputs/apk/release/provider_documents-release.apk release/provider_documents.apk
-          sign candidate/host/providers/telegram/build/outputs/apk/release/provider_telegram-release.apk release/provider_telegram.apk
-          actual=$("$tools/apksigner" verify --print-certs release/codex-mobile-host.apk | awk -F': ' '/certificate SHA-256 digest/ {print tolower($2); exit}')
-          expected=$(cat candidate/host/release-signing-certificate.sha256)
-          test "$actual" = "$expected"
-          sha256sum release/provider_documents.apk > release/provider_documents.apk.sha256
-          sha256sum release/provider_telegram.apk > release/provider_telegram.apk.sha256
-          rm -f "$RUNNER_TEMP/release.jks"
+          name: codex-mobile-provider-candidate
+          path: candidate
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ needs.candidate.outputs.run_id }}
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
       - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
@@ -168,19 +103,16 @@ jobs:
       - id: image
         name: Publish the multi-architecture image manifest
         run: |
-          image="ghcr.io/ciurlaro/codex-mobile-plugins:${{ inputs.image_tag }}"
-          docker buildx imagetools create --tag "$image" "$image-amd64" "$image-arm64"
+          repository="ghcr.io/ciurlaro/codex-mobile-plugins"
+          image="$repository:${{ inputs.image_tag }}"
+          docker buildx imagetools create --tag "$image" \
+            "$repository@${{ needs.candidate.outputs.amd64_digest }}" \
+            "$repository@${{ needs.candidate.outputs.arm64_digest }}"
           echo "digest=sha256:$(docker buildx imagetools inspect --raw "$image" | sha256sum | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
-      - name: Finalize and verify immutable release metadata
+      - name: Finalize immutable release metadata
         run: |
-          scripts/write-release-metadata.py \
-            "${{ inputs.tag }}" "${{ steps.image.outputs.digest }}" \
-            release/provider_documents.apk release/provider_telegram.apk
-          grep -q "ghcr.io/ciurlaro/codex-mobile-plugins@${{ steps.image.outputs.digest }}" .agents/plugins/plugins/documents/.mcp.json
-          grep -q "ghcr.io/ciurlaro/codex-mobile-plugins@${{ steps.image.outputs.digest }}" .agents/plugins/plugins/telegram/.mcp.json
+          scripts/write-release-metadata.py "${{ inputs.tag }}" "${{ steps.image.outputs.digest }}"
           bash scripts/verify-structure.sh
-          scripts/verify-release-artifacts.sh \
-            release/codex-mobile-host.apk release/provider_documents.apk release/provider_telegram.apk
       - name: Commit release metadata without racing main
         id: metadata
         run: |
@@ -188,52 +120,41 @@ jobs:
           test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add \
-            .agents/plugins/plugins/documents/.mcp.json \
-            .agents/plugins/plugins/documents/codex-mobile-addon.json \
-            .agents/plugins/plugins/telegram/.mcp.json \
-            .agents/plugins/plugins/telegram/codex-mobile-addon.json
+          git add .agents/plugins/plugins/documents/.mcp.json .agents/plugins/plugins/telegram/.mcp.json
           git diff --cached --quiet && { echo "Release metadata did not change" >&2; exit 1; }
-          git commit -m "Publish ${{ inputs.tag }} metadata"
+          git commit -m "Publish ${{ inputs.tag }} metadata [skip ci]"
           git push origin HEAD:main
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          repository: ciurlaro/codex-mobile
-          ref: 83360ff8b637e88abf29db3e1b6d4e83bf7c6d75
-          path: host
       - name: Write aggregate release manifest
         run: |
           scripts/write-release-manifest.py \
-            --host-root host \
-            --host-revision 83360ff8b637e88abf29db3e1b6d4e83bf7c6d75 \
-            --provider-revision "${{ steps.metadata.outputs.commit }}" \
-            --host-apk release/codex-mobile-host.apk \
-            --documents-apk release/provider_documents.apk \
-            --telegram-apk release/provider_telegram.apk \
+            --provider-revision "$GITHUB_SHA" \
+            --documents-aar candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar \
+            --telegram-aar candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar \
             --mcp-image-digest "${{ steps.image.outputs.digest }}" \
             --output release/release-manifest.json
           sha256sum release/release-manifest.json > release/release-manifest.json.sha256
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: signed-provider-release
+          name: provider-release
           if-no-files-found: error
           path: |
-            release/provider_documents.apk
-            release/provider_documents.apk.sha256
-            release/provider_telegram.apk
-            release/provider_telegram.apk.sha256
+            candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar
+            candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar
             release/release-manifest.json
             release/release-manifest.json.sha256
-            docs/sbom.cdx.json
-            LICENSE
-            LICENSES/MLKIT-EXCEPTION.txt
-            THIRD_PARTY_NOTICES.md
+            candidate/providers/docs/sbom.cdx.json
+            candidate/providers/LICENSE
+            candidate/providers/LICENSES/MLKIT-EXCEPTION.txt
+            candidate/providers/THIRD_PARTY_NOTICES.md
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          TARGET_COMMIT: ${{ steps.metadata.outputs.commit }}
         run: |
-          args=(release create "${{ inputs.tag }}" --target "${{ steps.metadata.outputs.commit }}" --generate-notes --title "Codex Mobile providers ${{ inputs.image_tag }}")
-          if [[ "${{ inputs.tag }}" == *preview* ]]; then args+=(--prerelease); fi
-          args+=(release/provider_documents.apk release/provider_documents.apk.sha256 release/provider_telegram.apk release/provider_telegram.apk.sha256 release/release-manifest.json release/release-manifest.json.sha256 docs/sbom.cdx.json LICENSE LICENSES/MLKIT-EXCEPTION.txt THIRD_PARTY_NOTICES.md)
+          args=(release create "$RELEASE_TAG" --target "$TARGET_COMMIT" --generate-notes --title "Codex Mobile providers $IMAGE_TAG")
+          case "$RELEASE_TAG" in *preview*) args+=(--prerelease) ;; esac
+          args+=(candidate/providers/android/documents/build/outputs/aar/documents-android-release.aar candidate/providers/android/telegram/build/outputs/aar/telegram-android-release.aar release/release-manifest.json release/release-manifest.json.sha256 candidate/providers/docs/sbom.cdx.json candidate/providers/LICENSE candidate/providers/LICENSES/MLKIT-EXCEPTION.txt candidate/providers/THIRD_PARTY_NOTICES.md)
           gh "${args[@]}"

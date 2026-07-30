@@ -5,6 +5,7 @@ USER root
 WORKDIR /source
 COPY settings.gradle.kts build.gradle.kts gradle.properties ./
 COPY gradle ./gradle
+COPY build-logic ./build-logic
 COPY documents ./documents
 COPY telegram ./telegram
 COPY mcp-server ./mcp-server

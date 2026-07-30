@@ -6,7 +6,6 @@ output=$2
 td_version=1.8.66
 td_commit=022d60202e446ad1287b9fb68e687c8a0760788b
 td_sha256=b0837cd880a6de8d45abdfd5024fe0f042c100eb5f241a5f185ba65579acfc32
-openssl_version=3.5.7
 openssl_sha256=a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8
 
 case "$(uname -s)" in
@@ -68,15 +67,6 @@ cmake -S "$work/source/example/android" -B "$work/android" -G Ninja \
 cmake --build "$work/android" --target tdjni --parallel
 
 library="$work/android/libtdjsonjava.so"
-test -s "$library"
-strings "$library" | grep -F "OpenSSL $openssl_version" >/dev/null
-if "$toolchain/bin/llvm-readelf" -l "$library" | grep 'INTERP' >/dev/null; then
-  echo "TDLib JNI library unexpectedly has a program interpreter" >&2
-  exit 1
-fi
-if "$toolchain/bin/llvm-nm" -D "$library" | grep -E ' (main|fork|execve|posix_spawn)$' >/dev/null; then
-  echo "TDLib JNI library unexpectedly exposes a process entry point" >&2
-  exit 1
-fi
+"$(dirname "$0")/verify-telegram-library.sh" "$ndk" "$library"
 mkdir -p "$(dirname "$output")"
 install -m 644 "$library" "$output"

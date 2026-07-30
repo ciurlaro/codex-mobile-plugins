@@ -8,8 +8,52 @@ test -f LICENSE
 test -f LICENSES/MLKIT-EXCEPTION.txt
 test -f THIRD_PARTY_NOTICES.md
 test -f gradle/verification-metadata.xml
+test -f gradle/libs.versions.toml
+test -f build-logic/src/main/kotlin/PrepareTelegramLibraryTask.kt
+test -f build-logic/src/main/kotlin/codexmobile.provider-android-library.gradle.kts
+test -f build-logic/src/main/kotlin/codexmobile.provider-kmp-library.gradle.kts
+test -f build-logic/src/main/kotlin/codexmobile.provider-jvm-application.gradle.kts
+test -f build-logic/src/main/kotlin/codexmobile.telegram-library.gradle.kts
+test -f build-logic/src/test/kotlin/PrepareTelegramLibraryTaskTest.kt
+grep -q 'name = "codex-mobile-plugins-build-logic"' settings.gradle.kts
 grep -q 'GNU GENERAL PUBLIC LICENSE' LICENSE
 grep -q 'GNU GPL version 3 section 7' LICENSES/MLKIT-EXCEPTION.txt
+
+expected_builds=$(printf '%s\n' \
+  android/documents/build.gradle.kts \
+  android/telegram/build.gradle.kts \
+  build-logic/build.gradle.kts \
+  build.gradle.kts \
+  documents/build.gradle.kts \
+  mcp-server/build.gradle.kts \
+  telegram/build.gradle.kts)
+actual_builds=$(git ls-files --cached --others --exclude-standard '*build.gradle.kts' | sort)
+test "$actual_builds" = "$expected_builds" || {
+  echo "Provider module/build-logic descriptor set is not intentional" >&2
+  exit 1
+}
+
+while IFS= read -r source; do
+  case "$source" in
+    build.gradle.kts|settings.gradle.kts|*/build.gradle.kts|build-logic/settings.gradle.kts|\
+    build-logic/src/main/kotlin/*.kt|build-logic/src/main/kotlin/*.kts|\
+    build-logic/src/test/kotlin/*.kt|build-logic/src/test/kotlin/*.kts|\
+    documents/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/*.kt|\
+    documents/src/commonTest/kotlin/io/github/ciurlaro/codexmobile/providers/documents/*.kt|\
+    documents/src/jvmMain/kotlin/io/github/ciurlaro/codexmobile/providers/documents/*.kt|\
+    telegram/src/commonMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/*.kt|\
+    telegram/src/commonTest/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/*.kt|\
+    telegram/src/jvmMain/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/*.kt|\
+    mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/*.kt|\
+    mcp-server/src/test/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/*.kt|\
+    android/documents/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*.kt|\
+    android/documents/src/androidTest/kotlin/io/github/ciurlaro/codexmobile/platform/android/*.kt|\
+    android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*.kt|\
+    android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/telegram/*.kt|\
+    android/telegram/src/androidTest/kotlin/io/github/ciurlaro/codexmobile/platform/android/*.kt) ;;
+    *) echo "Kotlin source uses an unsupported root or package: $source" >&2; exit 1 ;;
+  esac
+done < <(git ls-files --cached --others --exclude-standard '*.kt' '*.kts')
 
 test -f .agents/plugins/marketplace.json
 for plugin in documents telegram; do
@@ -35,18 +79,26 @@ test "$(find . -path '*/src/*' -name TdLibTransport.kt | wc -l | tr -d ' ')" = 1
 test "$(find . -path '*/src/*' -name JsonClient.java | wc -l | tr -d ' ')" = 1
 test -f android/documents/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/DocumentsProvider.kt
 test -f android/telegram/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/TelegramProvider.kt
-grep -q 'id("com.android.library")' android/documents/build.gradle.kts
-grep -q 'id("com.android.library")' android/telegram/build.gradle.kts
+grep -q 'id("codexmobile.provider-android-library")' android/documents/build.gradle.kts
+grep -q 'id("codexmobile.provider-android-library")' android/telegram/build.gradle.kts
+grep -q 'id("codexmobile.telegram-library")' android/telegram/build.gradle.kts
+if rg -n 'tasks\.register<Exec>|(^|[[:space:]])(allprojects|subprojects)[[:space:]]*\{' \
+    --glob '*.kts' --glob '!**/build/**'; then
+  echo "Builds must use typed tasks and self-applied conventions" >&2
+  exit 1
+fi
 for provider in android/{documents,telegram}/src/main/kotlin/io/github/ciurlaro/codexmobile/platform/android/*Provider.kt; do
   grep -q 'minHostVersionCode = 5' "$provider"
   grep -q 'maxHostVersionCode = 5' "$provider"
 done
 test -f mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
 test -f Dockerfile
+grep -q '^COPY build-logic ./build-logic$' Dockerfile
 grep -q '^COPY documents ./documents$' Dockerfile
 grep -q '^COPY telegram ./telegram$' Dockerfile
 test -x scripts/verify-mcp.sh
-test -x scripts/verify-release-artifacts.sh
+test -x scripts/run-android-device-tests.sh
+test -x scripts/verify-telegram-library.sh
 test -x scripts/write-release-metadata.py
 test -x scripts/write-release-manifest.py
 test -f .github/workflows/verify.yml
@@ -57,12 +109,12 @@ if rg -n 'ProcessBuilder|Runtime\.getRuntime\(\)\.exec|java\.lang\.Process|/bin/
   exit 1
 fi
 if rg -n 'mutool|officecli|tg_?cli|node_modules|preparePrivateBackends|PrivateBackendBundle' . \
-    --glob '!**/build/**' --glob '!scripts/verify-structure.sh' --glob '!scripts/verify-release-artifacts.sh'; then
+    --glob '!**/build/**' --glob '!scripts/verify-structure.sh'; then
   echo "A removed command backend remains" >&2
   exit 1
 fi
 
-grep -q 'io.modelcontextprotocol:kotlin-sdk-server:0.14.0' mcp-server/build.gradle.kts
+grep -q 'io.modelcontextprotocol:kotlin-sdk-server' gradle/libs.versions.toml
 grep -q 'kotlin-logging.logStartupMessage' mcp-server/src/main/kotlin/io/github/ciurlaro/codexmobile/providers/mcp/Main.kt
 grep -q 'COPY THIRD_PARTY_NOTICES.md /opt/provider/THIRD_PARTY_NOTICES.md' Dockerfile
 grep -q 'network=none' .agents/plugins/plugins/documents/.mcp.json
@@ -97,12 +149,20 @@ if rg -n 'project\(":(app:android|agent:codex|platform:android)"\)|codexMobile\.
   exit 1
 fi
 grep -q 'codexMobile.providerBuild' scripts/build-android-providers.sh
-grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/verify.yml
-grep -q '83360ff8b637e88abf29db3e1b6d4e83bf7c6d75' .github/workflows/release.yml
+grep -q ':documents-android:assembleDebug' scripts/build-android-providers.sh
+grep -q ':telegram-android:assembleDebug' scripts/build-android-providers.sh
+grep -q ':app:assembleDebug' scripts/build-android-providers.sh
+host_revision=$(sed -n 's/^codexMobile.hostRevision=//p' gradle.properties)
+[[ "$host_revision" =~ ^[0-9a-f]{40}$ ]]
+grep -Fq 'ref: ${{ steps.host.outputs.revision }}' .github/workflows/verify.yml
+if rg -n 'io\.github\.ciurlaro\.codexmobile:provider-api|codexMobile\.providerApiBuild|host/provider-api|:provider_(documents|telegram)|:app:android|host/app/android|host/providers/' \
+    settings.gradle.kts android scripts .github README.md docs CONTRIBUTING.md SECURITY.md THIRD_PARTY_NOTICES.md \
+    --glob '!scripts/verify-structure.sh'; then
+  echo "Legacy provider API coordinates, modules, or artifact paths remain" >&2
+  exit 1
+fi
 grep -q 'write-release-manifest.py' .github/workflows/release.yml
-grep -Fq 'path: candidate/host' .github/workflows/release.yml
-grep -Eq '^[[:space:]]+local input=\$1 output=\$2$' .github/workflows/release.yml
-grep -Eq '^[[:space:]]+local aligned=' .github/workflows/release.yml
+grep -Fq 'name: codex-mobile-provider-candidate' .github/workflows/release.yml
 if rg -n 'uses: [^ ]+@v[0-9]' .github/workflows; then
   echo "GitHub Actions must be pinned to immutable revisions" >&2
   exit 1

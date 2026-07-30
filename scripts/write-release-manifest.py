@@ -24,92 +24,46 @@ def tree_sha256(root: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
-def properties(path: pathlib.Path) -> dict[str, str]:
-    return dict(
-        line.split("=", 1)
-        for line in path.read_text().splitlines()
-        if line and not line.startswith("#") and "=" in line
-    )
-
-
-def project_version(path: pathlib.Path) -> str:
-    match = re.search(r'^version\s*=\s*"([^"]+)"', path.read_text(), re.MULTILINE)
-    if not match:
-        raise SystemExit(f"version is missing from {path}")
-    return match.group(1)
-
-
 parser = argparse.ArgumentParser()
-parser.add_argument("--host-root", required=True, type=pathlib.Path)
-parser.add_argument("--host-revision", required=True)
 parser.add_argument("--provider-revision", required=True)
-parser.add_argument("--host-apk", required=True, type=pathlib.Path)
-parser.add_argument("--documents-apk", required=True, type=pathlib.Path)
-parser.add_argument("--telegram-apk", required=True, type=pathlib.Path)
+parser.add_argument("--documents-aar", required=True, type=pathlib.Path)
+parser.add_argument("--telegram-aar", required=True, type=pathlib.Path)
 parser.add_argument("--mcp-image-digest", required=True)
 parser.add_argument("--output", required=True, type=pathlib.Path)
 args = parser.parse_args()
 
-for name, value in (("host", args.host_revision), ("provider", args.provider_revision)):
-    if not re.fullmatch(r"[0-9a-f]{40}", value):
-        raise SystemExit(f"{name} revision must be an exact Git commit")
+if not re.fullmatch(r"[0-9a-f]{40}", args.provider_revision):
+    raise SystemExit("provider revision must be an exact Git commit")
 if not re.fullmatch(r"sha256:[0-9a-f]{64}", args.mcp_image_digest):
     raise SystemExit("MCP image digest must be immutable")
 
 root = pathlib.Path(__file__).resolve().parent.parent
-host = args.host_root.resolve()
-host_properties = properties(host / "gradle.properties")
-protocol = json.loads((host / "app-server-client/protocol/provenance.json").read_text())
 plugins = {}
-for name, apk in (("documents", args.documents_apk), ("telegram", args.telegram_apk)):
+for name, aar in (("documents", args.documents_aar), ("telegram", args.telegram_aar)):
     bundle = root / ".agents/plugins/plugins" / name
     addon = json.loads((bundle / "codex-mobile-addon.json").read_text())
     definition = json.loads((bundle / ".codex-plugin/plugin.json").read_text())
     plugins[name] = {
         "pluginId": addon["pluginId"],
         "version": definition["version"],
-        "implementation": f"io.github.ciurlaro.codexmobile.providers:{name}-android:{addon['implementationVersion']}",
+        "implementation": (
+            f"io.github.ciurlaro.codexmobile.providers:{name}-android:"
+            f"{addon['implementationVersion']}"
+        ),
         "schemaSha256": addon["schemaDigest"],
         "contentSha256": tree_sha256(bundle),
         "android": {
-            "artifactSha256": sha256(apk),
-            "splitNames": addon["android"]["splitNames"],
-            "abis": addon["android"]["abis"],
-            "hostVersionCode": addon["host"]["versionCode"],
+            "delivery": "bundled",
             "providerApi": addon["providerApi"],
+            "hostVersionCode": addon["host"]["versionCode"],
+            "aarSha256": sha256(aar),
         },
     }
 
 manifest = {
-    "formatVersion": 1,
-    "source": {
-        "hostRevision": args.host_revision,
-        "providerRevision": args.provider_revision,
-    },
-    "mobile": {
-        "versionName": host_properties["codexMobile.versionName"],
-        "versionCode": int(host_properties["codexMobile.versionCode"]),
-        "artifactSha256": sha256(args.host_apk),
-        "sbom": {
-            "path": "codex-mobile/docs/sbom.cdx.json",
-            "sha256": sha256(host / "docs/sbom.cdx.json"),
-        },
-    },
-    "appServer": {
-        "version": host_properties["codexMobile.codexVersion"],
-        "revision": protocol["upstreamRevision"],
-        "upstreamTag": protocol["upstreamTag"],
-        "target": "aarch64-unknown-linux-musl",
-        "archiveSha256": host_properties["codexMobile.codexArchiveSha256"],
-        "binarySha256": host_properties["codexMobile.codexBinarySha256"],
-        "protocol": {
-            "client": f"io.github.ciurlaro.codexmobile:app-server-client:{project_version(host / 'app-server-client/build.gradle.kts')}",
-            "sourceSha256": protocol["inputs"][0]["sha256"],
-            "outputs": protocol["generator"]["outputs"],
-        },
-        "host": f"io.github.ciurlaro.codexmobile:runtime-host:{project_version(host / 'runtime-host/build.gradle.kts')}",
-    },
-    "providerApi": f"io.github.ciurlaro.codexmobile:provider-api:{project_version(host / 'provider-api/build.gradle.kts')}",
+    "formatVersion": 2,
+    "source": {"providerRevision": args.provider_revision},
+    "providerApi": "io.github.ciurlaro.codexmobile:extension-provider-api:2.0.0",
     "plugins": plugins,
     "mcp": {
         "image": f"ghcr.io/ciurlaro/codex-mobile-plugins@{args.mcp_image_digest}",
